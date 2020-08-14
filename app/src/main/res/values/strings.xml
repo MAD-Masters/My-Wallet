@@ -20,6 +20,9 @@
     <string name="add_button">Add</string>
     <string name="note">Note</string>
     <string name="update_income">Update Income</string>
+    <string name="amount">Amount</string>
+    <string name="date">Date</string>
+    <string name="category">Category</string>
 
 
 </resources>
