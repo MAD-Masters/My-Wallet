@@ -1,0 +1,106 @@
+1<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UI.BudgetManager.Budget5">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="312dp"
+            android:layout_height="229dp"
+            android:src="@drawable/graph"
+            tools:layout_editor_absoluteX="49dp"
+            tools:layout_editor_absoluteY="342dp" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="297dp"
+            android:layout_height="43dp"
+            android:text="Food and Bevarages"
+            android:textColor="#039be5"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.088" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/hello_blank_fragment"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="35dp" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="163dp"
+            android:layout_height="24dp"
+            android:text="14 days left"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="123dp"
+            tools:layout_editor_absoluteY="118dp" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="81dp"
+            android:layout_height="81dp"
+            android:src="@drawable/food"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="61dp" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="105dp"
+            android:layout_height="35dp"
+            android:background="@drawable/background_blue_fill"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Budget"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="32dp"
+            tools:layout_editor_absoluteY="165dp" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="180dp"
+            android:layout_height="27dp"
+            android:background="@drawable/background_blue_no_fills"
+            tools:layout_editor_absoluteX="198dp"
+            tools:layout_editor_absoluteY="165dp" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="111dp"
+            android:layout_height="33dp"
+            android:background="@drawable/background_green"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="left"
+            android:textColor="#ffff"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="32dp"
+            tools:layout_editor_absoluteY="228dp" />
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="181dp"
+            android:layout_height="31dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="4000.00"
+            android:textColor="@color/colorGreen"
+            android:background="@drawable/background_blue_no_fills"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="198dp"
+            tools:layout_editor_absoluteY="228dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
