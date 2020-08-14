@@ -99,27 +99,27 @@
             android:textColor="#0189FF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.023"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.641" />
+            app:layout_constraintVertical_bias="0.654" />
 
         <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="382dp"
-            android:layout_height="91dp"
+            android:layout_width="364dp"
+            android:layout_height="76dp"
             android:background="@drawable/background_blue_no_fills"
             android:hint="Lorem Ispham"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.17"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.748" />
+            app:layout_constraintVertical_bias="0.745" />
 
         <TextView
             android:id="@+id/textView18"
-            android:layout_width="111dp"
-            android:layout_height="33dp"
+            android:layout_width="91dp"
+            android:layout_height="34dp"
             android:background="@drawable/background_blue_fill"
             android:gravity="center_vertical|center_horizontal"
             android:text="@string/amount"
@@ -132,8 +132,8 @@
 
         <TextView
             android:id="@+id/textView19"
-            android:layout_width="110dp"
-            android:layout_height="32dp"
+            android:layout_width="91dp"
+            android:layout_height="34dp"
             android:background="@drawable/background_blue_fill"
             android:gravity="center_vertical|center_horizontal"
             android:text="@string/date"
@@ -146,8 +146,8 @@
 
         <TextView
             android:id="@+id/textView20"
-            android:layout_width="112dp"
-            android:layout_height="35dp"
+            android:layout_width="91dp"
+            android:layout_height="34dp"
             android:background="@drawable/background_blue_fill"
             android:gravity="center_vertical|center_horizontal"
             android:text="@string/category"
