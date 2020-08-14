@@ -40,21 +40,51 @@
             tools:layout_editor_absoluteX="6dp"
             tools:layout_editor_absoluteY="56dp" />
 
-        <ImageButton
-            android:id="@+id/imageButton2"
-            android:layout_width="59dp"
-            android:layout_height="67dp"
-            android:src="@drawable/add_icon_main"
-            tools:layout_editor_absoluteX="176dp"
-            tools:layout_editor_absoluteY="56dp" />
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="118dp"
+            android:layout_height="36dp"
+            android:background="@drawable/background_blue_fill"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Budget"
+            android:textColor="#ffff"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="176dp" />
 
-        <androidx.gridlayout.widget.GridLayout
-            android:layout_width="343dp"
-            android:layout_height="123dp"
-            tools:layout_editor_absoluteX="43dp"
-            tools:layout_editor_absoluteY="209dp">
+        <TextView
+            android:id="@+id/textView23"
+            android:layout_width="118dp"
+            android:layout_height="38dp"
+            android:background="@drawable/background_green"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Remaining"
+            android:textColor="#ffff"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="227dp" />
 
-        </androidx.gridlayout.widget.GridLayout>
+        <TextView
+            android:id="@+id/textView24"
+            android:layout_width="123dp"
+            android:layout_height="33dp"
+            android:background="@drawable/background_blue_no_fills"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="60000.00"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="167dp"
+            tools:layout_editor_absoluteY="176dp" />
+
+        <TextView
+            android:id="@+id/textView25"
+            android:layout_width="135dp"
+            android:layout_height="34dp"
+            android:background="@drawable/background_blue_no_fills"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="4000.00"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="167dp"
+            tools:layout_editor_absoluteY="233dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
