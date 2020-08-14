@@ -80,11 +80,12 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.726" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button"
             android:layout_width="140dp"
             android:layout_height="47dp"
             android:background="@drawable/background_blue_fully_rounded"
+            android:textColor="#ffff"
             android:text="@string/goal11"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -93,11 +94,12 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.878" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button2"
             android:layout_width="137dp"
             android:layout_height="47dp"
             android:background="@drawable/background_pink_fully_rounded"
+            android:textColor="#ffff"
             android:text="@string/goal12"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
