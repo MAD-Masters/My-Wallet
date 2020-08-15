@@ -28,4 +28,5 @@
     <string name="wallet">Wallet</string>
     <string name="note">Note</string>
     <string name="noteHere">Note Here</string>
+    <string name="btnDelete">Delete</string>
 </resources>
