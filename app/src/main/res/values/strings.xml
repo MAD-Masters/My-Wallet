@@ -6,6 +6,7 @@
     <string name="budget2">Add Budget Item</string>
     <string name="budget3">Update Budget Item</string>
     <string name="budget5">Food and Beverages </string>
+    <string name="budget6">Clothes </string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
