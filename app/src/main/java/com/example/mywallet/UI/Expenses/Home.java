@@ -46,9 +46,9 @@ public class Home extends Fragment {
             @Override
             public void onClick(View v) {
                 DailyExpensesInDetail dailyExpensesInDetail = new DailyExpensesInDetail();
-                FragmentManager fragmentManager = getFragmentManager();
+                FragmentManager fragmentManager = getParentFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.add(R.id.nav_host_fragment, dailyExpensesInDetail);
+                fragmentTransaction.replace(R.id.nav_host_fragment, dailyExpensesInDetail);
                 fragmentTransaction.commit();
             }
         });

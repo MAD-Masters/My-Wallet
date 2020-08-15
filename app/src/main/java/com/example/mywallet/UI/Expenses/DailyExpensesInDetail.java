@@ -46,6 +46,7 @@ public class DailyExpensesInDetail extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        dailyExpenseArrayList = new ArrayList<>();
 
         dailyExpenseArrayList.add(new DailyExpense(Calendar.getInstance().getTime(), 1000, 1, 1, "For buying a bag"));
         dailyExpenseArrayList.add(new DailyExpense(Calendar.getInstance().getTime(), 890, 1, 1, "Taxi"));
@@ -53,7 +54,7 @@ public class DailyExpensesInDetail extends Fragment {
         recyclerView = root.findViewById(R.id.list_daily_expenses_in_detail);
         recyclerView.setHasFixedSize(true);
 
-        layoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false);
+        layoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
         dailyExpenseAdapter = new DailyExpenseAdapter(dailyExpenseArrayList);
