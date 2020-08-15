@@ -4,26 +4,4 @@
     <string name="title_save_goal">Goals</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="my_wallet">My Wallets</string>
-    <string name="Balance">Balance</string>
-    <string name="price">60000.00</string>
-    <string name="Add">Add Resource</string>
-    <string name="card">Boc Credit Card</string>
-    <string name="wallet">Wallet</string>
-    <string name="wallet_name">Wallet Name</string>
-    <string name="add_money">Add Money</string>
-    <string name="add_wallet">Add Wallet</string>
-    <string name="cansel">Cansel</string>
-    <string name="update_resourse">Update Resource</string>
-    <string name="update">Update</string>
-    <string name="add_income">Add Income</string>
-    <string name="add_button">Add</string>
-    <string name="note">Note</string>
-    <string name="update_income">Update Income</string>
-    <string name="amount">Amount</string>
-    <string name="date">Date</string>
-    <string name="category">Category</string>
-
-
-
 </resources>
