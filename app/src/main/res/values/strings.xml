@@ -2,6 +2,11 @@
     <string name="app_name">My Wallet</string>
     <string name="title_home">Home</string>
     <string name="title_save_goal">Goals</string>
+    <string name="budget">My Budget</string>
+    <string name="budget2">Add Budget Item</string>
+    <string name="budget3">Update Budget Item</string>
+    <string name="budget5">Food and Beverages </string>
+    <string name="budget6">Clothes </string>
     <string name="goal1"> Add Goal</string>
     <string name="goal2"> Goal</string>
     <string name="goal3"> Target Amount</string>
