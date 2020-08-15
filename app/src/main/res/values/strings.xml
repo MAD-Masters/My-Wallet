@@ -21,7 +21,13 @@
     <string name="goal17"> okanda</string>
     <string name="goal18"> xxxx</string>
 
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dailyExpenses">Daily Expenses</string>
+    <string name="dateHere">Date Here</string>
+    <string name="amount">Amount</string>
+    <string name="defaultAmount">0.00</string>
+    <string name="defaultExpenseName">Bill and Utility Payments</string>
+    <string name="wallet">Wallet</string>
+    <string name="note">Note</string>
+    <string name="noteHere">Note Here</string>
+    <string name="btnDelete">Delete</string>
 </resources>
