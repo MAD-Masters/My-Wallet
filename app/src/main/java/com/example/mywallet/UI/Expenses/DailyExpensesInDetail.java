@@ -46,6 +46,8 @@ public class DailyExpensesInDetail extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+
         dailyExpenseArrayList = new ArrayList<>();
 
         dailyExpenseArrayList.add(new DailyExpense(Calendar.getInstance().getTime(), 1000, 1, 1, "For buying a bag"));

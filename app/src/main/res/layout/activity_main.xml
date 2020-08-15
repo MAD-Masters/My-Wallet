@@ -7,38 +7,140 @@
     android:layout_height="match_parent">
 
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+    <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/nav_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?android:attr/windowBackground"
         android:layout_gravity="bottom"
+        android:background="?android:attr/windowBackground"
         app:fabAlignmentMode="center"
-        app:fabCradleMargin="5dp"
         app:fabAnimationMode="scale"
-        app:menu="@menu/bottom_nav_menu" />
+        app:fabCradleMargin="5dp">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/primaryColor"
-            android:src="@drawable/add_icon_without_bg"
-            android:tint="@color/colorWhite"
-            app:layout_anchor="@id/nav_view"
-            app:maxImageSize="35dp"/>
 
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+
+            <ImageView
+                android:id="@+id/btnExpenses"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="16dp"
+                android:alpha="0.5"
+                android:src="@drawable/expenses_icon_navigation"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.111"></ImageView>
+
+            <TextView
+                android:id="@+id/textExpenses"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@string/bottomNavExpenses"
+                android:textSize="@dimen/smallText"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnExpenses"
+                app:layout_constraintVertical_bias="0.0"></TextView>
+
+            <ImageView
+                android:id="@+id/btnIncome"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="48dp"
+                android:alpha="0.5"
+                android:src="@drawable/wallet_icon_navigation"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btnExpenses"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.20"></ImageView>
+
+            <TextView
+                android:id="@+id/textIncome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:text="@string/bottomNavIncome"
+                android:textSize="@dimen/smallText"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textExpenses"
+                app:layout_constraintTop_toBottomOf="@+id/btnIncome"
+                app:layout_constraintVertical_bias="1.0"></TextView>
+
+            <ImageView
+                android:id="@+id/btnBudget"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="208dp"
+                android:alpha="0.5"
+                android:src="@drawable/budget_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnGoal"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/btnExpenses"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.304"></ImageView>
+
+            <TextView
+                android:id="@+id/textGoal"
+                android:layout_width="31dp"
+                android:layout_height="13dp"
+                android:layout_marginEnd="32dp"
+                android:text="@string/bottomNavGoal"
+                android:textSize="@dimen/smallText"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"></TextView>
+
+            <ImageView
+                android:id="@+id/btnGoal"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginEnd="36dp"
+                android:alpha="0.5"
+                android:src="@drawable/target_icon_navigation"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.217"></ImageView>
+
+            <TextView
+                android:id="@+id/textBudget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bottomNavIncome"
+                android:textSize="@dimen/smallText"
+                app:layout_constraintEnd_toStartOf="@+id/textGoal"
+                app:layout_constraintHorizontal_bias="0.746"
+                app:layout_constraintStart_toEndOf="@+id/textIncome"
+                app:layout_constraintTop_toBottomOf="@+id/btnBudget"></TextView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.bottomappbar.BottomAppBar>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/primaryColor"
+        android:src="@drawable/add_icon_without_bg"
+        app:tint="@color/colorWhite"
+        app:rippleColor="@color/primaryColor"
+        app:layout_anchor="@id/nav_view"
+        app:maxImageSize="35dp" />
 
     <fragment
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="match_parent"
+        android:layout_width="753dp"
         android:layout_height="match_parent"
         app:defaultNavHost="true"
         app:layout_constraintBottom_toTopOf="@id/nav_view"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/mobile_navigation" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

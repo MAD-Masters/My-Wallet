@@ -2,33 +2,20 @@ package com.example.mywallet.UI.Income;
 
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mywallet.R;
-import com.example.mywallet.UI.Income.Model.INCOME;
-
-import java.util.ArrayList;
-import java.util.Calendar;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Income#newInstance} factory method to
+ * Use the {@link income#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Income extends Fragment {
-    private RecyclerView recyclerView;
-    private ArrayList<INCOME> incomeArrayList;
-    private Incomeadapter incomeAdapter;
-    private RecyclerView.LayoutManager layoutManager;
-    private View root;
-
+public class income extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -39,7 +26,7 @@ public class Income extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public Income() {
+    public income() {
         // Required empty public constructor
     }
 
@@ -52,8 +39,8 @@ public class Income extends Fragment {
      * @return A new instance of fragment income.
      */
     // TODO: Rename and change types and number of parameters
-    public static Income newInstance(String param1, String param2) {
-        Income fragment = new Income();
+    public static income newInstance(String param1, String param2) {
+        income fragment = new income();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -74,23 +61,6 @@ public class Income extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        root =  inflater.inflate(R.layout.fragment_income, container, false);
-        return root;
-    }
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        incomeArrayList = new ArrayList<>();
-
-        incomeArrayList.add(new INCOME("Boc Credit Card",1,Calendar.getInstance().getTime(),60000.00));
-        incomeArrayList.add(new INCOME("Wallet",2,Calendar.getInstance().getTime(),40000.00));
-
-        recyclerView = root.findViewById(R.id.list_daily_expenses_in_detail);
-        recyclerView.setHasFixedSize(true);
-
-        layoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(layoutManager);
-
-        incomeAdapter = new Incomeadapter(incomeArrayList);
-        recyclerView.setAdapter(incomeAdapter);
+        return inflater.inflate(R.layout.fragment_income, container, false);
     }
 }

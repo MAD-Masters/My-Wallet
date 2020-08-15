@@ -18,7 +18,6 @@ public class DailyExpense {
         this.note = note;
     }
     //Setters and Getters
-
     public int getRecordId() {
         return recordId;
     }

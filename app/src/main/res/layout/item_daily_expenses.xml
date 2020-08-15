@@ -66,19 +66,20 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_margin="5dp">
-
-                    <TextView
-                        android:layout_width="@dimen/dataBoxWidth"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="10dp"
-                        android:background="@drawable/background_blue_fill"
-                        android:gravity="center_horizontal|center_vertical"
-                        android:text="@string/amount"
-                        android:textColor="@color/colorWhite"></TextView>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/background_blue_fill"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/amount"
+                    android:textColor="@color/colorWhite"></TextView>
 
                 <TextView
                     android:id="@+id/amount"
-                    android:layout_width="@dimen/dataBoxWidth"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:background="@drawable/background_blue_no_fills"
                     android:gravity="center_horizontal|center_vertical"
@@ -98,13 +99,13 @@
                     android:id="@+id/note"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:minHeight="40dp"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/background_blue_no_fills"
-                    android:minHeight="40dp"
                     android:text="@string/dateHere"
-                    android:textColor="@color/primaryColor"
-                    android:textSize="@dimen/smallText"></TextView>
+                    android:textSize="@dimen/smallText"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@color/primaryColor"></TextView>
             </LinearLayout>
 
             <LinearLayout
