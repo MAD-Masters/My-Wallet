@@ -10,14 +10,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mywallet.R;
-import com.example.mywallet.UI.Income.Model.INCOME;
+import com.example.mywallet.UI.Income.Model.IncomeModel;
 
 import java.util.ArrayList;
 
 public class Incomeadapter extends RecyclerView.Adapter<Incomeadapter.Income1layoutViewHolder> {
-    private ArrayList<INCOME> income;
+    private ArrayList<IncomeModel> income;
 
-    public Incomeadapter(ArrayList<INCOME> income) {
+    public Incomeadapter(ArrayList<IncomeModel> income) {
         this.income = income;
     }
     public static class Income1layoutViewHolder extends RecyclerView.ViewHolder {

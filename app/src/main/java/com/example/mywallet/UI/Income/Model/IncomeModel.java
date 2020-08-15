@@ -2,14 +2,14 @@ package com.example.mywallet.UI.Income.Model;
 
 import java.util.Date;
 
-public class INCOME {
+public class IncomeModel {
 
     String resourcename;
     int recordID;
     Date date;
     double money;
 
-    public INCOME(String resourcename, int recordID, Date date, double money) {
+    public IncomeModel(String resourcename, int recordID, Date date, double money) {
         this.resourcename = resourcename;
         this.recordID = recordID;
         this.date = date;
