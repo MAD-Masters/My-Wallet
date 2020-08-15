@@ -42,14 +42,15 @@
             android:layout_height="43dp"
             android:background="@drawable/background_blue_fill"
             android:gravity="center_vertical|center_horizontal"
-            android:text="@string/add_income"
+
             android:textColor="#ffff"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.062"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.047" />
+            app:layout_constraintVertical_bias="0.047"
+            tools:text="@string/addincome" />
 
         <ImageView
             android:id="@+id/imageView12"
@@ -67,14 +68,15 @@
             android:layout_width="106dp"
             android:layout_height="45dp"
             android:background="@drawable/background_blue_fully_rounded"
-            android:text="@string/add_button"
+
             android:textColor="@color/colorWhite"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.052"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.851" />
+            app:layout_constraintVertical_bias="0.851"
+            tools:text="@string/add" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/cansel3"
@@ -82,13 +84,15 @@
             android:layout_height="45dp"
             android:background="@drawable/background_blue_fully_rounded"
             android:backgroundTint="@color/colorPink"
-            android:text="@string/cansel"
+            android:textColor="#ffff"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.872"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.851" />
+            app:layout_constraintVertical_bias="0.851"
+            tools:text="@string/goal12" />
 
         <TextView
             android:id="@+id/textView14"
@@ -123,6 +127,7 @@
             android:background="@drawable/background_blue_fill"
             android:gravity="center_vertical|center_horizontal"
             android:text="@string/amount"
+            android:textColor="#ffff"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.062"
@@ -134,29 +139,33 @@
             android:id="@+id/textView19"
             android:layout_width="91dp"
             android:layout_height="34dp"
+            android:textColor="#ffff"
             android:background="@drawable/background_blue_fill"
             android:gravity="center_vertical|center_horizontal"
-            android:text="@string/date"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.063"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.525" />
+            app:layout_constraintVertical_bias="0.525"
+            tools:text="@string/dateHere" />
 
         <TextView
             android:id="@+id/textView20"
             android:layout_width="91dp"
             android:layout_height="34dp"
+            android:textColor="#ffff"
             android:background="@drawable/background_blue_fill"
             android:gravity="center_vertical|center_horizontal"
-            android:text="@string/category"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.064"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.58" />
+            app:layout_constraintVertical_bias="0.58"
+            tools:text="@string/category" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="209dp"

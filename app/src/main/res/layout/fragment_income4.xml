@@ -16,14 +16,14 @@
             android:layout_height="40dp"
             android:background="@drawable/background_blue_fill"
             android:gravity="center_vertical|center_horizontal"
-            android:text="@string/update_resourse"
             android:textColor="#ffff"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.072"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.043" />
+            app:layout_constraintVertical_bias="0.043"
+            tools:text="@string/addresource" />
 
         <ImageView
             android:id="@+id/imageView11"
@@ -42,13 +42,15 @@
             android:layout_width="117dp"
             android:layout_height="37dp"
             android:background="@drawable/background_blue_fully_rounded"
-            android:text="@string/update"
+            android:textColor="#ffff"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.089"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.713" />
+            app:layout_constraintVertical_bias="0.713"
+            tools:text="@string/addwallet" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/cansel2"
@@ -56,13 +58,14 @@
             android:layout_height="39dp"
             android:background="@drawable/background_blue_fully_rounded"
             android:backgroundTint="@color/colorPink"
-            android:text="@string/cansel"
+            android:textColor="#ffff"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.752"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.708" />
+            app:layout_constraintVertical_bias="0.708"
+            tools:text="@string/goal12" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="351dp"

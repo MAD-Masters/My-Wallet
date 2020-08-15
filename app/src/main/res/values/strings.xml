@@ -30,4 +30,27 @@
     <string name="note">Note</string>
     <string name="noteHere">Note Here</string>
     <string name="btnDelete">Delete</string>
+    <string name="hello_blank_fragment">Hellow Blank Fragtmm</string>
+
+
+    <string name="mywallets">My Wallets</string>
+    <string name="balance">Balance</string>
+    <string name="boccreditcard">Boc Credit Card</string>
+    <string name="addresource"> Add Resource</string>
+    <string name="walletname">Wallet Name</string>
+    <string name="addmoney">Add Money</string>
+    <string name="addwallet">Add Wallet</string>
+    <string name="updateresource">Update Resource</string>
+    <string name="addincome">Add Income</string>
+    <string name="category">Category</string>
+    <string name="updateincome">Update Income</string>
+    <string name="price">60000.00</string>
+    <string name="add">Add</string>
+
+
+
+
+
+
+
 </resources>

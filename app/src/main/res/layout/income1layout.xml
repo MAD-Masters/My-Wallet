@@ -34,7 +34,7 @@
         android:layout_width="109dp"
         android:layout_height="23dp"
         android:gravity="center_vertical|center_horizontal"
-        android:text="@string/card"
+
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
