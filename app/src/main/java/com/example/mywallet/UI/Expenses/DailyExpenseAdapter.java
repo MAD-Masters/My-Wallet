@@ -18,6 +18,10 @@ import java.util.ArrayList;
 public class DailyExpenseAdapter extends RecyclerView.Adapter<DailyExpenseAdapter.DailyExpenseViewHolder> {
     private ArrayList<DailyExpense> dailyExpenses;
 
+    public DailyExpenseAdapter(ArrayList<DailyExpense> dailyExpenses) {
+        this.dailyExpenses = dailyExpenses;
+    }
+
     public static class DailyExpenseViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
         TextView expenseCategory, amount, note;
@@ -44,11 +48,16 @@ public class DailyExpenseAdapter extends RecyclerView.Adapter<DailyExpenseAdapte
 
     @Override
     public void onBindViewHolder(@NonNull DailyExpenseViewHolder holder, int position) {
-
+        holder.itemView.setTag(dailyExpenses.get(position));
+        holder.expenseCategory.setText(dailyExpenses.get(position).getCategoryId());
+        holder.amount.setText(((Double)dailyExpenses.get(position).getAmount()).toString());
+        holder.note.setText(dailyExpenses.get(position).getNote());
+        holder.walletType.setBackgroundResource(R.drawable.credit_card);
+        holder.bank.setBackgroundResource(R.drawable.boc);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return dailyExpenses.size();
     }
 }

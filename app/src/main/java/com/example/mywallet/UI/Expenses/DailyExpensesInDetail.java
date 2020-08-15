@@ -2,65 +2,61 @@ package com.example.mywallet.UI.Expenses;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mywallet.R;
+import com.example.mywallet.UI.Expenses.Model.DailyExpense;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link DailyExpensesInDetail#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+
+
 public class DailyExpensesInDetail extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private RecyclerView recyclerView;
+    private ArrayList<DailyExpense> dailyExpenseArrayList;
+    private DailyExpenseAdapter dailyExpenseAdapter;
+    private RecyclerView.LayoutManager layoutManager;
+    private View root;
 
     public DailyExpensesInDetail() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DailyExpensesInDetail.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static DailyExpensesInDetail newInstance(String param1, String param2) {
-        DailyExpensesInDetail fragment = new DailyExpensesInDetail();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_daily_expenses_in_detail, container, false);
+        root = inflater.inflate(R.layout.fragment_daily_expenses_in_detail, container, false);
+        return root;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        dailyExpenseArrayList.add(new DailyExpense(Calendar.getInstance().getTime(), 1000, 1, 1, "For buying a bag"));
+        dailyExpenseArrayList.add(new DailyExpense(Calendar.getInstance().getTime(), 890, 1, 1, "Taxi"));
+
+        recyclerView = root.findViewById(R.id.list_daily_expenses_in_detail);
+        recyclerView.setHasFixedSize(true);
+
+        layoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+
+        dailyExpenseAdapter = new DailyExpenseAdapter(dailyExpenseArrayList);
+        recyclerView.setAdapter(dailyExpenseAdapter);
     }
 }
