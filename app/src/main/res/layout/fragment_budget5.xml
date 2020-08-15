@@ -126,8 +126,8 @@
             android:text="6000.00"
             android:textColor="#006db3"
             android:textSize="18sp"
-            tools:layout_editor_absoluteX="316dp"
-            tools:layout_editor_absoluteY="339dp" />
+            tools:layout_editor_absoluteX="294dp"
+            tools:layout_editor_absoluteY="328dp" />
 
         <TextView
             android:id="@+id/textView20"
