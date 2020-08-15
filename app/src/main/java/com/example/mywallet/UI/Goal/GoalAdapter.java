@@ -42,7 +42,7 @@ public class GoalAdapter extends RecyclerView.Adapter<com.example.mywallet.UI.Go
     @NonNull
     @Override
     public com.example.mywallet.UI.Goal.GoalAdapter.GoalViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_daily_expenses, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.goal5, parent, false);
         return new com.example.mywallet.UI.Goal.GoalAdapter.GoalViewHolder(view);
     }
 
