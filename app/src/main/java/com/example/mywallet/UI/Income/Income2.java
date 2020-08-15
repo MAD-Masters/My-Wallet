@@ -2,13 +2,20 @@ package com.example.mywallet.UI.Income;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mywallet.R;
+import com.example.mywallet.UI.Income.Model.IncomeModel;
+
+import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +23,12 @@ import com.example.mywallet.R;
  * create an instance of this fragment.
  */
 public class Income2 extends Fragment {
+    private RecyclerView recyclerView;
+    private ArrayList<IncomeModel> incomeModelArrayListList;
+    private Income2adapter income2adapter;
+    private RecyclerView.LayoutManager layoutManager;
+    private View root;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +74,29 @@ public class Income2 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_income2, container, false);
+        root = inflater.inflate(R.layout.fragment_income2, container, false);
+        return root;
+
+
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+
+        incomeModelArrayListList = new ArrayList<>();
+
+        incomeModelArrayListList.add(new IncomeModel("hnb bank", 1, Calendar.getInstance().getTime(), 40000, "ttt"));
+        incomeModelArrayListList.add(new IncomeModel("wallet", 2, Calendar.getInstance().getTime(), 30000, "rrr"));
+
+        recyclerView = root.findViewById(R.id.list_income);
+        recyclerView.setHasFixedSize(true);
+
+        layoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+
+        income2adapter = new Income2adapter(incomeModelArrayListList);
+        recyclerView.setAdapter(income2adapter);
     }
 }

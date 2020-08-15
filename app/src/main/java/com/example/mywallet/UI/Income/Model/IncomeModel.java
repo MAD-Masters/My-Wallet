@@ -8,12 +8,14 @@ public class IncomeModel {
     int recordID;
     Date date;
     double money;
+    String text;
 
-    public IncomeModel(String resourcename, int recordID, Date date, double money) {
+    public IncomeModel(String resourcename, int recordID, Date date, double money,String text) {
         this.resourcename = resourcename;
         this.recordID = recordID;
         this.date = date;
         this.money = money;
+        this.text = text;
     }
 
     public String getResourcename() {
@@ -46,5 +48,13 @@ public class IncomeModel {
 
     public void setMoney(double money) {
         this.money = money;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 }
