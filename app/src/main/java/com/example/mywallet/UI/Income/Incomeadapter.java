@@ -27,8 +27,6 @@ public class Incomeadapter extends RecyclerView.Adapter<Incomeadapter.Income1lay
 
         public Income1layoutViewHolder(@NonNull View itemView) {
             super(itemView);
-
-
             resource = itemView.findViewById(R.id.resource);
             resourceview = itemView.findViewById(R.id.resourceview);
         }
@@ -42,17 +40,12 @@ public class Incomeadapter extends RecyclerView.Adapter<Incomeadapter.Income1lay
 
     @Override
     public void onBindViewHolder(@NonNull Income1layoutViewHolder holder, int position) {
-
-
         holder.resource.setText(income.get(position).getResourcename());
-
         holder.resourceview.setImageResource(R.drawable.creditcard);
-
     }
 
     @Override
     public int getItemCount() {
-
             return income.size();
         }
     }
