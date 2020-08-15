@@ -12,10 +12,10 @@ import com.example.mywallet.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link income#newInstance} factory method to
+ * Use the {@link Income#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class income extends Fragment {
+public class Income extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class income extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public income() {
+    public Income() {
         // Required empty public constructor
     }
 
@@ -39,8 +39,8 @@ public class income extends Fragment {
      * @return A new instance of fragment income.
      */
     // TODO: Rename and change types and number of parameters
-    public static income newInstance(String param1, String param2) {
-        income fragment = new income();
+    public static Income newInstance(String param1, String param2) {
+        Income fragment = new Income();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

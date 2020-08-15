@@ -19,7 +19,6 @@ public class DailyExpense {
     }
 
     //Setters and Getters
-
     public int getRecordId() {
         return recordId;
     }
