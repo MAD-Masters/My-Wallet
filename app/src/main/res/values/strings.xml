@@ -35,6 +35,7 @@
     <string name="bottomNavIncome">Income</string>
     <string name="bottomNavGoal">Goals</string>
     <string name="bottomNavBudget">Budget</string>
+    <string name="addExpensesTitle">Add Expenses</string>
 
 
     <string name="mywallets">My Wallets</string>
@@ -50,11 +51,6 @@
     <string name="updateincome">Update Income</string>
     <string name="price">60000.00</string>
     <string name="add">Add</string>
-
-
-
-
-
 
 
 </resources>

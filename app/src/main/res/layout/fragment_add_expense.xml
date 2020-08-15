@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UI.Expenses.AddExpense">
+
+    <ImageView
+        android:id="@+id/addExpensesMainImage"
+        android:layout_width="250dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/add_expenses_main_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView26" />
+
+    <TextView
+        android:id="@+id/textView26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/background_blue_fill"
+        android:text="@string/addExpensesTitle"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/titleFontSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.053"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></TextView>
+
+
+    <TextView
+        android:id="@+id/amountTitle"
+        android:layout_width="@dimen/dataBoxWidth"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="40dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:background="@drawable/background_blue_fill"
+        android:text="@string/amount"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/titleFontSize"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addExpensesMainImage"></TextView>
+
+    <EditText
+        android:layout_width="@dimen/dataBoxWidth"
+        android:layout_height="30dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/background_blue_no_fills"
+        android:hint="@string/amount"
+        android:text="@string/dailyExpenses"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="@color/colorGrey"
+        android:textSize="@dimen/titleFontSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.307"
+        app:layout_constraintStart_toEndOf="@+id/amountTitle"
+        app:layout_constraintTop_toBottomOf="@+id/addExpensesMainImage"></EditText>
+</androidx.constraintlayout.widget.ConstraintLayout>

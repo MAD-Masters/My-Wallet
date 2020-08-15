@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.nav_host_fragment, home);
+        fragmentTransaction.addToBackStack("ExpensesHome");
         fragmentTransaction.commit();
 
 
