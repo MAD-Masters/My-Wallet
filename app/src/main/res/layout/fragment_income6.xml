@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.Income.income6">
+    tools:context=".UI.Income.Income6">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,14 +16,14 @@
             android:layout_height="35dp"
             android:background="@drawable/background_blue_fill"
             android:gravity="center_vertical|center_horizontal"
-            android:text="@string/update_income"
             android:textColor="#ffff"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.064"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.047" />
+            app:layout_constraintVertical_bias="0.047"
+            tools:text="@string/updateincome" />
 
         <ImageView
             android:id="@+id/imageView13"
@@ -42,13 +42,14 @@
             android:layout_width="96dp"
             android:layout_height="42dp"
             android:background="@drawable/background_blue_fully_rounded"
-            android:text="@string/update"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.098"
             app:layout_constraintStart_toStartOf="parent"
+            android:textColor="#ffff"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.878" />
+            app:layout_constraintVertical_bias="0.878"
+            tools:text="@string/goal11" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/cansel4"
@@ -56,13 +57,14 @@
             android:layout_height="43dp"
             android:background="@drawable/background_blue_fully_rounded"
             android:backgroundTint="@color/colorPink"
-            android:text="@string/cansel"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.807"
+            android:textColor="#ffff"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.879" />
+            app:layout_constraintVertical_bias="0.879"
+            tools:text="@string/goal12" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout"
@@ -98,6 +100,7 @@
             android:layout_height="34dp"
             android:background="@drawable/background_blue_fill"
             android:gravity="center_vertical|center_horizontal"
+            android:textColor="#ffff"
             android:text="@string/amount"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -112,13 +115,14 @@
             android:layout_height="34dp"
             android:background="@drawable/background_blue_fill"
             android:gravity="center_vertical|center_horizontal"
-            android:text="@string/date"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="#ffff"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.535" />
+            app:layout_constraintVertical_bias="0.535"
+            tools:text="@string/dateHere" />
 
         <TextView
             android:id="@+id/textView23"
@@ -126,13 +130,14 @@
             android:layout_height="34dp"
             android:background="@drawable/background_blue_fill"
             android:gravity="center_vertical|center_horizontal"
-            android:text="@string/category"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="#ffff"
             app:layout_constraintHorizontal_bias="0.046"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.599" />
+            app:layout_constraintVertical_bias="0.599"
+            tools:text="@string/category" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout4"

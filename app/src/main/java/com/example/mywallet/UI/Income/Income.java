@@ -1,4 +1,4 @@
-package com.example.mywallet.UI.Expenses;
+package com.example.mywallet.UI.Income;
 
 import android.os.Bundle;
 
@@ -12,26 +12,28 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mywallet.R;
+import com.example.mywallet.UI.Expenses.DailyExpenseAdapter;
 import com.example.mywallet.UI.Expenses.Model.DailyExpense;
+import com.example.mywallet.UI.Income.Model.IncomeModel;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
-
-public class DailyExpensesInDetail extends Fragment {
+public class Income extends Fragment {
     private RecyclerView recyclerView;
-    private ArrayList<DailyExpense> dailyExpenseArrayList;
-    private DailyExpenseAdapter dailyExpenseAdapter;
+    private ArrayList<IncomeModel> incomeModelArrayListList;
+    private Incomeadapter incomeadapter;
     private RecyclerView.LayoutManager layoutManager;
     private View root;
 
-    public DailyExpensesInDetail() {
+
+    public Income() {
         // Required empty public constructor
     }
 
+
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
@@ -39,7 +41,7 @@ public class DailyExpensesInDetail extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        root = inflater.inflate(R.layout.fragment_daily_expenses_in_detail, container, false);
+        root =  inflater.inflate(R.layout.fragment_income, container, false);
         return root;
     }
 
@@ -48,18 +50,18 @@ public class DailyExpensesInDetail extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
 
-        dailyExpenseArrayList = new ArrayList<>();
+        incomeModelArrayListList = new ArrayList<>();
 
-        dailyExpenseArrayList.add(new DailyExpense(Calendar.getInstance().getTime(), 1000, 1, 1, "For buying a bag"));
-        dailyExpenseArrayList.add(new DailyExpense(Calendar.getInstance().getTime(), 890, 1, 1, "Taxi"));
+        incomeModelArrayListList.add(new IncomeModel("hnb bank",1,Calendar.getInstance().getTime(),40000,"ttt"));
+        incomeModelArrayListList.add(new IncomeModel("wallet",2,Calendar.getInstance().getTime(),30000,"rrr"));
 
-        recyclerView = root.findViewById(R.id.list_daily_expenses_in_detail);
+        recyclerView = root.findViewById(R.id.list_income);
         recyclerView.setHasFixedSize(true);
 
         layoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        dailyExpenseAdapter = new DailyExpenseAdapter(dailyExpenseArrayList);
-        recyclerView.setAdapter(dailyExpenseAdapter);
+        incomeadapter = new Incomeadapter(incomeModelArrayListList);
+        recyclerView.setAdapter(incomeadapter);
     }
 }
