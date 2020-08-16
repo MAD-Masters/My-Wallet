@@ -17,8 +17,11 @@
             android:layout_width="247dp"
             android:layout_height="242dp"
             android:src="@drawable/budget2"
-            tools:layout_editor_absoluteX="82dp"
-            tools:layout_editor_absoluteY="129dp" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.261" />
 
         <TextView
             android:id="@+id/textView6"
@@ -55,7 +58,6 @@
             android:id="@+id/textView8"
             android:layout_width="158dp"
             android:layout_height="46dp"
-            android:layout_marginEnd="32dp"
             android:background="@drawable/background_pink_fully_rounded"
             android:gravity="center_vertical|center_horizontal"
             android:text="Cancel"
@@ -63,6 +65,8 @@
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.869"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.795" />
 
