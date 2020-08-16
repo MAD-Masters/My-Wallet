@@ -12,7 +12,7 @@
         android:elevation="10dp">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height=""
+        android:layout_height="10dp"
         android:orientation="vertical"
         android:padding="10dp"
         android:background="@drawable/background_blue_left_bold_no_fills">
