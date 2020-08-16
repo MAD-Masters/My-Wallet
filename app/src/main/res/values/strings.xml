@@ -7,6 +7,25 @@
     <string name="budget3">Update Budget Item</string>
     <string name="budget5">Food and Beverages </string>
     <string name="budget6">Clothes </string>
+    <string name="goal1"> Add Goal</string>
+    <string name="goal2"> Goal</string>
+    <string name="goal3"> Target Amount</string>
+    <string name="goal4"> Date</string>
+    <string name="goal5"> Add Goal</string>
+    <string name="goal6"> Cansel</string>
+    <string name="goal7"> Add Goal</string>
+    <string name="goal8"> Goal</string>
+    <string name="goal9"> Target Amount</string>
+    <string name="goal10"> Date</string>
+    <string name="goal11"> Update</string>
+    <string name="goal12"> Cansel</string>
+    <string name="goal13"> Add Money</string>
+    <string name="goal14"> Amount</string>
+    <string name="goal15"> Add</string>
+    <string name="goal16"> Cansel</string>
+    <string name="goal17"> okanda</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
