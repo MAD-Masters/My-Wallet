@@ -49,6 +49,8 @@
     <string name="cansel">Cansel</string>
     <string name="updateExpense">Update Expense</string>
     <string name="update">Update</string>
+    <string name="transactionTitle">Transactions</string>
+    <string name="morning">Good Morning</string>
 
     <string name="mywallets">My Wallets</string>
     <string name="balance">Balance</string>

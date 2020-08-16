@@ -40,17 +40,5 @@ public class Home extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        button = root.findViewById(R.id.btnClick);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DailyExpensesInDetail dailyExpensesInDetail = new DailyExpensesInDetail();
-                FragmentManager fragmentManager = getParentFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment, dailyExpensesInDetail);
-                fragmentTransaction.commit();
-            }
-        });
     }
 }
