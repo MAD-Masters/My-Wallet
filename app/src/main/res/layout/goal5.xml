@@ -47,17 +47,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.06" />
 
-            <ImageButton
-                android:id="@+id/imageButton"
-                android:layout_width="45dp"
-                android:layout_height="47dp"
-                android:layout_marginBottom="28dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.956"
-                app:layout_constraintStart_toStartOf="parent"
-                app:srcCompat="@drawable/add_icon_main" />
-
             <ImageView
                 android:id="@+id/imageView23"
                 android:layout_width="55dp"
@@ -108,6 +97,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/goal"
                 app:layout_constraintVertical_bias="0.861" />
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="35dp"
+                android:layout_height="32dp"
+                android:background="#039be5"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.93"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.495"
+                app:srcCompat="@drawable/add_icon_without_bg" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
