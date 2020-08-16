@@ -34,7 +34,7 @@
             android:layout_height="46dp"
             android:background="@drawable/background_blue_fully_rounded"
             android:gravity="center_vertical|center_horizontal"
-            android:text="@string/budget"
+            android:text=""
             android:textColor="#ffff"
             android:textSize="24sp"
             tools:layout_editor_absoluteX="6dp"

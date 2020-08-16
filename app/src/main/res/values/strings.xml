@@ -24,8 +24,43 @@
     <string name="goal15"> Add</string>
     <string name="goal16"> Cansel</string>
     <string name="goal17"> okanda</string>
+    <string name="goal18"> xxxx</string>
+
+    <string name="dailyExpenses">Daily Expenses</string>
+    <string name="dateHere">Date Here</string>
+    <string name="amount">Amount</string>
+    <string name="defaultAmount">0.00</string>
+    <string name="defaultExpenseName">Bill and Utility Payments</string>
+    <string name="wallet">Wallet</string>
+    <string name="note">Note</string>
+    <string name="noteHere">Note Here</string>
+    <string name="btnDelete">Delete</string>
+    <string name="hello_blank_fragment">Hellow Blank Fragtmm</string>
+    <string name="bottomNavExpenses">Expenses</string>
+    <string name="bottomNavIncome">Income</string>
+    <string name="bottomNavGoal">Goals</string>
+    <string name="bottomNavBudget">Budget</string>
 
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="mywallets">My Wallets</string>
+    <string name="balance">Balance</string>
+    <string name="boccreditcard">Boc Credit Card</string>
+    <string name="addresource"> Add Resource</string>
+    <string name="walletname">Wallet Name</string>
+    <string name="addmoney">Add Money</string>
+    <string name="addwallet">Add Wallet</string>
+    <string name="updateresource">Update Resource</string>
+    <string name="addincome">Add Income</string>
+    <string name="category">Category</string>
+    <string name="updateincome">Update Income</string>
+    <string name="price">60000.00</string>
+    <string name="add">Add</string>
+    <string name="text">Lorem  ispham dika kliokalsd </string>
+
+
+
+
+
+
+
 </resources>
