@@ -12,6 +12,7 @@ import com.example.mywallet.UI.BudgetManager.Budget1;
 import com.example.mywallet.UI.Expenses.DailyExpensesInDetail;
 import com.example.mywallet.UI.Expenses.Home;
 import com.example.mywallet.UI.Goal.Goal;
+import com.example.mywallet.UI.Goal.Goal_Home;
 import com.example.mywallet.UI.Income.Income;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -83,10 +84,10 @@ public class MainActivity extends AppCompatActivity {
         navGoalBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Goal goal = new Goal();
+                Goal_Home goalHome = new Goal_Home();
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment, goal);
+                fragmentTransaction.replace(R.id.nav_host_fragment, goalHome);
                 fragmentTransaction.commit();
             }
         });

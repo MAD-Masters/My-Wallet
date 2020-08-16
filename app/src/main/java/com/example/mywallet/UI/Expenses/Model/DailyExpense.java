@@ -17,7 +17,6 @@ public class DailyExpense {
         this.categoryId = categoryId;
         this.note = note;
     }
-
     //Setters and Getters
     public int getRecordId() {
         return recordId;

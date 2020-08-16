@@ -2,6 +2,11 @@
     <string name="app_name">My Wallet</string>
     <string name="title_home">Home</string>
     <string name="title_save_goal">Goals</string>
+    <string name="budget">My Budget</string>
+    <string name="budget2">Add Budget Item</string>
+    <string name="budget3">Update Budget Item</string>
+    <string name="budget5">Food and Beverages </string>
+    <string name="budget6">Clothes </string>
     <string name="goal1"> Add Goal</string>
     <string name="goal2"> Goal</string>
     <string name="goal3"> Target Amount</string>
@@ -18,8 +23,11 @@
     <string name="goal14"> Amount</string>
     <string name="goal15"> Add</string>
     <string name="goal16"> Cansel</string>
-    <string name="goal17"> okanda</string>
-    <string name="goal18"> xxxx</string>
+    <string name="goal17"> Save for Goal</string>
+    <string name="goal18"> Trip To Nuwara-eliya</string>
+    <string name="goal19"> 25000.00</string>
+    <string name="goal20"> 20/08/2020</string>
+
 
     <string name="dailyExpenses">Daily Expenses</string>
     <string name="dateHere">Date Here</string>
@@ -51,6 +59,7 @@
     <string name="updateincome">Update Income</string>
     <string name="price">60000.00</string>
     <string name="add">Add</string>
+    <string name="text">Lorem  ispham dika kliokalsd </string>
 
 
 </resources>
