@@ -125,6 +125,7 @@
         android:backgroundTint="@color/primaryColor"
         android:src="@drawable/add_icon_without_bg"
         app:tint="@color/colorWhite"
+        android:id="@+id/fab"
         app:layout_anchor="@id/nav_view"
         app:maxImageSize="35dp" />
 

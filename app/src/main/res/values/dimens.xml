@@ -5,4 +5,5 @@
     <dimen name="titleFontSize">18sp</dimen>
     <dimen name="dataBoxWidth">100dp</dimen>
     <dimen name="smallText">12sp</dimen>
+    <dimen name="editText">16sp</dimen>
 </resources>

@@ -1,14 +1,18 @@
 package com.example.mywallet;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mywallet.UI.BudgetManager.Budget1;
+import com.example.mywallet.UI.Expenses.AddExpense;
 import com.example.mywallet.UI.Expenses.DailyExpensesInDetail;
 import com.example.mywallet.UI.Expenses.Home;
 import com.example.mywallet.UI.Goal.Goal;
@@ -16,6 +20,7 @@ import com.example.mywallet.UI.Goal.Goal_Home;
 import com.example.mywallet.UI.Income.Income;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -30,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     BottomAppBar bottomAppBar;
     ImageView navExpenseBtn, navIncomeBtn, navBudgetBtn, navGoalBtn;
     TextView navExpenseText, navIncomeText, navBudgetText, navGoalText;
+    FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +44,11 @@ public class MainActivity extends AppCompatActivity {
 
         Home home = new Home();
         FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.nav_host_fragment, home);
-        fragmentTransaction.addToBackStack("ExpensesHome");
         fragmentTransaction.commit();
 
+        floatingActionButton = findViewById(R.id.fab);
 
         navExpenseBtn = findViewById(R.id.btnExpenses);
         navIncomeBtn = findViewById(R.id.btnIncome);
@@ -54,7 +60,18 @@ public class MainActivity extends AppCompatActivity {
         navBudgetText = findViewById(R.id.textBudget);
 
         setUpBottomAppBar();
+
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
+                intent.putExtra("Fragment", "AddExpense");
+                startActivity(intent);
+            }
+        });
     }
+
 
     public void setUpBottomAppBar() {
         bottomAppBar = findViewById(R.id.nav_view);

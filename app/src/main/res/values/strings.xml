@@ -38,13 +38,17 @@
     <string name="note">Note</string>
     <string name="noteHere">Note Here</string>
     <string name="btnDelete">Delete</string>
-    <string name="hello_blank_fragment">Hellow Blank Fragtmm</string>
+    <string name="hello_blank_fragment">Hello Blank Fragment</string>
     <string name="bottomNavExpenses">Expenses</string>
     <string name="bottomNavIncome">Income</string>
     <string name="bottomNavGoal">Goals</string>
     <string name="bottomNavBudget">Budget</string>
     <string name="addExpensesTitle">Add Expenses</string>
-
+    <string name="date">Date</string>
+    <string name="addExpense">Add Expense</string>
+    <string name="cansel">Cansel</string>
+    <string name="updateExpense">Update Expense</string>
+    <string name="update">Update</string>
 
     <string name="mywallets">My Wallets</string>
     <string name="balance">Balance</string>
