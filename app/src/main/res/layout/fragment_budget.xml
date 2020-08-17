@@ -23,15 +23,15 @@
             android:src="@drawable/delete_btn"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.084"
+            app:layout_constraintHorizontal_bias="0.146"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.25" />
 
         <TextView
             android:id="@+id/textView32"
-            android:layout_width="148dp"
-            android:layout_height="34dp"
+            android:layout_width="141dp"
+            android:layout_height="35dp"
             android:gravity="center_vertical|center_horizontal"
             android:text="@string/budget5"
             android:textColor="#0189FF"
@@ -89,10 +89,22 @@
             android:src="@drawable/edit"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.242"
+            app:layout_constraintHorizontal_bias="0.311"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.254" />
+            app:layout_constraintVertical_bias="0.25" />
+
+        <ImageView
+            android:id="@+id/imageView16"
+            android:layout_width="251dp"
+            android:layout_height="20dp"
+            android:src="@drawable/rectangle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.225"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.168" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
