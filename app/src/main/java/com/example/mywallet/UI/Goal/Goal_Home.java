@@ -1,4 +1,5 @@
 package com.example.mywallet.UI.Goal;
+
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -11,22 +12,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mywallet.R;
-import com.example.mywallet.UI.Goal.GoalAdapter;
 import com.example.mywallet.UI.Goal.Model.FutureGoal;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
+public class Goal_Home extends Fragment {
 
-public class GoalDetail extends Fragment {
     private RecyclerView recyclerView;
     private ArrayList<FutureGoal> futuregoalArrayList;
     private GoalAdapter goalAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private View root;
 
-    public GoalDetail() {
+    public Goal_Home() {
         // Required empty public constructor
     }
 
@@ -39,7 +38,7 @@ public class GoalDetail extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        root = inflater.inflate(R.layout.fragment_goal4, container, false);
+        root = inflater.inflate(R.layout.fragment_goal_home, container, false);
         return root;
     }
 
@@ -61,4 +60,3 @@ public class GoalDetail extends Fragment {
         recyclerView.setAdapter(goalAdapter);
     }
 }
-
