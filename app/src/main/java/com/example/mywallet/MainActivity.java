@@ -21,10 +21,6 @@ import com.example.mywallet.UI.Expenses.UpdateExpense;
 import com.example.mywallet.UI.Goal.Goal;
 import com.example.mywallet.UI.Goal.Goal_Home;
 import com.example.mywallet.UI.Income.Income;
-import com.example.mywallet.UI.Income.Income2;
-import com.example.mywallet.UI.Income.Income3;
-import com.example.mywallet.UI.Income.Income4;
-import com.example.mywallet.UI.Income.Incomeadapter;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -150,35 +146,5 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.nav_host_fragment, updateExpense);
         fragmentTransaction.commit();
-    }
-
-    @Override
-    public void onBtnTitleincome() {
-        Income2 income = new Income2();
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.nav_host_fragment, income);
-        fragmentTransaction.commit();
-
-    }
-
-    @Override
-    public void onUpdateBtnincome() {
-        Income3 income3 = new Income3();
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.nav_host_fragment, income3);
-        fragmentTransaction.commit();
-
-    }
-
-    @Override
-    public void onaddBtnincome() {
-        Income4 income4 = new Income4();
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.nav_host_fragment, income4);
-        fragmentTransaction.commit();
-
     }
 }

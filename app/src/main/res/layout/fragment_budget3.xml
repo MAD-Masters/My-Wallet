@@ -93,8 +93,8 @@
 
         <TextView
             android:id="@+id/textView11"
-            android:layout_width="259dp"
-            android:layout_height="27dp"
+            android:layout_width="266dp"
+            android:layout_height="35dp"
             android:background="@drawable/background_blue_no_fills"
             android:text="Budget Amount"
             android:textSize="18sp"
