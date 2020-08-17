@@ -13,8 +13,11 @@ import android.widget.Toast;
 
 import com.example.mywallet.UI.BudgetManager.Budget1;
 import com.example.mywallet.UI.Expenses.AddExpense;
+import com.example.mywallet.UI.Expenses.DailyExpenseAdapter;
+import com.example.mywallet.UI.Expenses.DailyExpenseSummaryAdapter;
 import com.example.mywallet.UI.Expenses.DailyExpensesInDetail;
 import com.example.mywallet.UI.Expenses.Home;
+import com.example.mywallet.UI.Expenses.UpdateExpense;
 import com.example.mywallet.UI.Goal.Goal;
 import com.example.mywallet.UI.Goal.Goal_Home;
 import com.example.mywallet.UI.Income.Income;
@@ -31,11 +34,13 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements DailyExpenseSummaryAdapter.onDailyExpenseSummaryClick, DailyExpenseAdapter.DailyExpenseInterface {
     BottomAppBar bottomAppBar;
     ImageView navExpenseBtn, navIncomeBtn, navBudgetBtn, navGoalBtn;
     TextView navExpenseText, navIncomeText, navBudgetText, navGoalText;
     FloatingActionButton floatingActionButton;
+    FragmentManager fragmentManager;
+    FragmentTransaction fragmentTransaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +48,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Home home = new Home();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.nav_host_fragment, home);
         fragmentTransaction.commit();
 
@@ -80,8 +85,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Home home = new Home();
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentManager = getSupportFragmentManager();
+                fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.nav_host_fragment, home);
                 fragmentTransaction.commit();
             }
@@ -91,8 +96,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Income income = new Income();
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentManager = getSupportFragmentManager();
+                fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.nav_host_fragment, income);
                 fragmentTransaction.commit();
             }
@@ -102,8 +107,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Goal_Home goalHome = new Goal_Home();
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentManager = getSupportFragmentManager();
+                fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.nav_host_fragment, goalHome);
                 fragmentTransaction.commit();
             }
@@ -113,12 +118,33 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Budget1 budget1 = new Budget1();
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentManager = getSupportFragmentManager();
+                fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.nav_host_fragment, budget1);
                 fragmentTransaction.commit();
             }
         });
     }
 
+    @Override
+    public void onClickDailyExpItem() {
+        DailyExpensesInDetail dailyExpensesInDetail = new DailyExpensesInDetail();
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.nav_host_fragment, dailyExpensesInDetail);
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onDeletBtnExInClick() {
+    }
+
+    @Override
+    public void onUpdateBtnExInClick() {
+        UpdateExpense updateExpense = new UpdateExpense();
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.nav_host_fragment, updateExpense);
+        fragmentTransaction.commit();
+    }
 }

@@ -59,7 +59,7 @@ public class DailyExpensesInDetail extends Fragment {
         layoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        dailyExpenseAdapter = new DailyExpenseAdapter(dailyExpenseArrayList);
+        dailyExpenseAdapter = new DailyExpenseAdapter(getContext(), dailyExpenseArrayList);
         recyclerView.setAdapter(dailyExpenseAdapter);
     }
 }

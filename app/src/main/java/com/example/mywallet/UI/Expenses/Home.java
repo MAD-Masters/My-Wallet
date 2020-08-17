@@ -54,13 +54,13 @@ public class Home extends Fragment {
         dailyExpesnseSummaryArrayList.add(new DailyExpesnseSummary(Calendar.getInstance().getTime(), 1000));
         dailyExpesnseSummaryArrayList.add(new DailyExpesnseSummary(Calendar.getInstance().getTime(), 5000));
 
-        recyclerView = root.findViewById(R.id.list_daily_expenses_in_detail);
+        recyclerView = root.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
 
-        layoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
+        layoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        dailyExpenseAdapter = new DailyExpenseSummaryAdapter(dailyExpesnseSummaryArrayList);
+        dailyExpenseAdapter = new DailyExpenseSummaryAdapter(getContext(), dailyExpesnseSummaryArrayList);
         recyclerView.setAdapter(dailyExpenseAdapter);
     }
 }
