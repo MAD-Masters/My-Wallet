@@ -74,6 +74,7 @@ public class DailyExpenseAdapter extends RecyclerView.Adapter<DailyExpenseAdapte
         return dailyExpenses.size();
     }
 
+    //Interface for DailyExpense
     public interface DailyExpenseInterface{
         public void onDeletBtnExInClick();
         public void onUpdateBtnExInClick();
