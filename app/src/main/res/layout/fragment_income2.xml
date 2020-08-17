@@ -81,7 +81,7 @@
             tools:text="@string/addmoney" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list2_income"
+            android:id="@+id/list_income"
             android:layout_width="386dp"
             android:layout_height="242dp"
             android:layout_marginTop="16dp"
