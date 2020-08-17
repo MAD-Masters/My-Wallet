@@ -1,4 +1,5 @@
 package com.example.mywallet.UI.Goal;
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,14 +19,17 @@ import java.util.Date;
 
 public class GoalAdapter extends RecyclerView.Adapter<com.example.mywallet.UI.Goal.GoalAdapter.GoalViewHolder> {
     private ArrayList<FutureGoal> futuregoal;
+    private GoalInterface activity1;
 
-    public  GoalAdapter(ArrayList<FutureGoal> futuregoal) {
+    public  GoalAdapter(Context context, ArrayList<FutureGoal> futuregoal) {
         this.futuregoal = futuregoal;
+        activity1=(GoalInterface) context;
     }
 
-    public static class GoalViewHolder extends RecyclerView.ViewHolder {
+    public  class GoalViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
         TextView goal, totalAmount, date;
+        ImageView btngoal;
 
 
         public GoalViewHolder(@NonNull View itemView) {
@@ -34,6 +38,15 @@ public class GoalAdapter extends RecyclerView.Adapter<com.example.mywallet.UI.Go
             cardView = itemView.findViewById(R.id.cardViewFutureGoal);
             totalAmount = itemView.findViewById(R.id.totalAmount);
            date = itemView.findViewById(R.id.date);
+            btngoal = itemView.findViewById(R.id.btngoal);
+
+            btngoal.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    activity1.onAddBtnGoalClick();
+
+                }
+            });
 
         }
 
@@ -59,4 +72,10 @@ public class GoalAdapter extends RecyclerView.Adapter<com.example.mywallet.UI.Go
     public int getItemCount() {
         return futuregoal.size();
     }
+
+    public interface GoalInterface{
+        public void onAddBtnGoalClick();
+
+    }
+
 }

@@ -56,7 +56,7 @@ public class Goal_Home extends Fragment {
         layoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        goalAdapter = new GoalAdapter(futuregoalArrayList);
+        goalAdapter = new GoalAdapter(getContext(),futuregoalArrayList);
         recyclerView.setAdapter(goalAdapter);
     }
 }

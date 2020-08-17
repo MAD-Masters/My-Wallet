@@ -19,6 +19,8 @@ import com.example.mywallet.UI.Expenses.DailyExpensesInDetail;
 import com.example.mywallet.UI.Expenses.Home;
 import com.example.mywallet.UI.Expenses.UpdateExpense;
 import com.example.mywallet.UI.Goal.Goal;
+import com.example.mywallet.UI.Goal.Goal1;
+import com.example.mywallet.UI.Goal.GoalAdapter;
 import com.example.mywallet.UI.Goal.Goal_Home;
 import com.example.mywallet.UI.Income.Income;
 import com.google.android.material.bottomappbar.BottomAppBar;
@@ -34,7 +36,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-public class MainActivity extends AppCompatActivity implements DailyExpenseSummaryAdapter.onDailyExpenseSummaryClick, DailyExpenseAdapter.DailyExpenseInterface {
+public class MainActivity extends AppCompatActivity implements DailyExpenseSummaryAdapter.onDailyExpenseSummaryClick, DailyExpenseAdapter.DailyExpenseInterface, GoalAdapter.GoalInterface {
     BottomAppBar bottomAppBar;
     ImageView navExpenseBtn, navIncomeBtn, navBudgetBtn, navGoalBtn;
     TextView navExpenseText, navIncomeText, navBudgetText, navGoalText;
@@ -145,6 +147,15 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.nav_host_fragment, updateExpense);
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onAddBtnGoalClick() {
+        Goal goal = new Goal();
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.nav_host_fragment, goal);
         fragmentTransaction.commit();
     }
 }
