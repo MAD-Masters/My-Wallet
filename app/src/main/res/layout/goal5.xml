@@ -99,7 +99,7 @@
                 app:layout_constraintVertical_bias="0.861" />
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/btngoal"
                 android:layout_width="35dp"
                 android:layout_height="32dp"
                 android:background="#039be5"
