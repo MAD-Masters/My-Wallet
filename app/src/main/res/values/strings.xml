@@ -51,6 +51,9 @@
     <string name="update">Update</string>
     <string name="transactionTitle">Transactions</string>
     <string name="morning">Good Morning</string>
+    <string name="august">August</string>
+    <string name="inflow">Inflow</string>
+    <string name="outflow">Outflow</string>
 
     <string name="mywallets">My Wallets</string>
     <string name="balance">Balance</string>

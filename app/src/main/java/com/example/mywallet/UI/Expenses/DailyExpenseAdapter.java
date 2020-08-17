@@ -1,5 +1,6 @@
 package com.example.mywallet.UI.Expenses;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,15 +18,17 @@ import java.util.ArrayList;
 
 public class DailyExpenseAdapter extends RecyclerView.Adapter<DailyExpenseAdapter.DailyExpenseViewHolder> {
     private ArrayList<DailyExpense> dailyExpenses;
+    private DailyExpenseInterface activity;
 
-    public DailyExpenseAdapter(ArrayList<DailyExpense> dailyExpenses) {
+    public DailyExpenseAdapter(Context context, ArrayList<DailyExpense> dailyExpenses) {
         this.dailyExpenses = dailyExpenses;
+        activity = (DailyExpenseInterface) context;
     }
 
     //Daily Expesne View holder Class
-    public static class DailyExpenseViewHolder extends RecyclerView.ViewHolder {
+    public  class DailyExpenseViewHolder extends RecyclerView.ViewHolder {
         TextView expenseCategory, amount, note;
-        ImageView walletType, bank;
+        ImageView walletType, bank, btnEdit;
 
         public DailyExpenseViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -34,6 +37,15 @@ public class DailyExpenseAdapter extends RecyclerView.Adapter<DailyExpenseAdapte
             note = itemView.findViewById(R.id.note);
             walletType = itemView.findViewById(R.id.walletType);
             bank = itemView.findViewById(R.id.bank);
+            btnEdit = itemView.findViewById(R.id.btnEdit);
+
+            btnEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    activity.onUpdateBtnExInClick();
+                }
+            });
+
         }
 
     }
@@ -61,4 +73,10 @@ public class DailyExpenseAdapter extends RecyclerView.Adapter<DailyExpenseAdapte
     public int getItemCount() {
         return dailyExpenses.size();
     }
+
+    public interface DailyExpenseInterface{
+        public void onDeletBtnExInClick();
+        public void onUpdateBtnExInClick();
+    }
+
 }

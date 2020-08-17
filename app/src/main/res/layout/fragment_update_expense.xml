@@ -52,8 +52,8 @@
                 android:textColorHint="@color/colorGrey"
                 android:textSize="@dimen/editText"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.312"
-                app:layout_constraintStart_toEndOf="@+id/amountTitle"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/amountTitle2"
                 app:layout_constraintTop_toBottomOf="@+id/addExpensesMainImage"></EditText>
 
             <EditText
