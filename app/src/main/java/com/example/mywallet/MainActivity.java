@@ -152,10 +152,10 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
 
     @Override
     public void onAddBtnGoalClick() {
-        Goal goal = new Goal();
+        Goal1 goal1 = new Goal1();
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.nav_host_fragment, goal);
+        fragmentTransaction.replace(R.id.nav_host_fragment, goal1);
         fragmentTransaction.commit();
     }
 }

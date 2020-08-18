@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.mywallet.R;
 import com.example.mywallet.UI.Goal.Model.FutureGoal;
@@ -24,6 +25,7 @@ public class Goal_Home extends Fragment {
     private GoalAdapter goalAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private View root;
+    Button btn;
 
     public Goal_Home() {
         // Required empty public constructor
