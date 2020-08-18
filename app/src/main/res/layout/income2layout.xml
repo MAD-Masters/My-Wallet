@@ -18,22 +18,22 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_blue_left_bold_no_fills">
 
+
         <TextView
             android:id="@+id/amount"
-            android:layout_width="95dp"
-            android:layout_height="38dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
             android:background="@drawable/background_blue_no_fills"
             android:gravity="center_vertical|center_horizontal"
-
             android:textColor="#0189FF"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/text"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.551"
+            app:layout_constraintHorizontal_bias="0.553"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.164"
+            app:layout_constraintVertical_bias="0.937"
             tools:text="@string/price" />
-
 
         <TextView
             android:id="@+id/text"

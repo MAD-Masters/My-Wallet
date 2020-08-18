@@ -24,6 +24,7 @@ import com.example.mywallet.UI.Income.Income;
 import com.example.mywallet.UI.Income.Income2;
 import com.example.mywallet.UI.Income.Income3;
 import com.example.mywallet.UI.Income.Income4;
+import com.example.mywallet.UI.Income.Income5;
 import com.example.mywallet.UI.Income.Incomeadapter;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -176,10 +177,10 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
     @Override
     public void onaddBtnincome() {
 
-        Income4 income4 = new Income4();
+        Income5 income5 = new Income5();
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.nav_host_fragment, income4);
+        fragmentTransaction.replace(R.id.nav_host_fragment, income5);
         fragmentTransaction.commit();
 
     }
