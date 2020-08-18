@@ -1,5 +1,6 @@
 package com.example.mywallet.UI.Income;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,21 +17,49 @@ import java.util.ArrayList;
 
 public class Incomeadapter extends RecyclerView.Adapter<Incomeadapter.Income1layoutViewHolder> {
     private ArrayList<IncomeModel> income;
+    private IncomeInterface activity;
 
-    public Incomeadapter(ArrayList<IncomeModel> income) {
+    public Incomeadapter(Context context, ArrayList<IncomeModel> income) {
+
         this.income = income;
+        activity = (IncomeInterface)context;
     }
-    public static class Income1layoutViewHolder extends RecyclerView.ViewHolder {
 
-        TextView resource;
-        ImageView resourceview;
+    public  class Income1layoutViewHolder extends RecyclerView.ViewHolder {
+
+        TextView resource,resourcetitle;
+        ImageView resourceview,btnAdd,btnEdit;
 
         public Income1layoutViewHolder(@NonNull View itemView) {
             super(itemView);
-            resource = itemView.findViewById(R.id.resource);
             resourceview = itemView.findViewById(R.id.resourceview);
+            resourcetitle = itemView.findViewById(R.id.resourcetitle);
+            btnAdd = itemView.findViewById((R.id.btnAdd));
+            btnEdit = itemView.findViewById(R.id.btnEdit);
+
+           btnAdd.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+                   activity.onaddBtnincome();
+
+               }
+
+           });
+           btnEdit.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+                   activity.onUpdateBtnincome();
+               }
+           });
+           resourcetitle.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+                   activity.onBtnTitleincome();
+               }
+           });
         }
     }
+
     @NonNull
     @Override
     public Income1layoutViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -40,18 +69,27 @@ public class Incomeadapter extends RecyclerView.Adapter<Incomeadapter.Income1lay
 
     @Override
     public void onBindViewHolder(@NonNull Income1layoutViewHolder holder, int position) {
-        holder.resource.setText(income.get(position).getResourcename());
+        holder.resourcetitle.setText(income.get(position).getResourcename());
         holder.resourceview.setImageResource(R.drawable.creditcard);
     }
 
     @Override
     public int getItemCount() {
-            return income.size();
-        }
+        return income.size();
     }
 
 
 
+
+    public interface IncomeInterface {
+
+
+        public void onBtnTitleincome();
+        public void onUpdateBtnincome();
+        public void onaddBtnincome();
+    }
+
+}
 
 
 

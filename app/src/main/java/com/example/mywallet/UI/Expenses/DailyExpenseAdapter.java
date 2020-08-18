@@ -35,7 +35,6 @@ public class DailyExpenseAdapter extends RecyclerView.Adapter<DailyExpenseAdapte
         public DailyExpenseViewHolder(@NonNull View itemView) {
             super(itemView);
             expenseCategory = itemView.findViewById(R.id.expenseCategory);
-            amount = itemView.findViewById(R.id.amount);
             note = itemView.findViewById(R.id.note);
             walletType = itemView.findViewById(R.id.walletType);
             bank = itemView.findViewById(R.id.bank);

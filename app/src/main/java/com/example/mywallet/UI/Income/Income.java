@@ -61,7 +61,7 @@ public class Income extends Fragment {
         layoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        incomeadapter = new Incomeadapter(incomeModelArrayListList);
+        incomeadapter = new Incomeadapter(getContext(), incomeModelArrayListList);
         recyclerView.setAdapter(incomeadapter);
     }
 }
