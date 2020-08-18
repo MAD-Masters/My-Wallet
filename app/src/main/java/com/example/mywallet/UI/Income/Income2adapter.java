@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mywallet.R;
 import com.example.mywallet.UI.Income.Model.IncomeModel;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class Income2adapter extends RecyclerView.Adapter<Income2adapter.Income2layoutViewHolder> {
@@ -30,7 +32,9 @@ public Income2adapter(ArrayList<IncomeModel> income) {
 
     @Override
     public void onBindViewHolder(@NonNull Income2layoutViewHolder holder, int position) {
-        holder.date.setText(income.get(position).getDate().toString());
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        holder.date.setText(sdf.format(income.get(position).getDate()));
         holder.amount.setText(((Double)income.get(position).getMoney()).toString());
         holder.text.setText(income.get(position).getText());
     }
