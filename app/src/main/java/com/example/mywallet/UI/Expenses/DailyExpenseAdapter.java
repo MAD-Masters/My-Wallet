@@ -1,5 +1,6 @@
 package com.example.mywallet.UI.Expenses;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 public class DailyExpenseAdapter extends RecyclerView.Adapter<DailyExpenseAdapter.DailyExpenseViewHolder> {
     private ArrayList<DailyExpense> dailyExpenses;
     private DailyExpenseInterface activity;
+    private Dialog dialog;
 
     public DailyExpenseAdapter(Context context, ArrayList<DailyExpense> dailyExpenses) {
         this.dailyExpenses = dailyExpenses;
@@ -28,21 +30,28 @@ public class DailyExpenseAdapter extends RecyclerView.Adapter<DailyExpenseAdapte
     //Daily Expesne View holder Class
     public  class DailyExpenseViewHolder extends RecyclerView.ViewHolder {
         TextView expenseCategory, amount, note;
-        ImageView walletType, bank, btnEdit;
+        ImageView walletType, bank, btnEdit, btnDelete;
 
         public DailyExpenseViewHolder(@NonNull View itemView) {
             super(itemView);
             expenseCategory = itemView.findViewById(R.id.expenseCategory);
-            amount = itemView.findViewById(R.id.amount);
             note = itemView.findViewById(R.id.note);
             walletType = itemView.findViewById(R.id.walletType);
             bank = itemView.findViewById(R.id.bank);
             btnEdit = itemView.findViewById(R.id.btnEdit);
+            btnDelete = itemView.findViewById(R.id.btnDelete);
 
             btnEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     activity.onUpdateBtnExInClick();
+                }
+            });
+
+            btnDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    activity.onDeletBtnExInClick();
                 }
             });
 
@@ -74,6 +83,7 @@ public class DailyExpenseAdapter extends RecyclerView.Adapter<DailyExpenseAdapte
         return dailyExpenses.size();
     }
 
+    //Interface for DailyExpense
     public interface DailyExpenseInterface{
         public void onDeletBtnExInClick();
         public void onUpdateBtnExInClick();

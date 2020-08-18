@@ -1,9 +1,12 @@
 package com.example.mywallet;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -46,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
     FloatingActionButton floatingActionButton;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +72,9 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         navIncomeText = findViewById(R.id.textIncome);
         navGoalText = findViewById(R.id.textGoal);
         navBudgetText = findViewById(R.id.textBudget);
+
+        //Dialog
+        dialog = new Dialog(this);
 
         setUpBottomAppBar();
 
@@ -142,6 +149,16 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
 
     @Override
     public void onDeletBtnExInClick() {
+        dialog.setContentView(R.layout.delete_pop_up);
+        /*LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.delete_pop_up, (ViewGroup)findViewById(R.id.deletePopUp));
+        TextView message = vie*/
+
+        TextView message = dialog.findViewById(R.id.message);
+        message.setText("Are you sure to delete this record?");
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+
     }
 
     @Override
