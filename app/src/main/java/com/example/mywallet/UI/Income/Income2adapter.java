@@ -1,5 +1,6 @@
 package com.example.mywallet.UI.Income;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +19,12 @@ import java.util.ArrayList;
 
 public class Income2adapter extends RecyclerView.Adapter<Income2adapter.Income2layoutViewHolder> {
 private ArrayList<IncomeModel> income;
+    private Income2Interface activity;
 
-public Income2adapter(ArrayList<IncomeModel> income) {
-        this.income = income;
+public Income2adapter(Context context,ArrayList<IncomeModel> income) {
+
+    this.income = income;
+    activity = (Income2Interface)context;
         }
 
     @NonNull
@@ -47,6 +51,7 @@ public Income2adapter(ArrayList<IncomeModel> income) {
     public static class Income2layoutViewHolder extends RecyclerView.ViewHolder {
 
     TextView date,amount,text;
+    ImageView btnedit;
 
 
     public Income2layoutViewHolder(@NonNull View itemView) {
@@ -54,8 +59,18 @@ public Income2adapter(ArrayList<IncomeModel> income) {
         date = itemView.findViewById(R.id.date);
         amount = itemView.findViewById(R.id.amount);
         text = itemView.findViewById(R.id.text);
+        btnedit = itemView.findViewById(R.id.btnedit);
+
+
+
     }
 }
+
+    public interface Income2Interface {
+        public void oneditBtnincome();
+
+    }
+
 
 }
 

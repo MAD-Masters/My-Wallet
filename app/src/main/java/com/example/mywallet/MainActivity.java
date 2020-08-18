@@ -211,4 +211,13 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         fragmentTransaction.replace(R.id.nav_host_fragment, goal1);
         fragmentTransaction.commit();
     }
+
+    public void oneditBtnincome()
+    {
+        Income3 income3  = new Income3();
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.nav_host_fragment, income3);
+        fragmentTransaction.commit();
+    }
 }
