@@ -23,7 +23,7 @@ public class GoalAdapter extends RecyclerView.Adapter<com.example.mywallet.UI.Go
 
     public  GoalAdapter(Context context, ArrayList<FutureGoal> futuregoal) {
         this.futuregoal = futuregoal;
-        activity1=(GoalInterface) context;
+        activity1= (GoalInterface) context;
     }
 
     public  class GoalViewHolder extends RecyclerView.ViewHolder {

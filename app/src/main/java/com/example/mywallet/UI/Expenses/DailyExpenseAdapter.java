@@ -38,6 +38,7 @@ public class DailyExpenseAdapter extends RecyclerView.Adapter<DailyExpenseAdapte
             note = itemView.findViewById(R.id.note);
             walletType = itemView.findViewById(R.id.walletType);
             bank = itemView.findViewById(R.id.bank);
+            amount = itemView.findViewById(R.id.amount);
             btnEdit = itemView.findViewById(R.id.btnEdit);
             btnDelete = itemView.findViewById(R.id.btnDelete);
 
