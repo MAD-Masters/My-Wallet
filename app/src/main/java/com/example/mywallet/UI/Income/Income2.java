@@ -87,8 +87,8 @@ public class Income2 extends Fragment {
 
         incomeModelArrayListList = new ArrayList<>();
 
-        incomeModelArrayListList.add(new IncomeModel("hnb bank", 1, Calendar.getInstance().getTime(), 40000, "ttt"));
-        incomeModelArrayListList.add(new IncomeModel("wallet", 2, Calendar.getInstance().getTime(), 30000, "rrr"));
+        incomeModelArrayListList.add(new IncomeModel("hnb bank", 1, Calendar.getInstance().getTime(), 40000, "Lorem  ispham dika kliokalsd "));
+        incomeModelArrayListList.add(new IncomeModel("wallet", 2, Calendar.getInstance().getTime(), 30000, "Lorem  ispham dika kliokalsd "));
 
         recyclerView = root.findViewById(R.id.list_income);
         recyclerView.setHasFixedSize(true);

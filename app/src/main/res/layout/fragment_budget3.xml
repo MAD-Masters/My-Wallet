@@ -36,7 +36,7 @@
             android:background="@drawable/background_blue_fill"
             android:gravity="center_vertical|center_horizontal"
             android:textColor="#ffff"
-
+            android:text="Update My Budget"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

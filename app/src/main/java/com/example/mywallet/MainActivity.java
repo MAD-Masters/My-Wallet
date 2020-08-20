@@ -1,9 +1,12 @@
 package com.example.mywallet;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -19,10 +22,13 @@ import com.example.mywallet.UI.Expenses.DailyExpensesInDetail;
 import com.example.mywallet.UI.Expenses.Home;
 import com.example.mywallet.UI.Expenses.UpdateExpense;
 import com.example.mywallet.UI.Goal.Goal;
-import com.example.mywallet.UI.Goal.Goal1;
-import com.example.mywallet.UI.Goal.GoalAdapter;
 import com.example.mywallet.UI.Goal.Goal_Home;
 import com.example.mywallet.UI.Income.Income;
+import com.example.mywallet.UI.Income.Income2;
+import com.example.mywallet.UI.Income.Income3;
+import com.example.mywallet.UI.Income.Income4;
+import com.example.mywallet.UI.Income.Income5;
+import com.example.mywallet.UI.Income.Incomeadapter;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -36,13 +42,14 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-public class MainActivity extends AppCompatActivity implements DailyExpenseSummaryAdapter.onDailyExpenseSummaryClick, DailyExpenseAdapter.DailyExpenseInterface, GoalAdapter.GoalInterface {
+public class MainActivity extends AppCompatActivity implements DailyExpenseSummaryAdapter.onDailyExpenseSummaryClick, DailyExpenseAdapter.DailyExpenseInterface, Incomeadapter.IncomeInterface {
     BottomAppBar bottomAppBar;
     ImageView navExpenseBtn, navIncomeBtn, navBudgetBtn, navGoalBtn;
     TextView navExpenseText, navIncomeText, navBudgetText, navGoalText;
     FloatingActionButton floatingActionButton;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +72,9 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         navIncomeText = findViewById(R.id.textIncome);
         navGoalText = findViewById(R.id.textGoal);
         navBudgetText = findViewById(R.id.textBudget);
+
+        //Dialog
+        dialog = new Dialog(this);
 
         setUpBottomAppBar();
 
@@ -139,6 +149,16 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
 
     @Override
     public void onDeletBtnExInClick() {
+        dialog.setContentView(R.layout.delete_pop_up);
+        /*LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.delete_pop_up, (ViewGroup)findViewById(R.id.deletePopUp));
+        TextView message = vie*/
+
+        TextView message = dialog.findViewById(R.id.message);
+        message.setText("Are you sure to delete this record?");
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+
     }
 
     @Override
@@ -151,11 +171,35 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
     }
 
     @Override
-    public void onAddBtnGoalClick() {
-        Goal1 goal1 = new Goal1();
+    public void onBtnTitleincome() {
+        Income2 income2 = new Income2();
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.nav_host_fragment, income2);
+        fragmentTransaction.commit();
+
+
+    }
+
+    @Override
+    public void onUpdateBtnincome() {
+        Income3 income3 = new Income3();
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.nav_host_fragment, income3);
+        fragmentTransaction.commit();
+
+    }
+
+    @Override
+    public void onaddBtnincome() {
+
+        Income5 income5 = new Income5();
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.nav_host_fragment, goal1);
+        fragmentTransaction.replace(R.id.nav_host_fragment, income5);
         fragmentTransaction.commit();
+
     }
 }

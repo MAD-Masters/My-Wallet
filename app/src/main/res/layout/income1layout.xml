@@ -31,7 +31,7 @@
                 app:srcCompat="@drawable/edit" />
 
             <TextView
-                android:id="@+id/resource"
+                android:id="@+id/resourcetitle"
                 android:layout_width="109dp"
                 android:layout_height="23dp"
 

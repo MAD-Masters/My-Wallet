@@ -30,7 +30,7 @@ public Income2adapter(ArrayList<IncomeModel> income) {
 
     @Override
     public void onBindViewHolder(@NonNull Income2layoutViewHolder holder, int position) {
-        holder.date.setText((CharSequence) income.get(position).getDate());
+        holder.date.setText(income.get(position).getDate().toString());
         holder.amount.setText(((Double)income.get(position).getMoney()).toString());
         holder.text.setText(income.get(position).getText());
     }

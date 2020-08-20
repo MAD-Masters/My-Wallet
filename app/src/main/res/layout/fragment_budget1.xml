@@ -26,19 +26,19 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="161dp"
-            android:layout_height="46dp"
+            android:layout_width="176dp"
+            android:layout_height="50dp"
             android:background="@drawable/background_blue_fully_rounded"
             android:gravity="center_vertical|center_horizontal"
-            android:text=""
+            android:text="My Budget"
             android:textColor="#ffff"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.04"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.09"
+            app:layout_constraintVertical_bias="0.093"
             tools:text="@string/budget" />
 
         <TextView
@@ -115,6 +115,18 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.091" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/repeat"
+            android:layout_width="297dp"
+            android:layout_height="155dp"
+            android:layout_marginTop="16dp"
+            android:padding="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.505" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

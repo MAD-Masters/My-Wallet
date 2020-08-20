@@ -39,8 +39,8 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/update"
-            android:layout_width="117dp"
-            android:layout_height="37dp"
+            android:layout_width="160dp"
+            android:layout_height="40dp"
             android:background="@drawable/background_blue_fully_rounded"
             android:textColor="#ffff"
 
@@ -54,8 +54,8 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/cansel2"
-            android:layout_width="124dp"
-            android:layout_height="39dp"
+            android:layout_width="160dp"
+            android:layout_height="40dp"
             android:background="@drawable/background_blue_fully_rounded"
             android:backgroundTint="@color/colorPink"
             android:textColor="#ffff"
