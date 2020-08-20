@@ -74,6 +74,9 @@
     <string name="price">60000.00</string>
     <string name="add">Add</string>
     <string name="text">Lorem  ispham dika kliokalsd </string>
+    <string name="masters">Masters</string>
+    <string name="mad">MAD</string>
+    <string name="next">Next</string>
 
 
 </resources>

@@ -22,6 +22,8 @@ import com.example.mywallet.UI.Expenses.DailyExpensesInDetail;
 import com.example.mywallet.UI.Expenses.Home;
 import com.example.mywallet.UI.Expenses.UpdateExpense;
 import com.example.mywallet.UI.Goal.Goal;
+import com.example.mywallet.UI.Goal.Goal1;
+import com.example.mywallet.UI.Goal.GoalAdapter;
 import com.example.mywallet.UI.Goal.Goal_Home;
 import com.example.mywallet.UI.Income.Income;
 import com.example.mywallet.UI.Income.Income2;
@@ -42,7 +44,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-public class MainActivity extends AppCompatActivity implements DailyExpenseSummaryAdapter.onDailyExpenseSummaryClick, DailyExpenseAdapter.DailyExpenseInterface, Incomeadapter.IncomeInterface {
+public class MainActivity extends AppCompatActivity implements DailyExpenseSummaryAdapter.onDailyExpenseSummaryClick, DailyExpenseAdapter.DailyExpenseInterface, Incomeadapter.IncomeInterface, GoalAdapter.GoalInterface {
     BottomAppBar bottomAppBar;
     ImageView navExpenseBtn, navIncomeBtn, navBudgetBtn, navGoalBtn;
     TextView navExpenseText, navIncomeText, navBudgetText, navGoalText;
@@ -158,7 +160,6 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         message.setText("Are you sure to delete this record?");
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
-
     }
 
     @Override
@@ -201,5 +202,23 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         fragmentTransaction.replace(R.id.nav_host_fragment, income5);
         fragmentTransaction.commit();
 
+    }
+
+    @Override
+    public void onAddBtnGoalClick() {
+        Goal1 goal1 = new Goal1();
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.nav_host_fragment, goal1);
+        fragmentTransaction.commit();
+    }
+
+    public void oneditBtnincome()
+    {
+        Income3 income3  = new Income3();
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.nav_host_fragment, income3);
+        fragmentTransaction.commit();
     }
 }

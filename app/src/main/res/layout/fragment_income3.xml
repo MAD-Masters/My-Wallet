@@ -54,8 +54,8 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/cansel1"
-            android:layout_width="107dp"
-            android:layout_height="32dp"
+            android:layout_width="105dp"
+            android:layout_height="33dp"
             android:background="@drawable/background_pink_fully_rounded"
             android:backgroundTint="@color/colorPink"
             app:layout_constraintBottom_toBottomOf="parent"
