@@ -1,10 +1,13 @@
-package com.example.mywallet;
+package com.example.mywallet.OnBoarding;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import com.example.mywallet.MainActivity;
+import com.example.mywallet.R;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -29,7 +32,7 @@ public class SplashScreen extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        handler.postDelayed(runnable,2500);
+        handler.postDelayed(runnable,2000);
     }
 
     @Override
