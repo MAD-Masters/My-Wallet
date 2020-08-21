@@ -23,7 +23,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.057"
-            tools:text="@string/updateresource" />
+            android:text="@string/updateresource" />
 
         <ImageView
             android:id="@+id/imageView10"
@@ -50,7 +50,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.75"
-            tools:text="@string/goal11" />
+            android:text="@string/goal11" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/cansel1"
@@ -65,7 +65,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.751"
-            tools:text="@string/goal12" />
+            android:text="@string/goal12" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textInputEditText"

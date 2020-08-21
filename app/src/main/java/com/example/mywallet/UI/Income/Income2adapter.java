@@ -63,6 +63,9 @@ public Income2adapter(Context context,ArrayList<IncomeModel> income) {
 
 
 
+            ;
+
+
     }
 }
 

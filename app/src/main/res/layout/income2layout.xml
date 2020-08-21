@@ -33,7 +33,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.937"
-            tools:text="@string/price" />
+            android:text="@string/price" />
 
         <TextView
             android:id="@+id/text"
