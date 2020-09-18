@@ -76,7 +76,6 @@ public class DailyExpenseAdapter extends RecyclerView.Adapter<DailyExpenseAdapte
         holder.amount.setText(((Double)dailyExpenses.get(position).getAmount()).toString());
         holder.note.setText(dailyExpenses.get(position).getNote());
         holder.walletType.setImageResource(R.drawable.credit_card);
-        holder.bank.setImageResource(R.drawable.boc);
     }
 
     @Override
