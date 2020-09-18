@@ -164,11 +164,9 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
 
     @Override
     public void onUpdateBtnExInClick() {
-        UpdateExpense updateExpense = new UpdateExpense();
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.nav_host_fragment, updateExpense);
-        fragmentTransaction.commit();
+        Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
+        intent.putExtra("Fragment", "UpdateExpenses");
+        startActivity(intent);
     }
 
     @Override
