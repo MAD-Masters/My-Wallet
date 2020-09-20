@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import com.example.mywallet.R;
 import com.example.mywallet.UI.Expenses.Model.DailyExpense;
 import com.example.mywallet.UI.Expenses.Model.DailyExpesnseSummary;
+import com.example.mywallet.UI.Expenses.Model.MonthlySummary;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,10 +28,14 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class Home extends Fragment {
-    private RecyclerView recyclerView;
+    //private RecyclerView recyclerView;
     private ArrayList<DailyExpesnseSummary> dailyExpesnseSummaryArrayList;
-    private DailyExpenseSummaryAdapter dailyExpenseAdapter;
-    private RecyclerView.LayoutManager layoutManager;
+    //private DailyExpenseSummaryAdapter dailyExpenseAdapter;
+    //private RecyclerView.LayoutManager layoutManager;
+    private ViewPager viewPager;
+    private MonthlyExpenseViewPagerAdapter monthlyExpenseViewPagerAdapter;
+    private ArrayList<MonthlySummary> monthlySummaryArrayList;
+
     private View root;
     private ImageView greetingImage;
 
@@ -88,7 +94,7 @@ public class Home extends Fragment {
 
         dailyExpesnseSummaryArrayList.add(new DailyExpesnseSummary(Calendar.getInstance().getTime(), 1000));
         dailyExpesnseSummaryArrayList.add(new DailyExpesnseSummary(Calendar.getInstance().getTime(), 5000));
-
+/*
         recyclerView = root.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
 
@@ -96,6 +102,18 @@ public class Home extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         dailyExpenseAdapter = new DailyExpenseSummaryAdapter(getContext(), dailyExpesnseSummaryArrayList);
-        recyclerView.setAdapter(dailyExpenseAdapter);
+        recyclerView.setAdapter(dailyExpenseAdapter);*/
+
+        monthlySummaryArrayList = new ArrayList<>();
+        monthlySummaryArrayList.add(new MonthlySummary("August", 500, 500, 100, 230, 0, 0, 0, 0, 0, dailyExpesnseSummaryArrayList));
+        monthlySummaryArrayList.add(new MonthlySummary("September", 500, 500, 100, 230, 0, 0, 0, 0, 0, dailyExpesnseSummaryArrayList));
+
+        //Setting up view pager
+        viewPager = root.findViewById(R.id.viewPager);
+        System.out.println("Hello");
+        monthlyExpenseViewPagerAdapter = new MonthlyExpenseViewPagerAdapter(getContext(), monthlySummaryArrayList);
+
+        viewPager.setAdapter(monthlyExpenseViewPagerAdapter);
+        viewPager.setCurrentItem(monthlySummaryArrayList.size() - 1);
     }
 }
