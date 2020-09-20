@@ -16,7 +16,10 @@ import com.example.mywallet.R;
 import com.example.mywallet.UI.Expenses.Model.DailyExpense;
 import com.example.mywallet.UI.Expenses.Model.DailyExpesnseSummary;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class DailyExpenseSummaryAdapter extends RecyclerView.Adapter<DailyExpenseSummaryAdapter.DailyExpenseViewHolder> {
     private ArrayList<DailyExpesnseSummary> dailyExpenses;
@@ -61,7 +64,10 @@ public class DailyExpenseSummaryAdapter extends RecyclerView.Adapter<DailyExpens
     public void onBindViewHolder(@NonNull DailyExpenseViewHolder holder, int position) {
         holder.itemView.setTag(dailyExpenses.get(position));
         holder.amount.setText(((Double)dailyExpenses.get(position).getTotalAmount()).toString());
-        holder.date.setText(dailyExpenses.get(position).getDate().toString());
+
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        String dateString = format.format( dailyExpenses.get(position).getDate());
+        holder.date.setText(dateString);
     }
 
     @Override

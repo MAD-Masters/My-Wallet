@@ -146,6 +146,7 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.nav_host_fragment, dailyExpensesInDetail);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
@@ -175,6 +176,7 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.nav_host_fragment, income2);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
 
 
@@ -186,6 +188,7 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.nav_host_fragment, income3);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
 
     }
@@ -198,6 +201,7 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.nav_host_fragment, income5);
         fragmentTransaction.replace(R.id.nav_host_fragment, income5);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
 
     }
@@ -208,6 +212,7 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.nav_host_fragment, goal1);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
@@ -217,6 +222,7 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.nav_host_fragment, income3);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 }
