@@ -13,13 +13,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.mywallet.R;
 import com.example.mywallet.UI.Expenses.Model.DailyExpense;
 import com.example.mywallet.UI.Expenses.Model.DailyExpesnseSummary;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class Home extends Fragment {
     private RecyclerView recyclerView;
@@ -27,6 +31,7 @@ public class Home extends Fragment {
     private DailyExpenseSummaryAdapter dailyExpenseAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private View root;
+    private ImageView greetingImage;
 
     public Home() {
         // Required empty public constructor
@@ -48,6 +53,36 @@ public class Home extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        Calendar c = Calendar.getInstance();
+        int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
+        String greeting = null;
+        greetingImage = root.findViewById(R.id.greetingImage);
+
+        if(timeOfDay >= 0 && timeOfDay < 12){
+            greeting = "Good Morning";
+            greetingImage.setImageResource(R.drawable.morning);
+        }else if(timeOfDay >= 12 && timeOfDay < 16){
+            greeting = "Good Afternoon";
+            greetingImage.setImageResource(R.drawable.afternoon);
+        }else if(timeOfDay >= 16 && timeOfDay < 21){
+            greeting = "Good Evening";
+            greetingImage.setImageResource(R.drawable.evening);
+        }else if(timeOfDay >= 21 && timeOfDay < 24){
+            greeting = "Good Night";
+            greetingImage.setImageResource(R.drawable.night);
+        }
+
+        Date currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+
+        String dateString = format.format( new Date());
+
+        TextView dateDisplay = root.findViewById(R.id.dateDisplay);
+        dateDisplay.setText(dateString);
+
+        TextView greetings = root.findViewById(R.id.greeting);
+        greetings.setText(greeting);
 
         dailyExpesnseSummaryArrayList = new ArrayList<>();
 

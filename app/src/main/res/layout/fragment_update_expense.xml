@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:textAlignment="textStart"
     tools:context=".UI.Expenses.AddExpense">
 
     <ScrollView
@@ -28,154 +29,103 @@
 
             <TextView
                 android:id="@+id/textView26"
-                android:layout_width="wrap_content"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:background="@drawable/background_blue_fill"
                 android:text="@string/updateExpense"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/titleFontSize"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.053"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"></TextView>
 
             <EditText
                 android:id="@+id/editText"
-                android:layout_width="@dimen/dataBoxWidth"
-                android:layout_height="30dp"
+                android:layout_width="250dp"
+                android:layout_height="35dp"
                 android:layout_marginTop="40dp"
-                android:layout_marginEnd="80dp"
                 android:background="@drawable/background_blue_no_fills"
+                android:hint="@string/amount"
                 android:inputType="numberDecimal"
                 android:textColor="@color/primaryColor"
-                android:textColorHint="@color/colorGrey"
                 android:textSize="@dimen/editText"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/amountTitle2"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/addExpensesMainImage"></EditText>
 
-            <EditText
-                android:id="@+id/editText2"
-                android:layout_width="@dimen/dataBoxWidth"
-                android:layout_height="30dp"
+            <TextView
+                android:id="@+id/dateInput"
+                android:layout_width="250dp"
+                android:layout_height="35dp"
+                android:drawableRight="@drawable/calendar"
+                android:drawableTint="@color/primaryColor"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/background_blue_no_fills"
+                android:hint="@string/dateHere"
                 android:textColor="@color/primaryColor"
                 android:textSize="@dimen/editText"
+                android:inputType="date"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.381"
-                app:layout_constraintStart_toEndOf="@+id/dateTitle"
-                app:layout_constraintTop_toBottomOf="@+id/editText"></EditText>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editText"></TextView>
 
             <EditText
-                android:layout_width="@dimen/dataBoxWidth"
-                android:layout_height="30dp"
-                android:layout_marginTop="30dp"
+                android:id="@+id/editText3"
+                android:layout_width="250dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="32dp"
                 android:background="@drawable/background_blue_no_fills"
+                android:hint="@string/category"
                 android:textColor="@color/primaryColor"
                 android:textSize="@dimen/editText"
+                android:inputType="textAutoComplete"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.389"
-                app:layout_constraintStart_toEndOf="@+id/categoryTitle"
-                app:layout_constraintTop_toBottomOf="@+id/editText2"></EditText>
-
-            <TextView
-                android:id="@+id/amountTitle2"
-                android:layout_width="@dimen/dataBoxWidth"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="80dp"
-                android:layout_marginTop="40dp"
-                android:background="@drawable/background_blue_fill"
-                android:gravity="center_vertical|center_horizontal"
-                android:text="@string/amount"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/editText"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addExpensesMainImage"></TextView>
-
-
-            <TextView
-                android:id="@+id/dateTitle"
-                android:layout_width="@dimen/dataBoxWidth"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="80dp"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/background_blue_fill"
-                android:gravity="center_vertical|center_horizontal"
-                android:text="@string/date"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/editText"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/amountTitle2"
-                app:layout_constraintVertical_bias="0.0"></TextView>
-
-            <TextView
-                android:id="@+id/categoryTitle"
-                android:layout_width="@dimen/dataBoxWidth"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="80dp"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/background_blue_fill"
-                android:gravity="center_vertical|center_horizontal"
-                android:text="@string/category"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/editText"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dateTitle"></TextView>
-
-            <TextView
-                android:id="@+id/textView32"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/note"
-                android:textColor="@color/primaryColor"
-                android:textSize="@dimen/editText"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.212"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/categoryTitle"></TextView>
+                app:layout_constraintTop_toBottomOf="@+id/dateInput"></EditText>
 
 
             <EditText
                 android:id="@+id/note"
                 android:layout_width="250dp"
                 android:layout_height="100dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/background_blue_no_fills"
+                android:hint="Note"
+                android:textAlignment="textStart"
                 android:textSize="@dimen/editText"
+                android:inputType="textImeMultiLine"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.503"
+                app:layout_constraintHorizontal_bias="0.496"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView32"></EditText>
+                app:layout_constraintTop_toBottomOf="@+id/editText3"></EditText>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/appCompatButton2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="76dp"
+                android:layout_height="30dp"
                 android:layout_marginTop="24dp"
                 android:background="@drawable/background_yellow_fully_rounded"
                 android:outlineProvider="none"
                 android:text="@string/update"
                 android:textColor="@color/colorWhite"
+                app:layout_constraintEnd_toStartOf="@+id/appCompatButton"
+                app:layout_constraintHorizontal_bias="0.696"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/note" />
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/appCompatButton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_marginTop="24dp"
-                android:layout_marginEnd="56dp"
                 android:background="@drawable/background_pink_fully_rounded"
                 android:outlineProvider="none"
                 android:text="@string/cansel"
                 android:textColor="@color/colorWhite"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.818"
-                app:layout_constraintStart_toEndOf="@+id/appCompatButton2"
+                app:layout_constraintHorizontal_bias="0.709"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/note"></androidx.appcompat.widget.AppCompatButton>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
