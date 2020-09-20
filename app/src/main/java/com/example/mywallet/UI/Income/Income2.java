@@ -1,5 +1,6 @@
 package com.example.mywallet.UI.Income;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -38,6 +39,7 @@ public class Income2 extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
 
     public Income2() {
         // Required empty public constructor
@@ -87,8 +89,8 @@ public class Income2 extends Fragment {
 
         incomeModelArrayListList = new ArrayList<>();
 
-        incomeModelArrayListList.add(new IncomeModel("hnb bank", 1, Calendar.getInstance().getTime(), 40000, "ttt"));
-        incomeModelArrayListList.add(new IncomeModel("wallet", 2, Calendar.getInstance().getTime(), 30000, "rrr"));
+        incomeModelArrayListList.add(new IncomeModel("hnb bank", 1, Calendar.getInstance().getTime(), 40000, "Lorem  ispham dika kliokalsd "));
+        incomeModelArrayListList.add(new IncomeModel("wallet", 2, Calendar.getInstance().getTime(), 30000, "Lorem  ispham dika kliokalsd "));
 
         recyclerView = root.findViewById(R.id.list_income);
         recyclerView.setHasFixedSize(true);
@@ -96,7 +98,7 @@ public class Income2 extends Fragment {
         layoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        income2adapter = new Income2adapter(incomeModelArrayListList);
+        income2adapter = new Income2adapter(getContext() ,incomeModelArrayListList);
         recyclerView.setAdapter(income2adapter);
     }
 }

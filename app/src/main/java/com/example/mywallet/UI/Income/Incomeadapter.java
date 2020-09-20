@@ -37,6 +37,7 @@ public class Incomeadapter extends RecyclerView.Adapter<Incomeadapter.Income1lay
             btnAdd = itemView.findViewById((R.id.btnAdd));
             btnEdit = itemView.findViewById(R.id.btnEdit);
 
+
            btnAdd.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View view) {
@@ -57,6 +58,8 @@ public class Incomeadapter extends RecyclerView.Adapter<Incomeadapter.Income1lay
                    activity.onBtnTitleincome();
                }
            });
+
+
         }
     }
 
@@ -87,6 +90,7 @@ public class Incomeadapter extends RecyclerView.Adapter<Incomeadapter.Income1lay
         public void onBtnTitleincome();
         public void onUpdateBtnincome();
         public void onaddBtnincome();
+
     }
 
 }

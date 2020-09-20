@@ -1,5 +1,6 @@
 package com.example.mywallet.UI.Income;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +13,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mywallet.R;
 import com.example.mywallet.UI.Income.Model.IncomeModel;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class Income2adapter extends RecyclerView.Adapter<Income2adapter.Income2layoutViewHolder> {
 private ArrayList<IncomeModel> income;
+    private Income2Interface activity;
 
-public Income2adapter(ArrayList<IncomeModel> income) {
-        this.income = income;
+public Income2adapter(Context context,ArrayList<IncomeModel> income) {
+
+    this.income = income;
+    activity = (Income2Interface)context;
         }
 
     @NonNull
@@ -30,7 +36,9 @@ public Income2adapter(ArrayList<IncomeModel> income) {
 
     @Override
     public void onBindViewHolder(@NonNull Income2layoutViewHolder holder, int position) {
-        holder.date.setText(income.get(position).getDate().toString());
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        holder.date.setText(sdf.format(income.get(position).getDate()));
         holder.amount.setText(((Double)income.get(position).getMoney()).toString());
         holder.text.setText(income.get(position).getText());
     }
@@ -43,6 +51,7 @@ public Income2adapter(ArrayList<IncomeModel> income) {
     public static class Income2layoutViewHolder extends RecyclerView.ViewHolder {
 
     TextView date,amount,text;
+    ImageView btnedit;
 
 
     public Income2layoutViewHolder(@NonNull View itemView) {
@@ -50,8 +59,21 @@ public Income2adapter(ArrayList<IncomeModel> income) {
         date = itemView.findViewById(R.id.date);
         amount = itemView.findViewById(R.id.amount);
         text = itemView.findViewById(R.id.text);
+        btnedit = itemView.findViewById(R.id.btnedit);
+
+
+
+            ;
+
+
     }
 }
+
+    public interface Income2Interface {
+        public void oneditBtnincome();
+
+    }
+
 
 }
 

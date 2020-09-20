@@ -4,15 +4,20 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.mywallet.R;
 import com.example.mywallet.UI.Goal.Model.FutureGoal;
+import com.example.mywallet.UI.Income.Income4;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -24,6 +29,9 @@ public class Goal_Home extends Fragment {
     private GoalAdapter goalAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private View root;
+    private Button btn;
+    private FragmentManager fragmentManager;
+    private FragmentTransaction fragmentTransaction;
 
     public Goal_Home() {
         // Required empty public constructor
@@ -45,6 +53,24 @@ public class Goal_Home extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        btn = root.findViewById(R.id.btngoal1);
+
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("Btn", "LKJFSKDJF");
+                Goal goal = new  Goal();
+                fragmentManager = getParentFragmentManager();
+                fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.nav_host_fragment, goal);
+                fragmentTransaction.commit();
+            }
+
+        });
+
+
+
         futuregoalArrayList = new ArrayList<>();
 
         futuregoalArrayList.add(new FutureGoal(Calendar.getInstance().getTime(),7777.00,"xxxxx",68888.00));

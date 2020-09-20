@@ -16,14 +16,14 @@
             android:layout_height="39dp"
             android:background="@drawable/background_blue_fill"
             android:gravity="center_vertical|center_horizontal"
-            android:textColor="@color/colorGrey"
+            android:textColor="@color/colorWhite"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.055"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.057"
-            tools:text="updateresource" />
+            android:text="@string/updateresource" />
 
         <ImageView
             android:id="@+id/imageView10"
@@ -50,12 +50,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.75"
-            tools:text="@string/goal11" />
+            android:text="@string/goal11" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/cansel1"
-            android:layout_width="107dp"
-            android:layout_height="32dp"
+            android:layout_width="105dp"
+            android:layout_height="33dp"
             android:background="@drawable/background_pink_fully_rounded"
             android:backgroundTint="@color/colorPink"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -65,7 +65,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.751"
-            tools:text="@string/goal12" />
+            android:text="@string/goal12" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textInputEditText"
