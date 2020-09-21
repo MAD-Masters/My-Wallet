@@ -106,6 +106,8 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
                 intent.putExtra("Fragment", "AddExpense");
                 startActivity(intent);
             }
+
+
         });
     }
 
@@ -183,6 +185,7 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
 
     @Override
     public void onUpdateBtnExInClick() {
+
         Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
         intent.putExtra("Fragment", "UpdateExpenses");
         startActivity(intent);
@@ -222,6 +225,13 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
 
+    }
+
+    public void onaddincomeBtnClick() {
+
+        Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
+        intent.putExtra("Fragment", "addincome");
+        startActivity(intent);
     }
 
     @Override
