@@ -231,7 +231,7 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
-
+//edit new
     public void oneditBtnincome()
     {
         Income3 income3  = new Income3();
