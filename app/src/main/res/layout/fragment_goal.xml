@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".UI.Goal.Goal">
 
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="216dp"
@@ -26,43 +27,49 @@
         android:id="@+id/imageView"
         android:layout_width="186dp"
         android:layout_height="212dp"
+        android:layout_marginTop="20dp"
         android:src="@drawable/mission"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.453"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.619" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <EditText
         android:id="@+id/textView2"
         android:layout_width="307dp"
         android:layout_height="52dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/background_blue_no_fills"
         android:text="@string/goal2"
         android:textSize="24sp"
-        tools:layout_editor_absoluteX="57dp"
-        tools:layout_editor_absoluteY="382dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
         android:id="@+id/textView3"
         android:layout_width="308dp"
         android:layout_height="57dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/background_blue_no_fills"
         android:text="@string/goal3"
         android:textSize="24sp"
-        tools:layout_editor_absoluteX="57dp"
-        tools:layout_editor_absoluteY="461dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <EditText
         android:id="@+id/textView4"
         android:layout_width="308dp"
         android:layout_height="55dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/background_blue_no_fills"
         android:text="@string/goal4"
         android:textSize="24sp"
-        tools:layout_editor_absoluteX="56dp"
-        tools:layout_editor_absoluteY="548dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button3"
@@ -73,10 +80,10 @@
         android:textColor="#ffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.103"
+        app:layout_constraintHorizontal_bias="0.088"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:layout_constraintVertical_bias="0.488" />
+        app:layout_constraintVertical_bias="0.492" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button4"
@@ -87,9 +94,9 @@
         android:textColor="#ffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.877"
+        app:layout_constraintHorizontal_bias="0.906"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.942" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintVertical_bias="0.492" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
