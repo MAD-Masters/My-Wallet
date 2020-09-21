@@ -34,6 +34,7 @@ public class NoAppBarActivity extends AppCompatActivity {
             fragmentTransaction.add(R.id.noAppBarFragmentContainer, updateExpense);
             fragmentTransaction.commit();
         }
+
     }
 
     public void setActionBarTitle(String title) {
