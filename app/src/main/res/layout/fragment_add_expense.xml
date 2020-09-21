@@ -3,28 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".UI.Expenses.AddExpense">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="none">
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/addExpensesMainImage"
-                android:layout_width="205dp"
-                android:layout_height="154dp"
-                android:layout_marginTop="12dp"
-                android:src="@drawable/add_expenses_main_image"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.503"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView26" />
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/textView26"
@@ -40,92 +26,120 @@
                 app:layout_constraintTop_toTopOf="parent"></TextView>
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/amount"
                 android:layout_width="250dp"
                 android:layout_height="35dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="28dp"
                 android:background="@drawable/background_blue_no_fills"
                 android:hint="@string/amount"
                 android:inputType="numberDecimal"
                 android:textColor="@color/primaryColor"
                 android:textSize="@dimen/editText"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.503"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addExpensesMainImage"></EditText>
+                app:layout_constraintTop_toBottomOf="@+id/textView26"></EditText>
 
             <TextView
                 android:id="@+id/dateInput"
                 android:layout_width="250dp"
                 android:layout_height="35dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/background_blue_no_fills"
                 android:drawableRight="@drawable/calendar"
                 android:drawableTint="@color/primaryColor"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/background_blue_no_fills"
                 android:hint="@string/dateHere"
+                android:inputType="date"
                 android:textColor="@color/primaryColor"
                 android:textSize="@dimen/editText"
-                android:inputType="date"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editText"></TextView>
+                app:layout_constraintTop_toBottomOf="@+id/amount"></TextView>
 
             <EditText
-                android:id="@+id/editText3"
+                android:id="@+id/categoryId"
                 android:layout_width="250dp"
                 android:layout_height="35dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="16dp"
                 android:background="@drawable/background_blue_no_fills"
                 android:hint="@string/category"
+                android:inputType="textAutoComplete"
                 android:textColor="@color/primaryColor"
                 android:textSize="@dimen/editText"
-                android:inputType="textAutoComplete"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dateInput"></EditText>
 
 
             <EditText
+                android:id="@+id/walletId"
+                android:layout_width="250dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/background_blue_no_fills"
+                android:hint="Wallet"
+                android:inputType="textAutoComplete"
+                android:textColor="@color/primaryColor"
+                android:textSize="@dimen/editText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.503"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/categoryId"></EditText>
+
+            <EditText
                 android:id="@+id/note"
                 android:layout_width="250dp"
                 android:layout_height="100dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="16dp"
                 android:background="@drawable/background_blue_no_fills"
                 android:hint="Note"
-                android:textAlignment="textStart"
-                android:textSize="@dimen/editText"
                 android:inputType="textImeMultiLine"
+                android:textAlignment="textStart"
+                android:textColor="@color/primaryColor"
+                android:textSize="@dimen/editText"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.496"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editText3"></EditText>
+                app:layout_constraintTop_toBottomOf="@+id/walletId"></EditText>
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/appCompatButton2"
+                android:id="@+id/btnSaveExpense"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_marginTop="24dp"
-                android:background="@drawable/background_blue_fully_rounded"
+                android:background="@drawable/background_blue_fill"
                 android:outlineProvider="none"
                 android:text="@string/add"
                 android:textColor="@color/colorWhite"
-                app:layout_constraintEnd_toStartOf="@+id/appCompatButton"
-                app:layout_constraintHorizontal_bias="0.61"
+                app:layout_constraintEnd_toStartOf="@+id/cansel"
+                app:layout_constraintHorizontal_bias="0.59"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/note" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/appCompatButton"
+                android:id="@+id/cansel"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_marginTop="24dp"
-                android:background="@drawable/background_pink_fully_rounded"
+                android:background="@drawable/background_pink_fill"
                 android:outlineProvider="none"
                 android:text="@string/cansel"
                 android:textColor="@color/colorWhite"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.709"
+                app:layout_constraintHorizontal_bias="0.717"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/note"></androidx.appcompat.widget.AppCompatButton>
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="300dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="52dp"
+                android:src="@drawable/add_expenses_main_image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.553"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cansel" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+  
 </LinearLayout>

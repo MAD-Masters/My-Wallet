@@ -58,11 +58,27 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Home home = new Home();
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.nav_host_fragment, home);
-        fragmentTransaction.commit();
+        Intent intent = getIntent();
+
+        String fragment = intent.getStringExtra("Fragment");
+
+        if (fragment != null) {
+            if (fragment.equals("ExpenseInDetail")) {
+                DailyExpensesInDetail dailyExpensesInDetail = new DailyExpensesInDetail();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.add(R.id.noAppBarFragmentContainer, dailyExpensesInDetail);
+                fragmentTransaction.commit();
+            }
+        } else {
+            Home home = new Home();
+            fragmentManager = getSupportFragmentManager();
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.nav_host_fragment, home);
+            fragmentTransaction.commit();
+        }
+
+
 
         floatingActionButton = findViewById(R.id.fab);
 
