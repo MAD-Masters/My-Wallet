@@ -131,6 +131,7 @@ public class AddExpense extends Fragment {
         });
     }
 
+    //This method checks the fields
     public boolean checkFields() {
         boolean status = true;
         if (amount.getText().length() == 0) {
