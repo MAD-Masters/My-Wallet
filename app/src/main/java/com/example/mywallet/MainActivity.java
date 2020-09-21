@@ -225,4 +225,16 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
+
+    public void onDeletBtnGoInClick() {
+        dialog.setContentView(R.layout.delete_pop_up);
+        /*LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.delete_pop_up, (ViewGroup)findViewById(R.id.deletePopUp));
+        TextView message = vie*/
+
+        TextView message = dialog.findViewById(R.id.message);
+        message.setText("Are you sure to delete this Goal?");
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+    }
 }
