@@ -68,6 +68,11 @@ import java.util.ArrayList;
                     }
                 }
 
+        public interface BudgetInterface {
+
+            public void onBtnAddBudget();
+
+        }
             }
 
 

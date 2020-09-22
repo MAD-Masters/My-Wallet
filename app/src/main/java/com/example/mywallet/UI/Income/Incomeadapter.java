@@ -86,7 +86,6 @@ public class Incomeadapter extends RecyclerView.Adapter<Incomeadapter.Income1lay
 
     public interface IncomeInterface {
 
-
         public void onBtnTitleincome();
         public void onUpdateBtnincome();
         public void onaddBtnincome();
