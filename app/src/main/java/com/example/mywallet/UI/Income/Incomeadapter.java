@@ -28,7 +28,7 @@ public class Incomeadapter extends RecyclerView.Adapter<Incomeadapter.Income1lay
     public  class Income1layoutViewHolder extends RecyclerView.ViewHolder {
 
         TextView resource,resourcetitle;
-        ImageView resourceview,btnAdd,btnEdit;
+        ImageView resourceview,btnAdd,btnEdit,btndelete;
 
         public Income1layoutViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -36,6 +36,7 @@ public class Incomeadapter extends RecyclerView.Adapter<Incomeadapter.Income1lay
             resourcetitle = itemView.findViewById(R.id.resourcetitle);
             btnAdd = itemView.findViewById((R.id.btnAdd));
             btnEdit = itemView.findViewById(R.id.btnEdit);
+            btndelete = itemView.findViewById(R.id.btndelete);
 
 
            btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -56,6 +57,12 @@ public class Incomeadapter extends RecyclerView.Adapter<Incomeadapter.Income1lay
                @Override
                public void onClick(View view) {
                    activity.onBtnTitleincome();
+               }
+           });
+           btndelete.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+                   activity.ondeleteincome1();
                }
            });
 
@@ -90,6 +97,7 @@ public class Incomeadapter extends RecyclerView.Adapter<Incomeadapter.Income1lay
         public void onBtnTitleincome();
         public void onUpdateBtnincome();
         public void onaddBtnincome();
+        public void ondeleteincome1();
 
     }
 

@@ -227,6 +227,21 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
 
     }
 
+    @Override
+    public void ondeleteincome1() {
+
+        dialog.setContentView(R.layout.delete_pop_up);
+        /*LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.delete_pop_up, (ViewGroup)findViewById(R.id.deletePopUp));
+        TextView message = vie*/
+
+        TextView message = dialog.findViewById(R.id.message);
+        message.setText("Are you sure to delete this resource?");
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+
+    }
+
     public void onaddincomeBtnClick() {
 
         Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
@@ -264,5 +279,18 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         fragmentTransaction.replace(R.id.nav_host_fragment, income6);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void ondeleteincome2() {
+        dialog.setContentView(R.layout.delete_pop_up);
+        /*LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.delete_pop_up, (ViewGroup)findViewById(R.id.deletePopUp));
+        TextView message = vie*/
+
+        TextView message = dialog.findViewById(R.id.message);
+        message.setText("Are you sure to delete this record?");
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
     }
 }

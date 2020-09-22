@@ -51,7 +51,7 @@ public class Income2adapter extends RecyclerView.Adapter<Income2adapter.Income2l
     public  class Income2layoutViewHolder extends RecyclerView.ViewHolder {
 
         TextView date, amount, text;
-        ImageView btnedit;
+        ImageView btnedit,btndelete;
 
 
         public Income2layoutViewHolder(@NonNull View itemView) {
@@ -60,6 +60,7 @@ public class Income2adapter extends RecyclerView.Adapter<Income2adapter.Income2l
             amount = itemView.findViewById(R.id.amount);
             text = itemView.findViewById(R.id.text);
             btnedit = itemView.findViewById(R.id.btnedit);
+            btndelete = itemView.findViewById(R.id.btndelete);
 
 
             btnedit.setOnClickListener(new View.OnClickListener() {
@@ -69,11 +70,19 @@ public class Income2adapter extends RecyclerView.Adapter<Income2adapter.Income2l
                 }
             });
 
+            btndelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    activity.ondeleteincome2();
+                }
+            });
+
         }
     }
 
     public interface Income2Interface {
        public void onUpdateBtnincomemoney();
+       public void ondeleteincome2();
 
    }
 }
