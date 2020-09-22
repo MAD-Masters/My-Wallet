@@ -199,8 +199,6 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         fragmentTransaction.replace(R.id.nav_host_fragment, income2);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-
-
     }
 
     @Override
