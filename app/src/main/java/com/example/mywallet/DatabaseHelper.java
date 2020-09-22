@@ -40,7 +40,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("WALLET_ID", dailyExpense.getWalletID());
 
         long status = db.insert(TABLE_EXPENSES, null, contentValues);
-        System.out.println("Database Record Added");
 
         if (status == -1) {
             return false;

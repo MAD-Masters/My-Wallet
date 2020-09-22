@@ -23,6 +23,7 @@ import com.example.mywallet.DatabaseHelper;
 import com.example.mywallet.MainActivity;
 import com.example.mywallet.NoAppBarActivity;
 import com.example.mywallet.R;
+import com.example.mywallet.ToastMessage;
 import com.example.mywallet.UI.Expenses.Model.DailyExpense;
 
 import java.text.DateFormat;
@@ -40,6 +41,7 @@ public class AddExpense extends Fragment {
     private Button btnAddExpense;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
+    private ToastMessage toastMessage;
 
     public AddExpense() {
         // Required empty public constructor
@@ -61,6 +63,7 @@ public class AddExpense extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        toastMessage = new ToastMessage(getActivity(), view);
         eText = (TextView) view.findViewById(R.id.dateInput);
         Date currentTime = Calendar.getInstance().getTime();
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -96,7 +99,6 @@ public class AddExpense extends Fragment {
             @Override
             public void onClick(View v) {
                 if (checkFields()) {
-                    System.out.println("Helloworld");
                     DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
                     Date date = Calendar.getInstance().getTime();
                     try {
@@ -114,57 +116,33 @@ public class AddExpense extends Fragment {
 
                     DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
                     boolean status = databaseHelper.addExpense(dailyExpense);
-                    System.out.println("Status : " + status);
+
                     if (status) {
-                        successToast("Successfully Inserted");
+                        toastMessage.successToast("Successfully Inserted");
 
                         Intent intent = new Intent(getContext(), MainActivity.class);
                         startActivity(intent);
 
                     } else {
-                        errorToast("Insert Failed");
+                        toastMessage.errorToast("Insert Failed");
                     }
                 }
             }
         });
     }
 
-    public void errorToast(String message) {
-        View toastView = getLayoutInflater().inflate(R.layout.toast_red, (ViewGroup) view.findViewById(R.id.toast_lin_lay));
-        TextView toastText = toastView.findViewById(R.id.toast_text_red);
-        toastText.setText(message);
-
-        Toast toast = new Toast(getActivity());
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.setView(toastView);
-        toast.setGravity(Gravity.BOTTOM | Gravity.FILL_HORIZONTAL, 0, 0);
-        toast.show();
-    }
-
-    public void successToast(String message) {
-        View toastView = getLayoutInflater().inflate(R.layout.toast_blue, (ViewGroup) view.findViewById(R.id.toast_lin_lay));
-        TextView toastText = toastView.findViewById(R.id.toast_text_red);
-        toastText.setText(message);
-
-        Toast toast = new Toast(getActivity());
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.setView(toastView);
-        toast.setGravity(Gravity.BOTTOM | Gravity.FILL_HORIZONTAL, 0, 0);
-        toast.show();
-    }
-
+    //This method checks the fields
     public boolean checkFields() {
-        System.out.println("Check Fields");
         boolean status = true;
         if (amount.getText().length() == 0) {
-            errorToast("Amount can not be Empty");
+            toastMessage.errorToast("Amount can not be Empty");
             status = false;
         } else if (category.getText().length() == 0) {
             status = false;
-            errorToast("Category can not be Empty");
+            toastMessage.errorToast("Category can not be Empty");
         } else if (wallet.getText().length() == 0) {
             status = false;
-            errorToast("Wallet can not be Empty");
+            toastMessage.errorToast("Wallet can not be Empty");
         } else if (note.getText().length() == 0) {
             note.setText(" ");
         }
