@@ -54,6 +54,8 @@
                 android:layout_marginStart="28dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/morning"
+                android:textStyle="bold"
+                android:textSize="18sp"
                 android:textColor="@color/colorPink"
                 app:layout_constraintStart_toEndOf="@+id/textView33"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -68,260 +70,18 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/greeting"
-                app:layout_constraintTop_toTopOf="parent" />]
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/currentMonth"
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPager"
                 android:layout_width="match_parent"
-                android:layout_margin="16dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/background_pink_fill"
-                android:text="@string/august"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/editText"
+                android:layout_height="600dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/greetingImage"/>
-
+                app:layout_constraintTop_toBottomOf="@+id/greetingImage"></androidx.viewpager.widget.ViewPager>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp"
-            android:layout_margin="16dp">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="@dimen/dataBoxWidth"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:text="@string/inflow"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/background_blue_fill"
-                    android:textColor="@color/colorWhite"></TextView>
-
-                <TextView
-                    android:layout_width="@dimen/dataBoxWidth"
-                    android:layout_height="wrap_content"
-                    android:text="@string/outflow"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:background="@drawable/background_green"
-                    android:textColor="@color/colorWhite"></TextView>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="@dimen/dataBoxWidth"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:text="@string/defaultAmount"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/background_blue_no_fills"
-                    android:textColor="@color/primaryColor"></TextView>
-
-                <TextView
-                    android:layout_width="@dimen/dataBoxWidth"
-                    android:layout_height="wrap_content"
-                    android:text="@string/defaultAmount"
-                    android:layout_marginBottom="10dp"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:background="@drawable/background_green_no_fills"
-                    android:textColor="@color/colorGreen"></TextView>
-
-                <TextView
-                    android:layout_width="@dimen/dataBoxWidth"
-                    android:layout_height="wrap_content"
-                    android:text="@string/defaultAmount"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:background="@drawable/background_pink_no_fills"
-                    android:textColor="@color/colorPink"></TextView>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="100dp"
-                    android:src="@drawable/bill_and_card"></ImageView>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:orientation="vertical">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_marginRight="10dp"
-                        android:layout_height="50dp"
-                        android:background="@drawable/background_blue_no_fills"
-                        android:padding="5dp">
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/bill"></ImageView>
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:textColor="@color/primaryColor"
-                            android:text="@string/defaultAmount"
-                            android:gravity="center_vertical|center_horizontal"></TextView>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="50dp"
-                        android:background="@drawable/background_blue_no_fills"
-                        android:padding="5dp">
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/education"></ImageView>
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:textColor="@color/primaryColor"
-                            android:text="@string/defaultAmount"
-                            android:gravity="center_vertical|center_horizontal"></TextView>
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_marginRight="10dp"
-                        android:layout_height="50dp"
-                        android:background="@drawable/background_blue_no_fills"
-                        android:padding="5dp">
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/loan"></ImageView>
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:textColor="@color/primaryColor"
-                            android:text="@string/defaultAmount"
-                            android:gravity="center_vertical|center_horizontal"></TextView>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="50dp"
-                        android:background="@drawable/background_blue_no_fills"
-                        android:padding="5dp">
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/gift"></ImageView>
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:textColor="@color/primaryColor"
-                            android:text="@string/defaultAmount"
-                            android:gravity="center_vertical|center_horizontal"></TextView>
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_marginRight="10dp"
-                        android:layout_height="50dp"
-                        android:background="@drawable/background_blue_no_fills"
-                        android:padding="5dp">
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/family"></ImageView>
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:textColor="@color/primaryColor"
-                            android:text="@string/defaultAmount"
-                            android:gravity="center_vertical|center_horizontal"></TextView>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="50dp"
-                        android:background="@drawable/background_blue_no_fills"
-                        android:padding="5dp">
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/food"></ImageView>
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:textColor="@color/primaryColor"
-                            android:text="@string/defaultAmount"
-                            android:gravity="center_vertical|center_horizontal"></TextView>
-                    </LinearLayout>
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:text="@string/dailyExpenses"
-                android:textColor="@color/primaryColor"></TextView>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="50dp"
-                android:id="@+id/recyclerView"></androidx.recyclerview.widget.RecyclerView>
-
-        </LinearLayout>
-
-    </ScrollView>
+        </LinearLayout>    </ScrollView>
 
 </LinearLayout>

@@ -35,4 +35,8 @@ public class NoAppBarActivity extends AppCompatActivity {
             fragmentTransaction.commit();
         }
     }
+
+    public void setActionBarTitle(String title) {
+        getSupportActionBar().setTitle(title);
+    }
 }

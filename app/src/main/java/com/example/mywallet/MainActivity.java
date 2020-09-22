@@ -58,11 +58,27 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Home home = new Home();
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.nav_host_fragment, home);
-        fragmentTransaction.commit();
+        Intent intent = getIntent();
+
+        String fragment = intent.getStringExtra("Fragment");
+
+        if (fragment != null) {
+            if (fragment.equals("ExpenseInDetail")) {
+                DailyExpensesInDetail dailyExpensesInDetail = new DailyExpensesInDetail();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.add(R.id.noAppBarFragmentContainer, dailyExpensesInDetail);
+                fragmentTransaction.commit();
+            }
+        } else {
+            Home home = new Home();
+            fragmentManager = getSupportFragmentManager();
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.nav_host_fragment, home);
+            fragmentTransaction.commit();
+        }
+
+
 
         floatingActionButton = findViewById(R.id.fab);
 
@@ -146,6 +162,7 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.nav_host_fragment, dailyExpensesInDetail);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
@@ -175,9 +192,8 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.nav_host_fragment, income2);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-
-
     }
 
     @Override
@@ -186,6 +202,7 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.nav_host_fragment, income3);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
 
     }
@@ -198,6 +215,7 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.nav_host_fragment, income5);
         fragmentTransaction.replace(R.id.nav_host_fragment, income5);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
 
     }
@@ -208,15 +226,17 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.nav_host_fragment, goal1);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
-
+//ewwerfwfwefewfwex
     public void oneditBtnincome()
     {
         Income3 income3  = new Income3();
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.nav_host_fragment, income3);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
