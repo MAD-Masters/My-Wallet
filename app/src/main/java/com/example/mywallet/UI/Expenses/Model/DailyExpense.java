@@ -10,6 +10,9 @@ public class DailyExpense {
     int categoryId;
     String note;
 
+    public DailyExpense() {
+    }
+
     public DailyExpense(Date date, double amount, int walletID, int categoryId, String note) {
         this.date = date;
         this.amount = amount;
