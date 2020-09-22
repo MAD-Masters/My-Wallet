@@ -14,93 +14,83 @@
             android:id="@+id/textView12"
             android:layout_width="189dp"
             android:layout_height="40dp"
+            android:layout_marginBottom="38dp"
             android:background="@drawable/background_blue_fill"
             android:gravity="center_vertical|center_horizontal"
+            android:text="@string/addresource"
             android:textColor="#ffff"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/imageView11"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.072"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.043"
-            android:text="@string/addresource" />
+            app:layout_constraintVertical_bias="1.0" />
 
         <ImageView
             android:id="@+id/imageView11"
             android:layout_width="289dp"
             android:layout_height="216dp"
+            android:layout_marginTop="108dp"
             android:src="@drawable/wallet_with_mens"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.159" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/update"
             android:layout_width="160dp"
             android:layout_height="40dp"
+            android:layout_marginTop="56dp"
             android:background="@drawable/background_blue_fully_rounded"
-            android:textColor="#ffff"
 
+            android:text="@string/addwallet"
+            android:textColor="#ffff"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.089"
+            app:layout_constraintEnd_toStartOf="@+id/cansel2"
+            app:layout_constraintHorizontal_bias="0.396"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.713"
-            android:text="@string/addwallet" />
+            app:layout_constraintTop_toBottomOf="@+id/textInputEditText3"
+            app:layout_constraintVertical_bias="0.089" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/cansel2"
             android:layout_width="160dp"
             android:layout_height="40dp"
+            android:layout_marginTop="63dp"
             android:background="@drawable/background_blue_fully_rounded"
             android:backgroundTint="@color/colorPink"
+            android:text="@string/goal12"
             android:textColor="#ffff"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.752"
+            app:layout_constraintHorizontal_bias="0.892"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.708"
-            android:text="@string/goal12" />
+            app:layout_constraintTop_toBottomOf="@+id/textInputEditText3"
+            app:layout_constraintVertical_bias="0.052" />
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputEditText3"
             android:layout_width="351dp"
             android:layout_height="37dp"
+            android:layout_marginTop="28dp"
             android:background="@drawable/background_blue_no_fills"
             android:hint="Bank"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.548"
+            app:layout_constraintHorizontal_bias="0.266"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.595" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout3"
-            android:layout_width="379dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-        </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintTop_toBottomOf="@+id/textInputEditText8" />
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputEditText8"
             android:layout_width="351dp"
             android:layout_height="37dp"
+            android:layout_marginTop="49dp"
             android:background="@drawable/background_blue_no_fills"
             android:hint="My wallet"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.568"
+            app:layout_constraintHorizontal_bias="0.266"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.499" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView11" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
