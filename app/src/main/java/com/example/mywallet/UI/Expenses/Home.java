@@ -1,5 +1,6 @@
 package com.example.mywallet.UI.Expenses;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -13,10 +14,13 @@ import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.mywallet.DatabaseHelper;
 import com.example.mywallet.R;
 import com.example.mywallet.UI.Expenses.Model.DailyExpense;
 import com.example.mywallet.UI.Expenses.Model.DailyExpesnseSummary;
@@ -59,24 +63,28 @@ public class Home extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
         Calendar c = Calendar.getInstance();
         int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
         String greeting = null;
         greetingImage = root.findViewById(R.id.greetingImage);
+        TextView greetings = root.findViewById(R.id.greeting);
 
         if(timeOfDay >= 0 && timeOfDay < 12){
             greeting = "Good Morning";
             greetingImage.setImageResource(R.drawable.morning);
+            greetings.setTextColor(getResources().getColor(R.color.yellowLight));
         }else if(timeOfDay >= 12 && timeOfDay < 16){
             greeting = "Good Afternoon";
             greetingImage.setImageResource(R.drawable.afternoon);
+            greetings.setTextColor(getResources().getColor(R.color.yellowLight));
         }else if(timeOfDay >= 16 && timeOfDay < 21){
             greeting = "Good Evening";
             greetingImage.setImageResource(R.drawable.evening);
+            greetings.setTextColor(getResources().getColor(R.color.primaryLightColor));
         }else if(timeOfDay >= 21 && timeOfDay < 24){
             greeting = "Good Night";
             greetingImage.setImageResource(R.drawable.night);
+            greetings.setTextColor(getResources().getColor(R.color.yellowLight));
         }
 
         Date currentTime = Calendar.getInstance().getTime();
@@ -87,7 +95,7 @@ public class Home extends Fragment {
         TextView dateDisplay = root.findViewById(R.id.dateDisplay);
         dateDisplay.setText(dateString);
 
-        TextView greetings = root.findViewById(R.id.greeting);
+
         greetings.setText(greeting);
 
         dailyExpesnseSummaryArrayList = new ArrayList<>();
