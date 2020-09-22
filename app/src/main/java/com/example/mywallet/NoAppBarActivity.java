@@ -29,7 +29,7 @@ public class NoAppBarActivity extends AppCompatActivity {
             fragmentTransaction.add(R.id.noAppBarFragmentContainer, addExpense);
             fragmentTransaction.commit();
         } else if (fragment.equals("UpdateExpenses")) {
-          
+
             UpdateExpense updateExpense = new UpdateExpense();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
