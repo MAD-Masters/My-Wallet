@@ -193,35 +193,23 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
 
     @Override
     public void onBtnTitleincome() {
-        Income2 income2 = new Income2();
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.nav_host_fragment, income2);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
+        intent.putExtra("Fragment", "titleincome");
+        startActivity(intent);
     }
 
     @Override
     public void onUpdateBtnincome() {
-        Income3 income3 = new Income3();
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.nav_host_fragment, income3);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-
+        Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
+        intent.putExtra("Fragment", "updateincome");
+        startActivity(intent);
     }
 
     @Override
     public void onaddBtnincome() {
-
-        Income5 income5 = new Income5();
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.nav_host_fragment, income5);
-        fragmentTransaction.replace(R.id.nav_host_fragment, income5);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
+        intent.putExtra("Fragment", "addincome");
+        startActivity(intent);
 
     }
 
@@ -240,12 +228,6 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
 
     }
 
-    public void onaddincomeBtnClick() {
-
-        Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
-        intent.putExtra("Fragment", "addincome");
-        startActivity(intent);
-    }
 
     @Override
     public void onAddBtnGoalClick() {
@@ -257,26 +239,11 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         fragmentTransaction.commit();
     }
 
-    public void oneditBtnincome()
-    {
-        Income3 income3  = new Income3();
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.nav_host_fragment, income3);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-    }
-
-
-
     @Override
     public void onUpdateBtnincomemoney() {
-        Income6 income6  = new Income6();
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.nav_host_fragment, income6);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
+        intent.putExtra("Fragment", "updateincomemoney");
+        startActivity(intent);
     }
 
     @Override

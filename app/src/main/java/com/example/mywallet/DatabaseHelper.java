@@ -71,12 +71,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //Category Items Insert
     public void addCategoryItems(SQLiteDatabase db) {
+
         String sql = "INSERT INTO CATEGORY(NAME) VALUES ('Bills'), ('Education'), ('Family'), ('Gifts'), ('Food'), ('Loan')";
         db.execSQL(sql);
         Log.d("database", "Category Items Inserted Successfully");
 
         sql = "INSERT INTO WALLET(WALLET_NAME, BANK) VALUES ('BOC Account', 'BOC')";
         db.execSQL(sql);
+
     }
 
     //Add Expenses
