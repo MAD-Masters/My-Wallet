@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mywallet.R;
-import com.example.mywallet.UI.Income.Model.IncomeModel;
+import com.example.mywallet.Model.IncomeModel;
 
 import java.util.ArrayList;
 

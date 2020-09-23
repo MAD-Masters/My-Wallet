@@ -4,22 +4,16 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mywallet.R;
-import com.example.mywallet.UI.Expenses.Model.DailyExpense;
-import com.example.mywallet.UI.Expenses.Model.DailyExpesnseSummary;
+import com.example.mywallet.Model.DailyExpesnseSummary;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 public class DailyExpenseSummaryAdapter extends RecyclerView.Adapter<DailyExpenseSummaryAdapter.DailyExpenseViewHolder> {
     private ArrayList<DailyExpesnseSummary> dailyExpenses;

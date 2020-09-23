@@ -1,4 +1,4 @@
-package com.example.mywallet.UI.Goal.Model;
+package com.example.mywallet.Model;
 
 import java. util.Date;
 
