@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mywallet.UI.BudgetManager.Budget1;
+import com.example.mywallet.UI.BudgetManager.Model.Budget2;
 import com.example.mywallet.UI.Expenses.AddExpense;
 import com.example.mywallet.UI.Expenses.DailyExpenseAdapter;
 import com.example.mywallet.UI.Expenses.DailyExpenseSummaryAdapter;
@@ -238,17 +239,9 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         fragmentTransaction.replace(R.id.nav_host_fragment, income3);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-    }
-
-    public void onBtnAddbudget() {
-
-        Income2 income2 = new Income2();
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.nav_host_fragment, income2);
-        fragmentTransaction.replace(R.id.nav_host_fragment, income2);
-        fragmentTransaction.commit();
-    }
+                }
 
 
-    }
+
+
+        }

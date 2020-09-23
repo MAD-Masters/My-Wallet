@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,16 +15,19 @@ import com.example.mywallet.R;
 import com.example.mywallet.UI.BudgetManager.Model.Budgetmodel;
 import com.example.mywallet.UI.Expenses.DailyExpenseAdapter;
 import com.example.mywallet.UI.Expenses.Model.DailyExpense;
+import com.example.mywallet.UI.Income.Incomeadapter;
 
 import java.util.ArrayList;
 
 
     public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.BudgetviewHolder>{
         private ArrayList<Budgetmodel> budget;
+        private BudgetInterface activity;
+        private Button addBTN;
 
         public BudgetAdapter(Context context, ArrayList<Budgetmodel> budget) {
             this.budget = budget;
-
+            activity = (BudgetInterface) context;
         }
 
         @NonNull
@@ -35,15 +39,11 @@ import java.util.ArrayList;
 
         @Override
         public void onBindViewHolder(@NonNull BudgetviewHolder holder, int position) {
-
-
-
             holder.number1.setText(((Double)budget.get(position).getNumber1()).toString());
             holder.number2.setText(((Double)budget.get(position).getNumber2()).toString());
             holder.FoodAndBeverages.setText(budget.get(position).getText());
             holder.progressBar.setImageResource(R.drawable.rectangle);
             holder.foodIcon.setImageResource(R.drawable.food);
-
         }
 
         @Override
@@ -64,8 +64,8 @@ import java.util.ArrayList;
                 progressBar = itemView.findViewById(R.id.progressBar);
                 foodIcon = itemView.findViewById(R.id.foodIcon);
 
-
-                    }
+            }
+            
                 }
 
         public interface BudgetInterface {

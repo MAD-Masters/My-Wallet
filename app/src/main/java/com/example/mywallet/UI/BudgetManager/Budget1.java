@@ -37,7 +37,7 @@ public class Budget1 extends Fragment {
     private BudgetAdapter budgetAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private View root;
-    Button btn;
+    Button btn, btnAdd;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
 
@@ -92,6 +92,21 @@ public class Budget1 extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         btn = root.findViewById(R.id.addresorce);
+
+        btnAdd =root.findViewById(R.id.addButton);
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Budget2 budget2 = new Budget2();
+                fragmentManager = getParentFragmentManager();
+                fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.nav_host_fragment, budget2);
+                fragmentTransaction.replace(R.id.nav_host_fragment, budget2);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
