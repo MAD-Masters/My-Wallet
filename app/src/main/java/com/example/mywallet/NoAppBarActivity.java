@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import com.example.mywallet.UI.Expenses.AddExpense;
 import com.example.mywallet.UI.Expenses.UpdateExpense;
+import com.example.mywallet.UI.Income.Income5;
 
 public class NoAppBarActivity extends AppCompatActivity {
 
@@ -36,6 +37,14 @@ public class NoAppBarActivity extends AppCompatActivity {
             setActionBarTitle(fragment);
             fragmentTransaction.commit();
         }
+        else if (fragment.equals("addincome")) {
+            Income5 income5 = new Income5();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.noAppBarFragmentContainer, income5);
+            fragmentTransaction.commit();
+        }
+
     }
 
     public void setActionBarTitle(String title) {
