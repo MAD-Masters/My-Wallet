@@ -70,6 +70,7 @@ public class MonthlyExpenseViewPagerAdapter extends PagerAdapter {
         TextView family = layoutScreen.findViewById(R.id.family);
         TextView gifts = layoutScreen.findViewById(R.id.gifts);
         TextView bills = layoutScreen.findViewById(R.id.bills);
+        TextView titleDaily = layoutScreen.findViewById(R.id.dailyExpensesTitle);
 
         DatabaseHelper databaseHelper = new DatabaseHelper(context);
         ArrayList<DailyExpense> dailyExpenseArrayList = new ArrayList<>();
@@ -80,8 +81,6 @@ public class MonthlyExpenseViewPagerAdapter extends PagerAdapter {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
-        System.out.println("Array List " + dailyExpenseArrayList.size());
 
         ExpenseServicesImple expenseServicesImple = new ExpenseServicesImple();
         MonthlySummary monthlySummary = expenseServicesImple.getMonthlySummary(dailyExpenseArrayList, incomeToWalletArrayList);
@@ -106,9 +105,13 @@ public class MonthlyExpenseViewPagerAdapter extends PagerAdapter {
         layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        //DailyExpesnseSummary dailyExpesnseSummary = new DailyExpesnseSummary();
-        //dailyExpenseAdapter = new DailyExpenseSummaryAdapter(context, dailyExpenseArrayList);
-        //recyclerView.setAdapter(dailyExpenseAdapter);
+        ArrayList<DailyExpesnseSummary> dailyExpesnseSummaryArrayList = expenseServicesImple.getDailyExpenseSummary(dailyExpenseArrayList);
+        dailyExpenseAdapter = new DailyExpenseSummaryAdapter(context, dailyExpesnseSummaryArrayList, dailyExpenseArrayList);
+        recyclerView.setAdapter(dailyExpenseAdapter);
+
+        if (dailyExpesnseSummaryArrayList.size() == 0) {
+            titleDaily.setVisibility(View.INVISIBLE);
+        }
 
         container.addView(layoutScreen);
 

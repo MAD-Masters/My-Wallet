@@ -39,6 +39,7 @@
                     android:textSize="@dimen/titleFontSize"></TextView>
 
                 <TextView
+                    android:id="@+id/dateN"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -60,6 +61,7 @@
                         android:textColor="@color/colorWhite"></TextView>
 
                     <TextView
+                        android:id="@+id/totalAmount"
                         android:layout_width="@dimen/dataBoxWidth"
                         android:layout_height="wrap_content"
                         android:background="@drawable/background_pink_no_fills"
