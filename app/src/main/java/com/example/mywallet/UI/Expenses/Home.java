@@ -1,30 +1,20 @@
 package com.example.mywallet.UI.Expenses;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.mywallet.DatabaseHelper;
 import com.example.mywallet.R;
-import com.example.mywallet.UI.Expenses.Model.DailyExpense;
-import com.example.mywallet.UI.Expenses.Model.DailyExpesnseSummary;
-import com.example.mywallet.UI.Expenses.Model.MonthlySummary;
+import com.example.mywallet.Model.DailyExpesnseSummary;
+import com.example.mywallet.Model.MonthlySummary;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -94,34 +84,21 @@ public class Home extends Fragment {
 
         TextView dateDisplay = root.findViewById(R.id.dateDisplay);
         dateDisplay.setText(dateString);
-
-
         greetings.setText(greeting);
 
-        dailyExpesnseSummaryArrayList = new ArrayList<>();
 
-        dailyExpesnseSummaryArrayList.add(new DailyExpesnseSummary(Calendar.getInstance().getTime(), 1000));
-        dailyExpesnseSummaryArrayList.add(new DailyExpesnseSummary(Calendar.getInstance().getTime(), 5000));
-/*
-        recyclerView = root.findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
+        int dates[][] = new int[2][2];
+        dates[0][0]  = 7;
+        dates[0][1] = 2020;
+        dates[1][0]  = 8;
+        dates[1][1] = 2020;
 
-        layoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(layoutManager);
-
-        dailyExpenseAdapter = new DailyExpenseSummaryAdapter(getContext(), dailyExpesnseSummaryArrayList);
-        recyclerView.setAdapter(dailyExpenseAdapter);*/
-
-        monthlySummaryArrayList = new ArrayList<>();
-        monthlySummaryArrayList.add(new MonthlySummary("August", 500, 500, 100, 230, 0, 0, 0, 0, 0, dailyExpesnseSummaryArrayList));
-        monthlySummaryArrayList.add(new MonthlySummary("September", 500, 500, 100, 230, 0, 0, 0, 0, 0, dailyExpesnseSummaryArrayList));
 
         //Setting up view pager
         viewPager = root.findViewById(R.id.viewPager);
-        System.out.println("Hello");
-        monthlyExpenseViewPagerAdapter = new MonthlyExpenseViewPagerAdapter(getContext(), monthlySummaryArrayList);
+        monthlyExpenseViewPagerAdapter = new MonthlyExpenseViewPagerAdapter(getContext(), dates);
 
         viewPager.setAdapter(monthlyExpenseViewPagerAdapter);
-        viewPager.setCurrentItem(monthlySummaryArrayList.size() - 1);
+        viewPager.setCurrentItem(dates.length - 1);
     }
 }

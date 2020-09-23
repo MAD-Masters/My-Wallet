@@ -12,11 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mywallet.R;
-import com.example.mywallet.UI.Expenses.Model.DailyExpense;
+import com.example.mywallet.Model.DailyExpense;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 
 public class DailyExpensesInDetail extends Fragment {

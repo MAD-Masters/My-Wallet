@@ -12,12 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mywallet.R;
-import com.example.mywallet.UI.BudgetManager.Model.Budgetmodel;
-import com.example.mywallet.UI.Income.Incomeadapter;
-import com.example.mywallet.UI.Income.Model.IncomeModel;
+import com.example.mywallet.Model.Budgetmodel;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 /**
  * A simple {@link Fragment} subclass.

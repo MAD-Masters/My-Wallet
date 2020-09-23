@@ -1,44 +1,46 @@
 package com.example.mywallet.UI.Expenses;
 
 import android.content.Context;
-import android.util.AttributeSet;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 
-import com.example.mywallet.OnBoarding.ScreenItem;
+import com.example.mywallet.DatabaseHelper;
+import com.example.mywallet.Model.DailyExpense;
+import com.example.mywallet.Model.IncomeToWallet;
 import com.example.mywallet.R;
-import com.example.mywallet.UI.Expenses.Model.DailyExpesnseSummary;
-import com.example.mywallet.UI.Expenses.Model.MonthlySummary;
+import com.example.mywallet.Model.DailyExpesnseSummary;
+import com.example.mywallet.Model.MonthlySummary;
 
+import java.text.ParseException;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 public class MonthlyExpenseViewPagerAdapter extends PagerAdapter {
     Context context;
-    List<MonthlySummary> monthlySummaryList;
+    int[][] dates;
     private RecyclerView recyclerView;
     private ArrayList<DailyExpesnseSummary> dailyExpesnseSummaryArrayList;
     private DailyExpenseSummaryAdapter dailyExpenseAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
-    public MonthlyExpenseViewPagerAdapter(Context context, List<MonthlySummary> monthlySummaryList) {
+    public MonthlyExpenseViewPagerAdapter(Context context, int[][] dates) {
         this.context = context;
-        this.monthlySummaryList = monthlySummaryList;
+        this.dates = dates;
     }
     @Override
     public int getCount() {
-        return monthlySummaryList.size();
+        return dates.length;
     }
 
     @Override
@@ -51,6 +53,7 @@ public class MonthlyExpenseViewPagerAdapter extends PagerAdapter {
         container.removeView((View) object);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
@@ -68,22 +71,34 @@ public class MonthlyExpenseViewPagerAdapter extends PagerAdapter {
         TextView gifts = layoutScreen.findViewById(R.id.gifts);
         TextView bills = layoutScreen.findViewById(R.id.bills);
 
-        currentMonth.setText(monthlySummaryList.get(position).getMonth());
-        inflow.setText(String.valueOf(monthlySummaryList.get(position).getInflow()));
-        outflow.setText(String.valueOf(monthlySummaryList.get(position).getOutflow()));
-        remainder.setText(String.valueOf(monthlySummaryList.get(position).getRemainder()));
-        food.setText(String.valueOf(monthlySummaryList.get(position).getmFood()));
-        bills.setText(String.valueOf(monthlySummaryList.get(position).getmBills()));
-        family.setText(String.valueOf(monthlySummaryList.get(position).getmFamily()));
-        gifts.setText(String.valueOf(monthlySummaryList.get(position).getmGifts()));
-        loan.setText(String.valueOf(monthlySummaryList.get(position).getmLoans()));
-        education.setText(String.valueOf(monthlySummaryList.get(position).getmEdu()));
+        DatabaseHelper databaseHelper = new DatabaseHelper(context);
+        ArrayList<DailyExpense> dailyExpenseArrayList = new ArrayList<>();
+        ArrayList<IncomeToWallet> incomeToWalletArrayList = new ArrayList<>();
 
+        try {
+            dailyExpenseArrayList = databaseHelper.getMonthlyExpenses(dates[position][0], dates[position][1]);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
-        dailyExpesnseSummaryArrayList = new ArrayList<>();
+        System.out.println("Array List " + dailyExpenseArrayList.size());
 
-        dailyExpesnseSummaryArrayList.add(new DailyExpesnseSummary(Calendar.getInstance().getTime(), 1000));
-        dailyExpesnseSummaryArrayList.add(new DailyExpesnseSummary(Calendar.getInstance().getTime(), 5000));
+        ExpenseServicesImple expenseServicesImple = new ExpenseServicesImple();
+        MonthlySummary monthlySummary = expenseServicesImple.getMonthlySummary(dailyExpenseArrayList, incomeToWalletArrayList);
+
+        Month month = Month.of(dates[position][0] + 1);
+
+        currentMonth.setText(month.toString());
+        inflow.setText(String.valueOf(monthlySummary.getInflow()));
+        outflow.setText(String.valueOf(monthlySummary.getOutflow()));
+        remainder.setText(String.valueOf(monthlySummary.getRemainder()));
+        food.setText(String.valueOf(monthlySummary.getmFood()));
+        bills.setText(String.valueOf(monthlySummary.getmBills()));
+        family.setText(String.valueOf(monthlySummary.getmFamily()));
+        gifts.setText(String.valueOf(monthlySummary.getmGifts()));
+        loan.setText(String.valueOf(monthlySummary.getmLoans()));
+        education.setText(String.valueOf(monthlySummary.getmEdu()));
+
 
         recyclerView = layoutScreen.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -91,8 +106,9 @@ public class MonthlyExpenseViewPagerAdapter extends PagerAdapter {
         layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        dailyExpenseAdapter = new DailyExpenseSummaryAdapter(context, dailyExpesnseSummaryArrayList);
-        recyclerView.setAdapter(dailyExpenseAdapter);
+        //DailyExpesnseSummary dailyExpesnseSummary = new DailyExpesnseSummary();
+        //dailyExpenseAdapter = new DailyExpenseSummaryAdapter(context, dailyExpenseArrayList);
+        //recyclerView.setAdapter(dailyExpenseAdapter);
 
         container.addView(layoutScreen);
 
