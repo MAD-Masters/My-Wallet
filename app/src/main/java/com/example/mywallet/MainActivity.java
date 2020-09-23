@@ -3,25 +3,20 @@ package com.example.mywallet;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.mywallet.Model.DailyExpense;
+import com.example.mywallet.Model.DailyExpesnseSummary;
 import com.example.mywallet.UI.BudgetManager.Budget1;
-import com.example.mywallet.UI.Expenses.AddExpense;
 import com.example.mywallet.UI.Expenses.DailyExpenseAdapter;
 import com.example.mywallet.UI.Expenses.DailyExpenseSummaryAdapter;
 import com.example.mywallet.UI.Expenses.DailyExpensesInDetail;
 import com.example.mywallet.UI.Expenses.Home;
-import com.example.mywallet.UI.Expenses.UpdateExpense;
-import com.example.mywallet.UI.Goal.Goal;
 import com.example.mywallet.UI.Goal.Goal1;
 import com.example.mywallet.UI.Goal.GoalAdapter;
 import com.example.mywallet.UI.Goal.Goal_Home;
@@ -29,22 +24,17 @@ import com.example.mywallet.UI.Income.Income;
 import com.example.mywallet.UI.Income.Income2;
 import com.example.mywallet.UI.Income.Income2adapter;
 import com.example.mywallet.UI.Income.Income3;
-import com.example.mywallet.UI.Income.Income4;
 import com.example.mywallet.UI.Income.Income5;
 import com.example.mywallet.UI.Income.Income6;
 import com.example.mywallet.UI.Income.Incomeadapter;
 import com.google.android.material.bottomappbar.BottomAppBar;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements DailyExpenseSummaryAdapter.onDailyExpenseSummaryClick, DailyExpenseAdapter.DailyExpenseInterface, Incomeadapter.IncomeInterface, Income2adapter.Income2Interface, GoalAdapter.GoalInterface {
     BottomAppBar bottomAppBar;
@@ -161,8 +151,12 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
     }
 
     @Override
-    public void onClickDailyExpItem() {
+    public void onClickDailyExpItem(DailyExpesnseSummary dailyExpesnseSummary, ArrayList<DailyExpense> dailyExpenseArrayList) {
         DailyExpensesInDetail dailyExpensesInDetail = new DailyExpensesInDetail();
+        Bundle result = new Bundle();
+        result.putParcelable("summary", dailyExpesnseSummary);
+        result.putParcelableArrayList("dailyArray", dailyExpenseArrayList);
+        dailyExpensesInDetail.setArguments(result);
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.nav_host_fragment, dailyExpensesInDetail);
@@ -191,10 +185,11 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
     }
 
     @Override
-    public void onUpdateBtnExInClick() {
+    public void onUpdateBtnExInClick(DailyExpense dailyExpense) {
 
         Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
         intent.putExtra("Fragment", "Update Expenses");
+        intent.putExtra("object", dailyExpense);
         startActivity(intent);
     }
 

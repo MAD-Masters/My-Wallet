@@ -1,10 +1,15 @@
 package com.example.mywallet.UI.Expenses;
 
 import com.example.mywallet.Model.DailyExpense;
+import com.example.mywallet.Model.DailyExpesnseSummary;
 import com.example.mywallet.Model.IncomeToWallet;
 import com.example.mywallet.Model.MonthlySummary;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
 public class ExpenseServicesImple {
     public MonthlySummary getMonthlySummary(ArrayList<DailyExpense> dailyExpenses, ArrayList<IncomeToWallet> incomeToWallets) {
@@ -52,8 +57,43 @@ public class ExpenseServicesImple {
         monthlySummary.setmGifts((float) gifts);
         monthlySummary.setmFamily((float) family);
         monthlySummary.setmBills((float) bill);
-        monthlySummary.setmFamily((float) food);
+        monthlySummary.setmFood((float) food);
 
         return monthlySummary;
+    }
+
+    public ArrayList<DailyExpesnseSummary> getDailyExpenseSummary(ArrayList<DailyExpense> dailyExpenses) {
+        ArrayList<DailyExpesnseSummary> dailyExpesnseSummaries = new ArrayList<>();
+        Map<Date,Double> newMap = new TreeMap<>();
+        for (DailyExpense dailyExpense : dailyExpenses) {
+            if (newMap.containsKey(dailyExpense.getDate())) {
+                Double amount = newMap.get(dailyExpense.getDate());
+                newMap.put(dailyExpense.getDate(), amount+dailyExpense.getAmount());
+            } else {
+                newMap.put(dailyExpense.getDate(), dailyExpense.getAmount());
+            }
+        }
+
+        Set<Date> keyValues = newMap.keySet();
+
+        for(Date mDate : keyValues) {
+            DailyExpesnseSummary dailyExpesnseSummary = new DailyExpesnseSummary();
+            dailyExpesnseSummary.setDate(mDate);
+            dailyExpesnseSummary.setTotalAmount(newMap.get(mDate));
+
+            dailyExpesnseSummaries.add(dailyExpesnseSummary);
+        }
+        System.out.println("hello" + dailyExpesnseSummaries.size());
+        return dailyExpesnseSummaries;
+    }
+
+    public ArrayList<DailyExpense> getExpenseArrayListByDay(String date, ArrayList<DailyExpense> dailyExpenseArrayList) {
+        ArrayList<DailyExpense> dailyExpenses = new ArrayList<>();
+        for (DailyExpense dailyExpense : dailyExpenseArrayList) {
+            if (dailyExpense.getDate().toString().equals(date)) {
+                dailyExpenses.add(dailyExpense);
+            }
+        }
+        return dailyExpenses;
     }
 }

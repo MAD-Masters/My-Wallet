@@ -10,12 +10,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.example.mywallet.Model.DailyExpesnseSummary;
 import com.example.mywallet.R;
 import com.example.mywallet.Model.DailyExpense;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 
 public class DailyExpensesInDetail extends Fragment {
@@ -24,6 +30,9 @@ public class DailyExpensesInDetail extends Fragment {
     private DailyExpenseAdapter dailyExpenseAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private View root;
+    private TextView dateH, totalAmount;
+    private DailyExpesnseSummary dailyExpesnseSummary;
+    private ArrayList<DailyExpense> dailyExpenses;
 
     public DailyExpensesInDetail() {
         // Required empty public constructor
@@ -32,6 +41,9 @@ public class DailyExpensesInDetail extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
+        dailyExpenses = bundle.getParcelableArrayList("dailyArray");
+        dailyExpesnseSummary = bundle.getParcelable("summary");
     }
 
     @Override
@@ -46,11 +58,8 @@ public class DailyExpensesInDetail extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-
-        dailyExpenseArrayList = new ArrayList<>();
-
-        dailyExpenseArrayList.add(new DailyExpense(Calendar.getInstance().getTime(), 1000, 1, 1, "For buying a bag"));
-        dailyExpenseArrayList.add(new DailyExpense(Calendar.getInstance().getTime(), 890, 1, 1, "Taxi"));
+        ExpenseServicesImple expenseServicesImple = new ExpenseServicesImple();
+        dailyExpenseArrayList = expenseServicesImple.getExpenseArrayListByDay(dailyExpesnseSummary.getDate().toString(), dailyExpenses);
 
         recyclerView = root.findViewById(R.id.list_daily_expenses_in_detail);
         recyclerView.setHasFixedSize(true);
@@ -60,5 +69,14 @@ public class DailyExpensesInDetail extends Fragment {
 
         dailyExpenseAdapter = new DailyExpenseAdapter(getContext(), dailyExpenseArrayList);
         recyclerView.setAdapter(dailyExpenseAdapter);
+
+        dateH = root.findViewById(R.id.dateN);
+        totalAmount = root.findViewById(R.id.totalAmount);
+
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        String dateString = format.format(dailyExpesnseSummary.getDate());
+
+        dateH.setText(dateString);
+        totalAmount.setText(String.valueOf(dailyExpesnseSummary.getTotalAmount()));
     }
 }
