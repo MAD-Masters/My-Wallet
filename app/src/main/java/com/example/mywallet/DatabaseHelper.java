@@ -2,13 +2,27 @@ package com.example.mywallet;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
-import com.example.mywallet.UI.Expenses.Model.DailyExpense;
+import com.example.mywallet.Model.Category;
+import com.example.mywallet.Model.DailyExpense;
+import com.example.mywallet.Model.IncomeModel;
+import com.example.mywallet.Model.Wallet;
+
+import java.text.Format;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Month;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TABLE_EXPENSES = "EXPENSES";
@@ -19,7 +33,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        //Expense Table
+        //Wallet Table
         String createTable = "CREATE TABLE WALLET (ID INTEGER PRIMARY KEY AUTOINCREMENT, WALLET_NAME TEXT, BANK TEXT)";
         db.execSQL(createTable);
         Log.d("database", "Wallet Table Created");
@@ -96,5 +110,78 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         } else {
             return true;
         }
+    }
+
+    //Get CategoriesList
+    public ArrayList<Category> getCategories() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<Category> arrayList = new ArrayList<>();
+       Cursor cursor = db.rawQuery("SELECT * FROM CATEGORY", null);
+       cursor.moveToFirst();
+       while (cursor.isAfterLast() == false) {
+           Category category = new Category();
+           category.setCategoryId(cursor.getInt(cursor.getColumnIndex("ID")));
+           category.setCategoryName(cursor.getString(cursor.getColumnIndex("NAME")));
+
+           arrayList.add(category);
+           cursor.moveToNext();
+       }
+        return arrayList;
+    }
+
+    //Get CategoriesList
+    public ArrayList<Wallet> getWalletsList() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<Wallet> arrayList = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT * FROM WALLET", null);
+        cursor.moveToFirst();
+        while (cursor.isAfterLast() == false) {
+            Wallet wallet = new Wallet();
+            wallet.setWalletId(cursor.getInt(cursor.getColumnIndex("ID")));
+            wallet.setWalletName(cursor.getString(cursor.getColumnIndex("WALLET_NAME")));
+            wallet.setBank(cursor.getString(cursor.getColumnIndex("BANK")));
+
+            arrayList.add(wallet);
+            cursor.moveToNext();
+        }
+        return arrayList;
+    }
+
+    //Get Expenses ArrayList
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public ArrayList<DailyExpense> getMonthlyExpenses(int month, int year) throws ParseException {
+        Format f = new SimpleDateFormat("MMM");
+        Month mon = Month.of(month);
+        Calendar c = Calendar.getInstance();
+        c.set(year, month, 1, 0, 0);
+        String monthS = f.format(c.getTime());
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<DailyExpense> arrayList = new ArrayList<>();
+        //Cursor cursor = db.rawQuery("SELECT * FROM EXPENSES WHERE DATE like '%" + monthS + "%" + year + "'", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM EXPENSES WHERE DATE like '%Sep%2020'", null);
+
+        Log.d("andfdfd", monthS);
+
+        cursor.moveToFirst();
+        System.out.println("Array Size " + arrayList.size());
+        while (cursor.isAfterLast() == false) {
+            DailyExpense dailyExpense = new DailyExpense();
+            dailyExpense.setRecordId(cursor.getInt(cursor.getColumnIndex("ID")));
+            dailyExpense.setAmount(cursor.getFloat(cursor.getColumnIndex("AMOUNT")));
+            dailyExpense.setWalletID(cursor.getInt(cursor.getColumnIndex("WALLET_ID")));
+            dailyExpense.setCategoryId(cursor.getInt(cursor.getColumnIndex("CATEGORY")));
+            //dailyExpense.setDate(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
+            String not = cursor.getString(cursor.getColumnIndex("NOTE"));
+
+            arrayList.add(dailyExpense);
+            cursor.moveToNext();
+        }
+
+
+
+        return arrayList;
     }
 }
