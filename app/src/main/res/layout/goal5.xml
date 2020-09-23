@@ -72,7 +72,7 @@
                 app:layout_constraintVertical_bias="0.432" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/button7"
+                android:id="@+id/btndelete"
                 android:layout_width="108dp"
                 android:layout_height="30dp"
                 android:background="@drawable/background_pink_fully_rounded"
@@ -98,18 +98,17 @@
                 app:layout_constraintTop_toTopOf="@+id/goal"
                 app:layout_constraintVertical_bias="0.861" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/btngoal"
-                android:layout_width="35dp"
-                android:layout_height="32dp"
-                android:background="#039be5"
+                android:layout_width="39dp"
+                android:layout_height="40dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.93"
+                app:layout_constraintHorizontal_bias="0.956"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.495"
-                app:srcCompat="@drawable/add_icon_without_bg" />
+                app:layout_constraintVertical_bias="0.516"
+                app:srcCompat="@drawable/edit" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

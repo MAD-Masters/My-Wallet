@@ -9,6 +9,7 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 
 import com.example.mywallet.UI.Expenses.Model.DailyExpense;
+import  com.example.mywallet.UI.Goal.Model.FutureGoal;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TABLE_EXPENSES = "EXPENSES";
@@ -40,7 +41,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Log.d("database", "Expense Table Created");
 
         //Goal Table
-        createTable = "CREATE TABLE GOAL (ID INTEGER PRIMARY KEY AUTOINCREMENT, GOAL_NAME TEXT, DATE TEXT, AMOUNT REAL)";
+        createTable = "CREATE TABLE GOAL (ID INTEGER PRIMARY KEY AUTOINCREMENT, GOAL_NAME TEXT, AMOUNT REAL, DATE TEXT)";
         db.execSQL(createTable);
         Log.d("database", "Goal Table Created");
 
@@ -97,4 +98,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
         }
     }
+
+    //add goal
+    public boolean addGoal(FutureGoal futureGoal){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("GOAL_NAME", futureGoal.getGoal());
+        contentValues.put("AMOUNT", futureGoal.getTotalAmount());
+        contentValues.put("DATE", futureGoal.getDate().toString());
+
+        long status = db.insert("GOAL", null, contentValues);
+
+        if (status == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,6 +31,8 @@ public class GoalAdapter extends RecyclerView.Adapter<com.example.mywallet.UI.Go
         CardView cardView;
         TextView goal, totalAmount, date;
         ImageView btngoal;
+        Button btndelete;
+
 
 
         public GoalViewHolder(@NonNull View itemView) {
@@ -39,13 +42,20 @@ public class GoalAdapter extends RecyclerView.Adapter<com.example.mywallet.UI.Go
             totalAmount = itemView.findViewById(R.id.totalAmount);
            date = itemView.findViewById(R.id.date);
             btngoal = itemView.findViewById(R.id.btngoal);
+            btndelete=itemView.findViewById(R.id.btndelete);
 
-            btngoal.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    activity1.onAddBtnGoalClick();
 
-                }
+                    btndelete.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            activity1.onDeletBtnGoInClick();             }
+                    });
+
+                            btngoal.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    activity1.onAddBtnGoalClick();
+                        }
             });
 
         }
@@ -74,6 +84,7 @@ public class GoalAdapter extends RecyclerView.Adapter<com.example.mywallet.UI.Go
     }
 
     public interface GoalInterface{
+        public  void onDeletBtnGoInClick();
         public void onAddBtnGoalClick();
 
     }

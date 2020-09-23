@@ -16,6 +16,8 @@ public class FutureGoal {
         this.totalAmount = totalAmount;
 
     }
+    public FutureGoal() {
+    }
 
     //Setters and Getters
 
