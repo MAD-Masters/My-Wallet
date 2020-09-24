@@ -21,6 +21,7 @@ import com.example.mywallet.R;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class IntroActivity extends AppCompatActivity {
@@ -135,6 +136,7 @@ public class IntroActivity extends AppCompatActivity {
         SharedPreferences myPreferences = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
         SharedPreferences.Editor editor = myPreferences.edit();
         editor.putBoolean("isIntroOpened", true);
+        editor.putString("date", Calendar.getInstance().getTime().toString());
         editor.commit();
     }
 

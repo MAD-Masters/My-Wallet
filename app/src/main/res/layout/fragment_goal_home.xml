@@ -8,7 +8,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="595dp"
         android:scrollbars="none">
         <!-- TODO: Update blank fragment layout -->
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,21 +26,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView26" />
 
-        <TextView
-            android:id="@+id/textView26"
-            android:layout_width="189dp"
-            android:layout_height="62dp"
-            android:background="@drawable/background_blue_fill"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="@string/goal17"
-            android:textColor="#ffff"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.153"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.049" />
+            <TextView
+                android:id="@+id/textView26"
+                android:layout_width="189dp"
+                android:layout_height="62dp"
+                android:background="@drawable/background_blue_fill"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/goal17"
+                android:textColor="#ffff"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.153"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.049" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btngoal1"
@@ -56,18 +56,19 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/goalInDetail" />
+                app:layout_constraintTop_toBottomOf="@+id/goalInDetail"
+                app:layout_constraintVertical_bias="0.0" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/goalInDetail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:padding="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView14" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/goalInDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView14" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

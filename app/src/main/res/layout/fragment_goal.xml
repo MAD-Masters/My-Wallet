@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".UI.Goal.Goal">
 
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="216dp"
@@ -17,89 +18,85 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.138"
+        app:layout_constraintHorizontal_bias="0.03"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.042" />
+        app:layout_constraintVertical_bias="0.023" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="186dp"
         android:layout_height="212dp"
+        android:layout_marginTop="20dp"
         android:src="@drawable/mission"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.198" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="295dp"
-        android:layout_height="38dp"
+    <EditText
+        android:id="@+id/addgoal"
+        android:layout_width="307dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/background_blue_no_fills"
         android:text="@string/goal2"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.519" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="295dp"
-        android:layout_height="36dp"
+    <EditText
+        android:id="@+id/addamount"
+        android:layout_width="308dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/background_blue_no_fills"
         android:text="@string/goal3"
         android:textSize="24sp"
-        android:background="@drawable/background_blue_no_fills"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.612" />
+        app:layout_constraintTop_toBottomOf="@+id/addgoal" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="293dp"
-        android:layout_height="36dp"
+    <EditText
+        android:id="@+id/adddate"
+        android:layout_width="308dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/background_blue_no_fills"
         android:text="@string/goal4"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="@drawable/background_blue_no_fills"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.707" />
+        app:layout_constraintTop_toBottomOf="@+id/addamount" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button3"
-        android:layout_width="120dp"
-        android:layout_height="49dp"
+        android:id="@+id/btnAddgoal"
+        android:layout_width="128dp"
+        android:layout_height="47dp"
         android:background="@drawable/background_blue_fully_rounded"
-        android:textColor="#ffff"
         android:text="@string/goal5"
+        android:textColor="#ffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.084"
+        app:layout_constraintHorizontal_bias="0.088"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.846" />
+        app:layout_constraintTop_toBottomOf="@+id/adddate"
+        app:layout_constraintVertical_bias="0.492" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button4"
         android:layout_width="134dp"
-        android:layout_height="53dp"
+        android:layout_height="47dp"
         android:background="@drawable/background_pink_fully_rounded"
-        android:textColor="#ffff"
         android:text="@string/goal6"
+        android:textColor="#ffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.877"
+        app:layout_constraintHorizontal_bias="0.906"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.851" />
+        app:layout_constraintTop_toBottomOf="@+id/adddate"
+        app:layout_constraintVertical_bias="0.492" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

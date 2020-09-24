@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mywallet.Model.DailyExpense;
 import com.example.mywallet.R;
 import com.example.mywallet.Model.DailyExpesnseSummary;
 
@@ -18,10 +19,14 @@ import java.util.ArrayList;
 public class DailyExpenseSummaryAdapter extends RecyclerView.Adapter<DailyExpenseSummaryAdapter.DailyExpenseViewHolder> {
     private ArrayList<DailyExpesnseSummary> dailyExpenses;
     private onDailyExpenseSummaryClick activity;
+    private Context context;
+    private ArrayList<DailyExpense> dailyExpenseArrayList;
 
-    public DailyExpenseSummaryAdapter(Context context, ArrayList<DailyExpesnseSummary> dailyExpenses) {
+    public DailyExpenseSummaryAdapter(Context context, ArrayList<DailyExpesnseSummary> dailyExpenses, ArrayList<DailyExpense> dailyExpenseArrayList) {
         this.dailyExpenses = dailyExpenses;
+        this.context = context;
         this.activity = (onDailyExpenseSummaryClick) context;
+        this.dailyExpenseArrayList = dailyExpenseArrayList;
     }
 
     //Daily Expesnes View holder Class
@@ -36,7 +41,7 @@ public class DailyExpenseSummaryAdapter extends RecyclerView.Adapter<DailyExpens
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    activity.onClickDailyExpItem();
+                    activity.onClickDailyExpItem(dailyExpenses.get(dailyExpenses.indexOf((v.getTag()))).getDate().toString());
                 }
             });
         }
@@ -44,7 +49,7 @@ public class DailyExpenseSummaryAdapter extends RecyclerView.Adapter<DailyExpens
     }
 
     public interface onDailyExpenseSummaryClick {
-        public void onClickDailyExpItem();
+        public void onClickDailyExpItem(String date);
     }
 
     @NonNull

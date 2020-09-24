@@ -21,10 +21,7 @@ import com.example.mywallet.Model.DailyExpesnseSummary;
 import com.example.mywallet.Model.MonthlySummary;
 
 import java.text.ParseException;
-import java.time.Month;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 
 public class MonthlyExpenseViewPagerAdapter extends PagerAdapter {
     Context context;
@@ -70,6 +67,7 @@ public class MonthlyExpenseViewPagerAdapter extends PagerAdapter {
         TextView family = layoutScreen.findViewById(R.id.family);
         TextView gifts = layoutScreen.findViewById(R.id.gifts);
         TextView bills = layoutScreen.findViewById(R.id.bills);
+        TextView titleDaily = layoutScreen.findViewById(R.id.dailyExpensesTitle);
 
         DatabaseHelper databaseHelper = new DatabaseHelper(context);
         ArrayList<DailyExpense> dailyExpenseArrayList = new ArrayList<>();
@@ -81,14 +79,13 @@ public class MonthlyExpenseViewPagerAdapter extends PagerAdapter {
             e.printStackTrace();
         }
 
-        System.out.println("Array List " + dailyExpenseArrayList.size());
-
         ExpenseServicesImple expenseServicesImple = new ExpenseServicesImple();
         MonthlySummary monthlySummary = expenseServicesImple.getMonthlySummary(dailyExpenseArrayList, incomeToWalletArrayList);
 
-        Month month = Month.of(dates[position][0] + 1);
+        String[] monthArray = {"JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUN", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
+        String monthString = monthArray[dates[position][0]];
 
-        currentMonth.setText(month.toString());
+        currentMonth.setText(monthString);
         inflow.setText(String.valueOf(monthlySummary.getInflow()));
         outflow.setText(String.valueOf(monthlySummary.getOutflow()));
         remainder.setText(String.valueOf(monthlySummary.getRemainder()));
@@ -106,9 +103,13 @@ public class MonthlyExpenseViewPagerAdapter extends PagerAdapter {
         layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        //DailyExpesnseSummary dailyExpesnseSummary = new DailyExpesnseSummary();
-        //dailyExpenseAdapter = new DailyExpenseSummaryAdapter(context, dailyExpenseArrayList);
-        //recyclerView.setAdapter(dailyExpenseAdapter);
+        ArrayList<DailyExpesnseSummary> dailyExpesnseSummaryArrayList = expenseServicesImple.getDailyExpenseSummary(dailyExpenseArrayList);
+        dailyExpenseAdapter = new DailyExpenseSummaryAdapter(context, dailyExpesnseSummaryArrayList, dailyExpenseArrayList);
+        recyclerView.setAdapter(dailyExpenseAdapter);
+
+        if (dailyExpesnseSummaryArrayList.size() == 0) {
+            titleDaily.setVisibility(View.INVISIBLE);
+        }
 
         container.addView(layoutScreen);
 
