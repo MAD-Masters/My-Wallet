@@ -18,6 +18,10 @@ import com.example.mywallet.Model.Wallet;
 import  com.example.mywallet.Model.FutureGoal;
 
 import java.text.DateFormat;
+
+
+import java.text.Format;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,7 +29,12 @@ import java.util.Date;
 
 public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservable {
     public static final String TABLE_EXPENSES = "EXPENSES";
+
     public static final String ID_TABLE = "ID";
+
+    public static final String INCOME = "INCOME";
+    public static final String WALLET = "WALLET";
+
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, "my_wallet.db", null, 1);
@@ -65,12 +74,19 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
     @Override
     public void onCreate(SQLiteDatabase db) {
         //Wallet Table
-        String createTable = "CREATE TABLE WALLET (" + ID_TABLE + " INTEGER PRIMARY KEY AUTOINCREMENT, WALLET_NAME TEXT, BANK TEXT)";
+
+       
+
+        String createTable = "CREATE TABLE " + WALLET + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, WALLET_NAME TEXT, BANK TEXT)";
+
         db.execSQL(createTable);
         Log.d("database", "Wallet Table Created");
 
         //Income Table
-        createTable = "CREATE TABLE INCOME (" + ID_TABLE + " INTEGER PRIMARY KEY AUTOINCREMENT, WALLET_ID INT, AMOUNT REAL, DATE TEXT, NOTE TEXT, FOREIGN KEY(WALLET_ID) REFERENCES WALLET(ID))";
+
+
+        createTable = "CREATE TABLE " + INCOME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " + WALLET + "_ID INT, AMOUNT REAL, DATE TEXT, NOTE TEXT, FOREIGN KEY(WALLET_ID) REFERENCES WALLET(ID))";
+
         db.execSQL(createTable);
         Log.d("database", "Income Table Created");
 
@@ -80,7 +96,13 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         Log.d("database", "Income Table Created");
 
         //Expense Table
+
+      
         createTable = "CREATE TABLE " + TABLE_EXPENSES + "(" + ID_TABLE + " INTEGER PRIMARY KEY AUTOINCREMENT, AMOUNT REAL, DATE TEXT, CATEGORY INTEGER, NOTE TEXT, WALLET_ID INT, FOREIGN KEY(WALLET_ID) REFERENCES WALLET(ID))";
+
+      
+      
+  
         db.execSQL(createTable);
         Log.d("database", "Expense Table Created");
 
@@ -106,9 +128,9 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE " + TABLE_EXPENSES);
-        db.execSQL("DROP TABLE INCOME");
+        db.execSQL("DROP TABLE " + INCOME);
         db.execSQL("DROP TABLE CATEGORY");
-        db.execSQL("DROP TABLE WALLET");
+        db.execSQL("DROP TABLE " + WALLET);
         db.execSQL("DROP TABLE GOAL");
         db.execSQL("DROP TABLE GOAL_MONEY");
         db.execSQL("DROP TABLE BUDGET");
@@ -117,12 +139,14 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 
     //Category Items Insert
     public void addCategoryItems(SQLiteDatabase db) {
+
         String sql = "INSERT INTO CATEGORY(NAME) VALUES ('Bills'), ('Education'), ('Family'), ('Gifts'), ('Food'), ('Loan')";
         db.execSQL(sql);
         Log.d("database", "Category Items Inserted Successfully");
 
-        sql = "INSERT INTO WALLET(WALLET_NAME, BANK) VALUES ('BOC Account', 'BOC')";
+        sql = "INSERT INTO " + WALLET + "(WALLET_NAME, BANK) VALUES ('BOC Account', 'BOC')";
         db.execSQL(sql);
+
     }
 
     //Add Expenses
@@ -133,7 +157,10 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         contentValues.put("DATE", String.valueOf(dailyExpense.getDate()));
         contentValues.put("CATEGORY", dailyExpense.getCategoryId());
         contentValues.put("NOTE", dailyExpense.getNote());
+
         contentValues.put("WALLET_ID" , dailyExpense.getWalletID());
+
+        
 
         long status = db.insert(TABLE_EXPENSES, null, contentValues);
 
@@ -166,12 +193,15 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
     public ArrayList<Wallet> getWalletsList() {
         SQLiteDatabase db = this.getWritableDatabase();
         ArrayList<Wallet> arrayList = new ArrayList<>();
-        Cursor cursor = db.rawQuery("SELECT * FROM WALLET", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + WALLET, null);
         cursor.moveToFirst();
         while (cursor.isAfterLast() == false) {
             Wallet wallet = new Wallet();
+
             wallet.setWalletId(cursor.getInt(cursor.getColumnIndex(ID_TABLE)));
-            wallet.setWalletName(cursor.getString(cursor.getColumnIndex("WALLET_NAME")));
+           wallet.setWalletName(cursor.getString(cursor.getColumnIndex("WALLET_NAME")));
+
+          
             wallet.setBank(cursor.getString(cursor.getColumnIndex("BANK")));
 
             arrayList.add(wallet);
@@ -198,7 +228,9 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
             DailyExpense dailyExpense = new DailyExpense();
             dailyExpense.setRecordId(cursor.getInt(cursor.getColumnIndex(ID_TABLE)));
             dailyExpense.setAmount(cursor.getFloat(cursor.getColumnIndex("AMOUNT")));
+
             dailyExpense.setWalletID(cursor.getInt(cursor.getColumnIndex("WALLET_" + ID_TABLE)));
+
             dailyExpense.setCategoryId(cursor.getInt(cursor.getColumnIndex("CATEGORY")));
             dailyExpense.setDate(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
             dailyExpense.setNote(cursor.getString(cursor.getColumnIndex("NOTE")));
@@ -379,4 +411,66 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 
         return arrayList;
     }
+
+
+    //addincome
+    public boolean addincome(IncomeModel incomeModel){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("AMOUNT",incomeModel.getMoney());
+        contentValues.put("DATE", String.valueOf(incomeModel.getDate()));
+        contentValues.put("NOTE", incomeModel.getText());
+        contentValues.put(WALLET + "_ID", incomeModel.getWalletid());
+
+        long status = db.insert(INCOME, null, contentValues);
+
+        if (status == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    //addwallet
+    public boolean addwallet(Wallet wallet){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("WALLET_NAME",wallet.getWalletName());
+        contentValues.put("BANK ",wallet.getBank());
+
+        long status = db.insert(WALLET, null, contentValues);
+
+        if (status == -1) {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
+    //getincomeList
+
+    public ArrayList<IncomeModel> getincomesList() throws ParseException {
+
+        DateFormat formatter = new SimpleDateFormat("EEE MM dd HH:mm:ss zzz yyyy");
+
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<IncomeModel> arrayList = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + INCOME, null);
+        cursor.moveToFirst();
+        while (cursor.isAfterLast() == false) {
+            IncomeModel incomeModel = new IncomeModel();
+            incomeModel.setText(cursor.getString(cursor.getColumnIndex("NOTE")));
+            incomeModel.setMoney(cursor.getDouble(cursor.getColumnIndex("AMOUNT")));
+            incomeModel.setDate(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
+
+            arrayList.add(incomeModel);
+            cursor.moveToNext();
+        }
+        return arrayList;
+    }
+
+//
+
 }
