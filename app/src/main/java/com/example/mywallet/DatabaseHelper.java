@@ -16,6 +16,7 @@ import com.example.mywallet.Model.DailyExpense;
 import com.example.mywallet.Model.IncomeModel;
 import com.example.mywallet.Model.Wallet;
 
+import java.text.DateFormat;
 import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,6 +28,7 @@ import java.util.Date;
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TABLE_EXPENSES = "EXPENSES";
     public static final String INCOME = "INCOME";
+    public static final String WALLET = "WALLET";
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, "my_wallet.db", null, 1);
@@ -35,12 +37,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //Wallet Table
-        String createTable = "CREATE TABLE WALLET (ID INTEGER PRIMARY KEY AUTOINCREMENT, WALLET_NAME TEXT, BANK TEXT)";
+        String createTable = "CREATE TABLE " + WALLET + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, WALLET_NAME TEXT, BANK TEXT)";
         db.execSQL(createTable);
         Log.d("database", "Wallet Table Created");
 
         //Income Table
-        createTable = "CREATE TABLE " + INCOME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, WALLET_ID INT, AMOUNT REAL, DATE TEXT, NOTE TEXT, FOREIGN KEY(WALLET_ID) REFERENCES WALLET(ID))";
+        createTable = "CREATE TABLE " + INCOME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " + WALLET + "_ID INT, AMOUNT REAL, DATE TEXT, NOTE TEXT, FOREIGN KEY(WALLET_ID) REFERENCES WALLET(ID))";
         db.execSQL(createTable);
         Log.d("database", "Income Table Created");
 
@@ -50,7 +52,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Log.d("database", "Income Table Created");
 
         //Expense Table
-        createTable = "CREATE TABLE " + TABLE_EXPENSES + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, AMOUNT REAL, DATE TEXT, CATEGORY INTEGER, NOTE TEXT, WALLET_ID INT, FOREIGN KEY(WALLET_ID) REFERENCES WALLET(ID))";
+        createTable = "CREATE TABLE " + TABLE_EXPENSES + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, AMOUNT REAL, DATE TEXT, CATEGORY INTEGER, NOTE TEXT, " + WALLET + "_ID INT, FOREIGN KEY(WALLET_ID) REFERENCES WALLET(ID))";
         db.execSQL(createTable);
         Log.d("database", "Expense Table Created");
 
@@ -77,7 +79,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE " + TABLE_EXPENSES);
         db.execSQL("DROP TABLE " + INCOME);
         db.execSQL("DROP TABLE CATEGORY");
-        db.execSQL("DROP TABLE WALLET");
+        db.execSQL("DROP TABLE " + WALLET);
         db.execSQL("DROP TABLE GOAL");
         db.execSQL("DROP TABLE GOAL_MONEY");
         db.execSQL("DROP TABLE BUDGET");
@@ -91,7 +93,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(sql);
         Log.d("database", "Category Items Inserted Successfully");
 
-        sql = "INSERT INTO WALLET(WALLET_NAME, BANK) VALUES ('BOC Account', 'BOC')";
+        sql = "INSERT INTO " + WALLET + "(WALLET_NAME, BANK) VALUES ('BOC Account', 'BOC')";
         db.execSQL(sql);
 
     }
@@ -104,7 +106,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("DATE", String.valueOf(dailyExpense.getDate()));
         contentValues.put("CATEGORY", dailyExpense.getCategoryId());
         contentValues.put("NOTE", dailyExpense.getNote());
-        contentValues.put("WALLET_ID", dailyExpense.getWalletID());
+        contentValues.put(WALLET + "_ID", dailyExpense.getWalletID());
 
         long status = db.insert(TABLE_EXPENSES, null, contentValues);
 
@@ -136,12 +138,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public ArrayList<Wallet> getWalletsList() {
         SQLiteDatabase db = this.getWritableDatabase();
         ArrayList<Wallet> arrayList = new ArrayList<>();
-        Cursor cursor = db.rawQuery("SELECT * FROM WALLET", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + WALLET, null);
         cursor.moveToFirst();
         while (cursor.isAfterLast() == false) {
             Wallet wallet = new Wallet();
             wallet.setWalletId(cursor.getInt(cursor.getColumnIndex("ID")));
-            wallet.setWalletName(cursor.getString(cursor.getColumnIndex("WALLET_NAME")));
+            wallet.setWalletName(cursor.getString(cursor.getColumnIndex(WALLET + "_NAME")));
             wallet.setBank(cursor.getString(cursor.getColumnIndex("BANK")));
 
             arrayList.add(wallet);
@@ -174,7 +176,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             DailyExpense dailyExpense = new DailyExpense();
             dailyExpense.setRecordId(cursor.getInt(cursor.getColumnIndex("ID")));
             dailyExpense.setAmount(cursor.getFloat(cursor.getColumnIndex("AMOUNT")));
-            dailyExpense.setWalletID(cursor.getInt(cursor.getColumnIndex("WALLET_ID")));
+            dailyExpense.setWalletID(cursor.getInt(cursor.getColumnIndex(WALLET + "_ID")));
             dailyExpense.setCategoryId(cursor.getInt(cursor.getColumnIndex("CATEGORY")));
             //dailyExpense.setDate(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
             String not = cursor.getString(cursor.getColumnIndex("NOTE"));
@@ -196,7 +198,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("AMOUNT",incomeModel.getMoney());
         contentValues.put("DATE", String.valueOf(incomeModel.getDate()));
         contentValues.put("NOTE", incomeModel.getText());
-        contentValues.put("WALLET_ID", incomeModel.getWalletid());
+        contentValues.put(WALLET + "_ID", incomeModel.getWalletid());
 
         long status = db.insert(INCOME, null, contentValues);
 
@@ -214,7 +216,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("WALLET_NAME",wallet.getWalletName());
         contentValues.put("BANK ",wallet.getBank());
 
-        long status = db.insert(INCOME, null, contentValues);
+        long status = db.insert(WALLET, null, contentValues);
 
         if (status == -1) {
             return false;
@@ -224,5 +226,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    //getincomeList
+
+    public ArrayList<IncomeModel> getincomesList() throws ParseException {
+
+        DateFormat formatter = new SimpleDateFormat("EEE MM dd HH:mm:ss zzz yyyy");
+
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<IncomeModel> arrayList = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + INCOME, null);
+        cursor.moveToFirst();
+        while (cursor.isAfterLast() == false) {
+            IncomeModel incomeModel = new IncomeModel();
+            incomeModel.setText(cursor.getString(cursor.getColumnIndex("NOTE")));
+            incomeModel.setMoney(cursor.getDouble(cursor.getColumnIndex("AMOUNT")));
+            incomeModel.setDate(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
+
+            arrayList.add(incomeModel);
+            cursor.moveToNext();
+        }
+        return arrayList;
+    }
+
+//
 
 }

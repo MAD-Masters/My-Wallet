@@ -120,11 +120,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
-        <com.google.android.material.textfield.TextInputEditText
+        <TextView
             android:id="@+id/textInputEditText2"
             android:layout_width="209dp"
             android:layout_height="31dp"
             android:layout_marginTop="28dp"
+            android:drawableRight="@drawable/calendar"
+            android:drawableTint="@color/primaryColor"
+            android:inputType="date"
             android:background="@drawable/background_blue_no_fills"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.709"

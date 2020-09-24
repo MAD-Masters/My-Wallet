@@ -46,6 +46,7 @@ public class Income5 extends Fragment {
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
     private ToastMessage toastMessage;
+    int walletid;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -82,10 +83,9 @@ public class Income5 extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
+         walletid = getActivity().getIntent().getIntExtra("id",0);
+
     }
 
     @Override
@@ -143,6 +143,7 @@ public class Income5 extends Fragment {
                     IncomeModel incomeModel = new IncomeModel();
                     incomeModel.setMoney(Double.parseDouble(amount.getText().toString()));
                     incomeModel.setDate(date);
+                    incomeModel.setWalletid(walletid);
                     incomeModel.setText(note.getText().toString());
 
 

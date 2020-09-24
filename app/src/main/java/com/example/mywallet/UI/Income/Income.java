@@ -14,7 +14,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
+import com.example.mywallet.DatabaseHelper;
+import com.example.mywallet.Model.Wallet;
 import com.example.mywallet.R;
 import com.example.mywallet.Model.IncomeModel;
 
@@ -23,10 +26,11 @@ import java.util.Calendar;
 
 public class Income extends Fragment {
     private RecyclerView recyclerView;
-    private ArrayList<IncomeModel> incomeModelArrayListList;
+    private ArrayList<Wallet> walletArrayListList;
     private Incomeadapter incomeadapter;
     private RecyclerView.LayoutManager layoutManager;
     private View root;
+    private TextView wallet;
     Button btn;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
@@ -69,10 +73,12 @@ public class Income extends Fragment {
             }
         });
 
-        incomeModelArrayListList = new ArrayList<>();
+        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+        ArrayList<Wallet>  walletArrayListList = new ArrayList<>();
 
-        incomeModelArrayListList.add(new IncomeModel("Boc Credit Card",1,Calendar.getInstance().getTime(),40000,"Lorem  ispham dika kliokalsd "));
-        incomeModelArrayListList.add(new IncomeModel("wallet",2,Calendar.getInstance().getTime(),30000,"Lorem  ispham dika kliokalsd "));
+
+        walletArrayListList = databaseHelper.getWalletsList();
+
 
         recyclerView = root.findViewById(R.id.list_income);
         recyclerView.setHasFixedSize(true);
@@ -80,7 +86,7 @@ public class Income extends Fragment {
         layoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        incomeadapter = new Incomeadapter(getContext(), incomeModelArrayListList);
+        incomeadapter = new Incomeadapter(getContext(),  walletArrayListList);
         recyclerView.setAdapter(incomeadapter);
     }
 }
