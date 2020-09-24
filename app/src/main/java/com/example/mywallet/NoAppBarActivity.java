@@ -25,18 +25,21 @@ public class NoAppBarActivity extends AppCompatActivity {
 
         String fragment = intent.getStringExtra("Fragment");
 
-        if (fragment.equals("AddExpense")) {
+        if (fragment.equals("Add Expense")) {
             AddExpense addExpense = new AddExpense();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.noAppBarFragmentContainer, addExpense);
+            setActionBarTitle(fragment);
             fragmentTransaction.commit();
         } else if (fragment.equals("UpdateExpenses")) {
 
+        } else if (fragment.equals("Update Expenses")) {
             UpdateExpense updateExpense = new UpdateExpense();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.noAppBarFragmentContainer, updateExpense);
+            setActionBarTitle(fragment);
             fragmentTransaction.commit();
         } else if (fragment.equals("addincome")) {
             Income5 income5 = new Income5();

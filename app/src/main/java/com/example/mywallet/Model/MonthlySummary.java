@@ -1,4 +1,4 @@
-package com.example.mywallet.UI.Expenses.Model;
+package com.example.mywallet.Model;
 
 import java.util.ArrayList;
 

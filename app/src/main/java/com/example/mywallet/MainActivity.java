@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
-                intent.putExtra("Fragment", "AddExpense");
+                intent.putExtra("Fragment", "Add Expense");
                 startActivity(intent);
             }
 
@@ -173,13 +173,20 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
     @Override
     public void onDeletBtnExInClick() {
         dialog.setContentView(R.layout.delete_pop_up);
-        /*LayoutInflater inflater = getLayoutInflater();
-        View view = inflater.inflate(R.layout.delete_pop_up, (ViewGroup)findViewById(R.id.deletePopUp));
-        TextView message = vie*/
-
         TextView message = dialog.findViewById(R.id.message);
         message.setText("Are you sure to delete this record?");
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        Button delete = dialog.findViewById(R.id.positiveBtn);
+        Button cancel = dialog.findViewById(R.id.negativeBtn);
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
         dialog.show();
     }
 
@@ -187,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
     public void onUpdateBtnExInClick() {
 
         Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
-        intent.putExtra("Fragment", "UpdateExpenses");
+        intent.putExtra("Fragment", "Update Expenses");
         startActivity(intent);
     }
 

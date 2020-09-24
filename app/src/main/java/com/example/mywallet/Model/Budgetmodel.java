@@ -1,4 +1,4 @@
-package com.example.mywallet.UI.BudgetManager.Model;
+package com.example.mywallet.Model;
 
 public class Budgetmodel{
 
