@@ -6,6 +6,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -14,6 +15,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
+import com.example.mywallet.DatabaseHelper;
 import com.example.mywallet.MainActivity;
 import com.example.mywallet.R;
 import com.google.android.material.tabs.TabLayout;
@@ -46,6 +48,9 @@ public class IntroActivity extends AppCompatActivity {
             finish();
         }
 
+        DatabaseHelper databaseHelper = new DatabaseHelper(getBaseContext());
+        SQLiteDatabase db = databaseHelper.getWritableDatabase();
+        db.close();
         final List<ScreenItem> itemList = new ArrayList<>();
         itemList.add(new ScreenItem("Add your Income", "Do you have an idea about your total income in a month. Now you can track your every income source and wallets at one place.", R.drawable.add_expenses_main_image));
         itemList.add(new ScreenItem("Manage you Expenses", "Do you know how much you daily spend on different things. Now you can keep records of your spends and track them.", R.drawable.manage_expenses));

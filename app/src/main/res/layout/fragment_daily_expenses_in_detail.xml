@@ -39,6 +39,7 @@
                     android:textSize="@dimen/titleFontSize"></TextView>
 
                 <TextView
+                    android:id="@+id/dateN"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -60,6 +61,7 @@
                         android:textColor="@color/colorWhite"></TextView>
 
                     <TextView
+                        android:id="@+id/totalAmount"
                         android:layout_width="@dimen/dataBoxWidth"
                         android:layout_height="wrap_content"
                         android:background="@drawable/background_pink_no_fills"
@@ -80,6 +82,28 @@
                     android:src="@drawable/expense_page_clipart"></ImageView>
             </LinearLayout>
         </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:id="@+id/warnLayout"
+                android:visibility="invisible"
+                android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/warning"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/background_pink_no_fills"
+                android:text="No records Found"
+                android:textAlignment="center"
+                android:textColor="@color/colorPink"
+                android:textSize="@dimen/titleFontSize"
+                android:padding="30dp"
+                android:drawableLeft="@drawable/ic_warning"
+                android:drawableTint="@color/colorPink"
+                ></TextView></LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
