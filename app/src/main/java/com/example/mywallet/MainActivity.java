@@ -12,6 +12,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mywallet.UI.BudgetManager.Budget1;
+
+import com.example.mywallet.UI.BudgetManager.Model.Budget2;
+import com.example.mywallet.UI.Expenses.AddExpense;
+
 import com.example.mywallet.UI.Expenses.DailyExpenseAdapter;
 import com.example.mywallet.UI.Expenses.DailyExpenseSummaryAdapter;
 import com.example.mywallet.UI.Expenses.DailyExpensesInDetail;
@@ -253,3 +257,4 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
     }
 
 }
+
