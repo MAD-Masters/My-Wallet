@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
     }
 
     @Override
-    public void onDeletBtnExInClick(final int recordId, final String date, final View view) {
+    public void onDeletBtnExInClick(final int recordId) {
         dialog.setContentView(R.layout.delete_pop_up);
         TextView message = dialog.findViewById(R.id.message);
         message.setText("Are you sure to delete this record?");

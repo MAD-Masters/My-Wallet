@@ -105,12 +105,12 @@ public class DailyExpensesInDetail extends Fragment implements DatabaseObserver 
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        LinearLayout linearLayout = root.findViewById(R.id.warnLayout);
+        TextView textView = root.findViewById(R.id.warning);
 
         if (dailyExpenseArrayList.size() == 0) {
-            linearLayout.setVisibility(View.VISIBLE);
+            textView.setVisibility(View.VISIBLE);
         } else {
-            linearLayout.removeAllViewsInLayout();
+            textView.setVisibility(View.INVISIBLE);
         }
         dateH = root.findViewById(R.id.dateN);
         totalAmount = root.findViewById(R.id.totalAmount);
