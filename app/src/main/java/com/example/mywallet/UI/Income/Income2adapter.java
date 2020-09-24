@@ -17,14 +17,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class Income2adapter extends RecyclerView.Adapter<Income2adapter.Income2layoutViewHolder> {
-private ArrayList<IncomeModel> income;
-    private Income2Interface activity;
+    private ArrayList<IncomeModel> income;
+   private Income2Interface activity;
 
-public Income2adapter(Context context,ArrayList<IncomeModel> income) {
+    public Income2adapter(Context context, ArrayList<IncomeModel> income) {
 
-    this.income = income;
-    activity = (Income2Interface)context;
-        }
+        this.income = income;
+        activity = (Income2Interface)context;
+    }
 
     @NonNull
     @Override
@@ -38,7 +38,7 @@ public Income2adapter(Context context,ArrayList<IncomeModel> income) {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         holder.date.setText(sdf.format(income.get(position).getDate()));
-        holder.amount.setText(((Double)income.get(position).getMoney()).toString());
+        holder.amount.setText(((Double) income.get(position).getMoney()).toString());
         holder.text.setText(income.get(position).getText());
     }
 
@@ -47,34 +47,37 @@ public Income2adapter(Context context,ArrayList<IncomeModel> income) {
         return income.size();
     }
 
-    public static class Income2layoutViewHolder extends RecyclerView.ViewHolder {
+    public  class Income2layoutViewHolder extends RecyclerView.ViewHolder {
 
-    TextView date,amount,text;
-    ImageView btnedit;
-
-
-    public Income2layoutViewHolder(@NonNull View itemView) {
-        super(itemView);
-        date = itemView.findViewById(R.id.date);
-        amount = itemView.findViewById(R.id.amount);
-        text = itemView.findViewById(R.id.text);
-        btnedit = itemView.findViewById(R.id.btnedit);
+        TextView date, amount, text;
+        ImageView btnedit;
 
 
+        public Income2layoutViewHolder(@NonNull View itemView) {
+            super(itemView);
+            date = itemView.findViewById(R.id.date);
+            amount = itemView.findViewById(R.id.amount);
+            text = itemView.findViewById(R.id.text);
+            btnedit = itemView.findViewById(R.id.btnedit);
 
-            ;
 
+            btnedit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    activity.onUpdateBtnincomemoney();
+                }
+            });
 
+        }
     }
-}
 
     public interface Income2Interface {
-        public void oneditBtnincome();
+       public void onUpdateBtnincomemoney();
 
-    }
-
-
+   }
 }
+
+
 
 
 
