@@ -10,12 +10,14 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.versionedparcelable.VersionedParcel;
 
 import com.example.mywallet.Model.Category;
 import com.example.mywallet.Model.DailyExpense;
 import com.example.mywallet.Model.IncomeModel;
 import com.example.mywallet.Model.Wallet;
 
+import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.Format;
 import java.text.ParseException;
@@ -33,6 +35,37 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         super(context, "my_wallet.db", null, 1);
     }
 
+    static DatabaseHelper databaseHelper;
+    static ArrayList<DatabaseObserver> observerArrayList;
+    //make it Singleton
+    public static synchronized DatabaseHelper getInstance(Context context) {
+        if (databaseHelper == null) {
+            databaseHelper = new DatabaseHelper(context.getApplicationContext());
+            observerArrayList = new ArrayList<>();
+        }
+        return databaseHelper;
+    }
+
+    @Override
+    public void registerDbObserver(DatabaseObserver databaseObserver) {
+        if (!observerArrayList.contains(databaseObserver)){
+            observerArrayList.add(databaseObserver);
+        }
+    }
+
+    @Override
+    public void removeDbObserver(DatabaseObserver databaseObserver) {
+        observerArrayList.remove(databaseObserver);
+    }
+
+    @Override
+    public void notifyDbChanged() {
+        System.out.println("HELLO WORLD " + observerArrayList.size());
+        for (DatabaseObserver databaseObserver:observerArrayList){
+            if (databaseObserver!= null){
+                databaseObserver.onDatabaseChanged();
+            }}
+    }
     @Override
     public void onCreate(SQLiteDatabase db) {
         //Wallet Table
@@ -107,6 +140,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 
         long status = db.insert(TABLE_EXPENSES, null, contentValues);
 
+        notifyDbChanged();
         if (status == -1) {
             return false;
         } else {
@@ -153,7 +187,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
     @RequiresApi(api = Build.VERSION_CODES.O)
     public ArrayList<DailyExpense> getMonthlyExpenses(int month, int year) throws ParseException {
         Format f = new SimpleDateFormat("MMM");
-        Month mon = Month.of(month);
+        Month mon = Month.of(month+1);
         Calendar c = Calendar.getInstance();
         c.set(year, month, 1, 0, 0);
         String monthS = f.format(c.getTime());
@@ -165,7 +199,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         Cursor cursor = db.rawQuery("SELECT * FROM EXPENSES WHERE DATE like '%" + monthS + "%" + year + "'", null);
 
         cursor.moveToFirst();
-        System.out.println("Array Size " + arrayList.size());
+
         while (cursor.isAfterLast() == false) {
             DailyExpense dailyExpense = new DailyExpense();
             dailyExpense.setRecordId(cursor.getInt(cursor.getColumnIndex(ID_TABLE)));
@@ -183,6 +217,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 
     public boolean updateExpense(DailyExpense dailyExpense){
         SQLiteDatabase db = this.getWritableDatabase();
+
         ContentValues contentValues = new ContentValues();
         contentValues.put("AMOUNT", dailyExpense.getAmount());
         contentValues.put("DATE", String.valueOf(dailyExpense.getDate()));
@@ -191,6 +226,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         contentValues.put("WALLET_ID", dailyExpense.getWalletID());
 
         long status = db.update(TABLE_EXPENSES, contentValues,  ID_TABLE + " = " + dailyExpense.getRecordId(), null);
+
+        notifyDbChanged();
 
         if (status == -1) {
             return false;
@@ -300,41 +337,41 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         }
     }
 
-    static DatabaseHelper databaseHelper;
-    static ArrayList<DatabaseObserver> observerArrayList;
-    //make it Singleton
-    public static synchronized DatabaseHelper getInstance(Context context) {
-        if (databaseHelper == null) {
-            databaseHelper = new DatabaseHelper(context.getApplicationContext());
-            observerArrayList = new ArrayList<>();
+    //Get date array from Income Table
+    public ArrayList<Date> getDatesFromIncome() throws ParseException {
+        ArrayList<Date> arrayList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sqlQuery = "SELECT * FROM INCOME";
+
+        Cursor cursor = db.rawQuery(sqlQuery, null);
+        cursor.moveToFirst();
+
+        DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+
+        while (cursor.isAfterLast() == false) {
+            arrayList.add(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
+            cursor.moveToNext();
         }
-        return databaseHelper;
+
+        return arrayList;
     }
 
-    @Override
-    public void registerDbObserver(DatabaseObserver databaseObserver) {
-        System.out.println("HELLO WORLD ADD OBSERVER");
-        if (!observerArrayList.contains(databaseObserver)){
-            observerArrayList.add(databaseObserver);
-            System.out.println("HELLO WORLD OBSERVER ADDED");
-            System.out.println("HELLO WORLD " + observerArrayList.size());
+    //Get date array from Expenses Table
+    public ArrayList<Date> getDatesFromExpenses() throws ParseException {
+        ArrayList<Date> arrayList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sqlQuery = "SELECT * FROM " + TABLE_EXPENSES;
+
+        Cursor cursor = db.rawQuery(sqlQuery, null);
+        cursor.moveToFirst();
+
+        DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+
+        while (cursor.isAfterLast() == false) {
+            arrayList.add(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
+            cursor.moveToNext();
         }
-    }
 
-    @Override
-    public void removeDbObserver(DatabaseObserver databaseObserver) {
-        observerArrayList.remove(databaseObserver);
-    }
-
-    @Override
-    public void notifyDbChanged() {
-        System.out.println("HELLO WORLD NOTIFY DB CHANGED");
-        //observerArrayList.get(0).onDatabaseChanged();
-        System.out.println("HELLO WORLD " + observerArrayList.size());
-        for (DatabaseObserver databaseObserver:observerArrayList){
-            System.out.println("HELLO WORLD INSIDE NOTIFY DB CHANGED");
-            if (databaseObserver!= null){
-                databaseObserver.onDatabaseChanged();
-            }}
+        return arrayList;
     }
 }

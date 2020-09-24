@@ -61,7 +61,6 @@ public class UpdateExpense extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         recordId = getActivity().getIntent().getIntExtra("id", 0);
-        System.out.println("id " + recordId);
     }
 
     @Override

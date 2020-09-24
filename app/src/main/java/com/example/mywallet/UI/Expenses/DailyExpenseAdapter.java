@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ public class DailyExpenseAdapter extends RecyclerView.Adapter<DailyExpenseAdapte
     private ArrayList<DailyExpense> dailyExpenses;
     private DailyExpenseInterface activity;
     private Dialog dialog;
+    private LinearLayout linearLayoutNote;
 
     public DailyExpenseAdapter(Context context, ArrayList<DailyExpense> dailyExpenses) {
         this.dailyExpenses = dailyExpenses;
@@ -39,6 +41,7 @@ public class DailyExpenseAdapter extends RecyclerView.Adapter<DailyExpenseAdapte
             btnEdit = itemView.findViewById(R.id.btnEdit);
             btnDelete = itemView.findViewById(R.id.btnDelete);
             catImage = itemView.findViewById(R.id.expenseCatImg);
+            linearLayoutNote = itemView.findViewById(R.id.noteView);
 
             btnEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -50,7 +53,7 @@ public class DailyExpenseAdapter extends RecyclerView.Adapter<DailyExpenseAdapte
             btnDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    activity.onDeletBtnExInClick(dailyExpenses.get(dailyExpenses.indexOf(itemView.getTag())).getRecordId(), dailyExpenses.get(0).getDate().toString(), null);
+                    activity.onDeletBtnExInClick(dailyExpenses.get(dailyExpenses.indexOf(itemView.getTag())).getRecordId());
                 }
             });
 
@@ -70,10 +73,10 @@ public class DailyExpenseAdapter extends RecyclerView.Adapter<DailyExpenseAdapte
         holder.itemView.setTag(dailyExpenses.get(position));
         holder.expenseCategory.setText(getCategoryName(dailyExpenses.get(position).getCategoryId()));
         holder.amount.setText(((Double)dailyExpenses.get(position).getAmount()).toString());
-        if (dailyExpenses.get(position).getNote() == null){
-            holder.note.setText("Note");
-        }else {
+        if (dailyExpenses.get(position).getNote().length() > 0){
             holder.note.setText(dailyExpenses.get(position).getNote());
+        } else {
+            linearLayoutNote.removeView(holder.note);
         }
 
         holder.catImage.setImageResource(getImageforCategory(dailyExpenses.get(position).getCategoryId()));
@@ -86,7 +89,7 @@ public class DailyExpenseAdapter extends RecyclerView.Adapter<DailyExpenseAdapte
 
     //Interface for DailyExpense
     public interface DailyExpenseInterface{
-        public void onDeletBtnExInClick(int recordId, String date, View view);
+        public void onDeletBtnExInClick(int recordId);
         public void onUpdateBtnExInClick(int recordId);
     }
 
