@@ -239,6 +239,7 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
 
     }
 
+
     public void onaddincomeBtnClick() {
 
         Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
@@ -246,7 +247,29 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         startActivity(intent);
     }
 
-    @Override
+    
+    public void oneditBtnincome()
+    {
+        Income3 income3  = new Income3();
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.nav_host_fragment, income3);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+    public void onDeletBtnGoInClick() {
+        dialog.setContentView(R.layout.delete_pop_up);
+        /*LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.delete_pop_up, (ViewGroup)findViewById(R.id.deletePopUp));
+        TextView message = vie*/
+
+        TextView message = dialog.findViewById(R.id.message);
+        message.setText("Are you sure to delete this Goal?");
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+    }
+
     public void onAddBtnGoalClick() {
         Goal1 goal1 = new Goal1();
         fragmentManager = getSupportFragmentManager();
@@ -257,4 +280,5 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
     }
 
 }
+
 

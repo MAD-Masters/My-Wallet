@@ -16,6 +16,7 @@ import com.example.mywallet.Model.Category;
 import com.example.mywallet.Model.DailyExpense;
 import com.example.mywallet.Model.IncomeModel;
 import com.example.mywallet.Model.Wallet;
+import  com.example.mywallet.Model.FutureGoal;
 
 import java.lang.reflect.Array;
 import java.text.DateFormat;
@@ -90,6 +91,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 
         //Goal Table
         createTable = "CREATE TABLE GOAL (" + ID_TABLE + " INTEGER PRIMARY KEY AUTOINCREMENT, GOAL_NAME TEXT, DATE TEXT, AMOUNT REAL)";
+
         db.execSQL(createTable);
         Log.d("database", "Goal Table Created");
 
@@ -228,6 +230,17 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         long status = db.update(TABLE_EXPENSES, contentValues,  ID_TABLE + " = " + dailyExpense.getRecordId(), null);
 
         notifyDbChanged();
+
+    //add goal
+    public boolean addGoal(FutureGoal futureGoal){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("GOAL_NAME", futureGoal.getGoal());
+        contentValues.put("AMOUNT", futureGoal.getTotalAmount());
+        contentValues.put("DATE", futureGoal.getDate().toString());
+
+        long status = db.insert("GOAL", null, contentValues);
+
 
         if (status == -1) {
             return false;
