@@ -10,21 +10,16 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.versionedparcelable.VersionedParcel;
 
 import com.example.mywallet.Model.Category;
 import com.example.mywallet.Model.DailyExpense;
 import com.example.mywallet.Model.IncomeModel;
 import com.example.mywallet.Model.Wallet;
 
-import java.lang.reflect.Array;
 import java.text.DateFormat;
-import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Month;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservable {
@@ -186,17 +181,14 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
     //Get Expenses ArrayList
     @RequiresApi(api = Build.VERSION_CODES.O)
     public ArrayList<DailyExpense> getMonthlyExpenses(int month, int year) throws ParseException {
-        Format f = new SimpleDateFormat("MMM");
-        Month mon = Month.of(month+1);
-        Calendar c = Calendar.getInstance();
-        c.set(year, month, 1, 0, 0);
-        String monthS = f.format(c.getTime());
+        String[] monthArray = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Aug", "Nov", "Dec"};
+        String monthString = monthArray[month];
 
         DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
 
         SQLiteDatabase db = this.getWritableDatabase();
         ArrayList<DailyExpense> arrayList = new ArrayList<>();
-        Cursor cursor = db.rawQuery("SELECT * FROM EXPENSES WHERE DATE like '%" + monthS + "%" + year + "'", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM EXPENSES WHERE DATE like '%" + monthString + "%" + year + "'", null);
 
         cursor.moveToFirst();
 

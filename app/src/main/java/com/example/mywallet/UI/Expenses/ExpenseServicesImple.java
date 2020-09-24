@@ -15,10 +15,6 @@ import com.example.mywallet.Model.MonthlySummary;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.Year;
-import java.time.YearMonth;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -156,9 +152,28 @@ public class ExpenseServicesImple {
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-        YearMonth startYearMonth = YearMonth.from(LocalDate.parse(dateFormat.format(startDate)));
+        /*YearMonth startYearMonth = YearMonth.from(LocalDate.parse(dateFormat.format(startDate)));
         YearMonth endYearMonth = YearMonth.from(LocalDate.parse(dateFormat.format(endDate)));
-        long monthsBetween = ChronoUnit.MONTHS.between(startYearMonth, endYearMonth);
+        long monthsBetween = ChronoUnit.MONTHS.between(startYearMonth, endYearMonth);*/
+
+        int startMonth = startDate.getMonth();
+        int startYear = startDate.getYear();
+
+        int endMonth = endDate.getMonth();
+        int endYear = endDate.getYear();
+
+        int yearDifference = endYear - startYear;
+
+        int monthDifference = 0;
+        if (yearDifference == 0) {
+            monthDifference = endMonth - startMonth;
+        } else if (yearDifference == 1) {
+            monthDifference = endMonth + (12 - startMonth);
+        } else {
+            monthDifference = 12 * (yearDifference - 1) + endMonth + (12 - startMonth);
+        }
+
+        int monthsBetween = yearDifference * 12 + monthDifference;
 
         Calendar cal = Calendar.getInstance();
         cal.setTime(startDate);
