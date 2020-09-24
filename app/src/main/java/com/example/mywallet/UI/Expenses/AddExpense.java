@@ -45,7 +45,7 @@ public class AddExpense extends Fragment {
     private EditText amount, note;
     private TextView category, wallet;
     View view;
-    private Button btnAddExpense;
+    private Button btnAddExpense, btnCancel;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
     private ToastMessage toastMessage;
@@ -98,12 +98,21 @@ public class AddExpense extends Fragment {
         });
 
         btnAddExpense = view.findViewById(R.id.btnSaveExpense);
+        btnCancel = view.findViewById(R.id.cansel);
         amount = view.findViewById(R.id.amount);
         wallet = view.findViewById(R.id.walletId);
         category = view.findViewById(R.id.categoryId);
         note = view.findViewById(R.id.note);
         categoryId = -1;
         walletId = -1;
+
+        //Btn Cancel
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
 
         //Set category dialog box
         category.setOnClickListener(new View.OnClickListener() {
@@ -123,7 +132,7 @@ public class AddExpense extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         category.setText(categoryNames[which]);
-                        categoryId = which;
+                        categoryId = which+1;
                         dialog.dismiss();
                     }
                 });

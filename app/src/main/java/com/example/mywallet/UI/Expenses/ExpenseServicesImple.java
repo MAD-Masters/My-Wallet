@@ -96,4 +96,14 @@ public class ExpenseServicesImple {
         }
         return dailyExpenses;
     }
+
+    public double getTotalExpenses(ArrayList<DailyExpense> dailyExpenses) {
+        double total = 0.0;
+
+        for (DailyExpense dailyExpense : dailyExpenses) {
+            total = total + dailyExpense.getAmount();
+        }
+
+        return total;
+    }
 }

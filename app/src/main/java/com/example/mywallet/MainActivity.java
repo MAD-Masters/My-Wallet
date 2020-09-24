@@ -1,5 +1,6 @@
 package com.example.mywallet;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -10,8 +11,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.mywallet.Model.DailyExpense;
-import com.example.mywallet.Model.DailyExpesnseSummary;
 import com.example.mywallet.UI.BudgetManager.Budget1;
 import com.example.mywallet.UI.Expenses.DailyExpenseAdapter;
 import com.example.mywallet.UI.Expenses.DailyExpenseSummaryAdapter;
@@ -29,10 +28,9 @@ import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements DailyExpenseSummaryAdapter.onDailyExpenseSummaryClick, DailyExpenseAdapter.DailyExpenseInterface, Incomeadapter.IncomeInterface, GoalAdapter.GoalInterface {
     BottomAppBar bottomAppBar;
@@ -147,21 +145,20 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
     }
 
     @Override
-    public void onClickDailyExpItem(DailyExpesnseSummary dailyExpesnseSummary, ArrayList<DailyExpense> dailyExpenseArrayList) {
+    public void onClickDailyExpItem(String date) {
         DailyExpensesInDetail dailyExpensesInDetail = new DailyExpensesInDetail();
         Bundle result = new Bundle();
-        result.putParcelable("summary", dailyExpesnseSummary);
-        result.putParcelableArrayList("dailyArray", dailyExpenseArrayList);
+        result.putString("date", date);
         dailyExpensesInDetail.setArguments(result);
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.nav_host_fragment, dailyExpensesInDetail);
+        fragmentTransaction.replace(R.id.nav_host_fragment, dailyExpensesInDetail, "EXPENSEinDetail");
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
     @Override
-    public void onDeletBtnExInClick() {
+    public void onDeletBtnExInClick(final int recordId, final String date, final View view) {
         dialog.setContentView(R.layout.delete_pop_up);
         TextView message = dialog.findViewById(R.id.message);
         message.setText("Are you sure to delete this record?");
@@ -177,14 +174,30 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
             }
         });
 
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
+                boolean status = databaseHelper.deleteExpenseRecord(recordId);
+                ToastMessage toastMessage = new ToastMessage(MainActivity.this, View.inflate(getApplicationContext(), R.layout.item_daily_expenses,null));
+
+                if (status) {
+                   toastMessage.successToast("Successfully Deleted");
+                } else {
+                    toastMessage.errorToast("Delete Failed");
+                }
+                dialog.dismiss();
+            }
+        });
+
         dialog.show();
     }
 
     @Override
-    public void onUpdateBtnExInClick(DailyExpense dailyExpense) {
+    public void onUpdateBtnExInClick(int recordId) {
         Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
         intent.putExtra("Fragment", "Update Expenses");
-        intent.putExtra("object", dailyExpense);
+        intent.putExtra("id", recordId);
         startActivity(intent);
     }
 

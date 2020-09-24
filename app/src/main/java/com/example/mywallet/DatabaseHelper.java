@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservable {
     public static final String TABLE_EXPENSES = "EXPENSES";
     public static final String ID_TABLE = "ID";
 
@@ -173,7 +173,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             dailyExpense.setWalletID(cursor.getInt(cursor.getColumnIndex("WALLET_" + ID_TABLE)));
             dailyExpense.setCategoryId(cursor.getInt(cursor.getColumnIndex("CATEGORY")));
             dailyExpense.setDate(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
-            String not = cursor.getString(cursor.getColumnIndex("NOTE"));
+            dailyExpense.setNote(cursor.getString(cursor.getColumnIndex("NOTE")));
 
             arrayList.add(dailyExpense);
             cursor.moveToNext();
@@ -181,7 +181,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return arrayList;
     }
 
-    public boolean updateExpense(DailyExpense dailyExpense) {
+    public boolean updateExpense(DailyExpense dailyExpense){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("AMOUNT", dailyExpense.getAmount());
@@ -197,5 +197,144 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         } else {
             return true;
         }
+    }
+
+    //Get Daily Expense By Id
+    public DailyExpense getDailyExpenseById(int id) throws ParseException {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String sqlQuery = "SELECT * FROM EXPENSES WHERE " + ID_TABLE + " = " + id;
+        Cursor cursor = db.rawQuery(sqlQuery, null);
+
+        DailyExpense dailyExpense = new DailyExpense();
+
+        DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+
+        if (cursor.moveToFirst()) {
+            dailyExpense.setRecordId(cursor.getInt(cursor.getColumnIndex(ID_TABLE)));
+            dailyExpense.setAmount(cursor.getFloat(cursor.getColumnIndex("AMOUNT")));
+            dailyExpense.setWalletID(cursor.getInt(cursor.getColumnIndex("WALLET_" + ID_TABLE)));
+            dailyExpense.setCategoryId(cursor.getInt(cursor.getColumnIndex("CATEGORY")));
+            dailyExpense.setDate(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
+            dailyExpense.setNote(cursor.getString(cursor.getColumnIndex("NOTE")));
+        }
+
+        return dailyExpense;
+    }
+
+    //Get Category Name By Id
+    public String getCategoryName(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String sqlQuery = "SELECT * FROM CATEGORY WHERE " + ID_TABLE + " = " + id;
+
+        Cursor cursor = db.rawQuery(sqlQuery, null);
+
+
+
+        if (cursor.moveToFirst()) {
+            System.out.println("category" + cursor.getString(cursor.getColumnIndex("NAME")));
+            return cursor.getString(cursor.getColumnIndex("NAME"));
+        }
+
+        return null;
+    }
+
+    //Get Wallet Name By Id
+    public String getWalletNameById(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String sqlQuery = "SELECT * FROM WALLET WHERE " + ID_TABLE + " = "  + id;
+
+        Cursor cursor = db.rawQuery(sqlQuery, null);
+
+        if (cursor.moveToFirst()) {
+            return cursor.getString(cursor.getColumnIndex("WALLET_NAME"));
+        }
+
+        return null;
+    }
+
+    //Get Expenses By Date
+    public ArrayList<DailyExpense> getDailyExpensesByDate(String date) throws ParseException{
+        ArrayList<DailyExpense> dailyExpenses = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String sqlQuery = "SELECT * FROM EXPENSES WHERE DATE LIKE'" + date +"'";
+        Cursor cursor = db.rawQuery(sqlQuery, null);
+
+        DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+
+        cursor.moveToFirst();
+
+        while (cursor.isAfterLast() == false) {
+            DailyExpense dailyExpense = new DailyExpense();
+
+            dailyExpense.setRecordId(cursor.getInt(cursor.getColumnIndex(ID_TABLE)));
+            dailyExpense.setAmount(cursor.getFloat(cursor.getColumnIndex("AMOUNT")));
+            dailyExpense.setWalletID(cursor.getInt(cursor.getColumnIndex("WALLET_" + ID_TABLE)));
+            dailyExpense.setCategoryId(cursor.getInt(cursor.getColumnIndex("CATEGORY")));
+            dailyExpense.setDate(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
+            dailyExpense.setNote(cursor.getString(cursor.getColumnIndex("NOTE")));
+
+            dailyExpenses.add(dailyExpense);
+
+            cursor.moveToNext();
+        }
+
+        return dailyExpenses;
+    }
+
+    //Delete Expenses Record
+    public boolean deleteExpenseRecord(int id) {
+        SQLiteDatabase db = getWritableDatabase();
+        String whereClause = ID_TABLE + " = " + id;
+        long status = db.delete("EXPENSES", whereClause, null);
+
+        notifyDbChanged();
+
+        if (status == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    static DatabaseHelper databaseHelper;
+    static ArrayList<DatabaseObserver> observerArrayList;
+    //make it Singleton
+    public static synchronized DatabaseHelper getInstance(Context context) {
+        if (databaseHelper == null) {
+            databaseHelper = new DatabaseHelper(context.getApplicationContext());
+            observerArrayList = new ArrayList<>();
+        }
+        return databaseHelper;
+    }
+
+    @Override
+    public void registerDbObserver(DatabaseObserver databaseObserver) {
+        System.out.println("HELLO WORLD ADD OBSERVER");
+        if (!observerArrayList.contains(databaseObserver)){
+            observerArrayList.add(databaseObserver);
+            System.out.println("HELLO WORLD OBSERVER ADDED");
+            System.out.println("HELLO WORLD " + observerArrayList.size());
+        }
+    }
+
+    @Override
+    public void removeDbObserver(DatabaseObserver databaseObserver) {
+        observerArrayList.remove(databaseObserver);
+    }
+
+    @Override
+    public void notifyDbChanged() {
+        System.out.println("HELLO WORLD NOTIFY DB CHANGED");
+        //observerArrayList.get(0).onDatabaseChanged();
+        System.out.println("HELLO WORLD " + observerArrayList.size());
+        for (DatabaseObserver databaseObserver:observerArrayList){
+            System.out.println("HELLO WORLD INSIDE NOTIFY DB CHANGED");
+            if (databaseObserver!= null){
+                databaseObserver.onDatabaseChanged();
+            }}
     }
 }
