@@ -16,8 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.mywallet.R;
-import com.example.mywallet.UI.Goal.Model.FutureGoal;
-import com.example.mywallet.UI.Income.Income4;
+import com.example.mywallet.Model.FutureGoal;
 
 import java.util.ArrayList;
 import java.util.Calendar;

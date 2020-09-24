@@ -1,6 +1,5 @@
 package com.example.mywallet.UI.Goal;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mywallet.R;
-import com.example.mywallet.UI.Goal.Model.FutureGoal;
+import com.example.mywallet.Model.FutureGoal;
 
 import java.util.ArrayList;
 import java.util.Date;

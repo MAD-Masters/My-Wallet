@@ -1,48 +1,40 @@
 package com.example.mywallet;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.mywallet.UI.BudgetManager.Budget1;
+
+import com.example.mywallet.UI.BudgetManager.Model.Budget2;
 import com.example.mywallet.UI.Expenses.AddExpense;
+
 import com.example.mywallet.UI.Expenses.DailyExpenseAdapter;
 import com.example.mywallet.UI.Expenses.DailyExpenseSummaryAdapter;
 import com.example.mywallet.UI.Expenses.DailyExpensesInDetail;
 import com.example.mywallet.UI.Expenses.Home;
-import com.example.mywallet.UI.Expenses.UpdateExpense;
-import com.example.mywallet.UI.Goal.Goal;
 import com.example.mywallet.UI.Goal.Goal1;
 import com.example.mywallet.UI.Goal.GoalAdapter;
 import com.example.mywallet.UI.Goal.Goal_Home;
 import com.example.mywallet.UI.Income.Income;
 import com.example.mywallet.UI.Income.Income2;
 import com.example.mywallet.UI.Income.Income3;
-import com.example.mywallet.UI.Income.Income4;
 import com.example.mywallet.UI.Income.Income5;
 import com.example.mywallet.UI.Income.Incomeadapter;
 import com.google.android.material.bottomappbar.BottomAppBar;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 public class MainActivity extends AppCompatActivity implements DailyExpenseSummaryAdapter.onDailyExpenseSummaryClick, DailyExpenseAdapter.DailyExpenseInterface, Incomeadapter.IncomeInterface, GoalAdapter.GoalInterface {
     BottomAppBar bottomAppBar;
@@ -101,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
-                intent.putExtra("Fragment", "AddExpense");
+                intent.putExtra("Fragment", "Add Expense");
                 startActivity(intent);
             }
         });
@@ -157,32 +149,59 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
     }
 
     @Override
-    public void onClickDailyExpItem() {
+    public void onClickDailyExpItem(String date) {
         DailyExpensesInDetail dailyExpensesInDetail = new DailyExpensesInDetail();
+        Bundle result = new Bundle();
+        result.putString("date", date);
+        dailyExpensesInDetail.setArguments(result);
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.nav_host_fragment, dailyExpensesInDetail);
+        fragmentTransaction.replace(R.id.nav_host_fragment, dailyExpensesInDetail, "EXPENSEinDetail");
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
     @Override
-    public void onDeletBtnExInClick() {
+    public void onDeletBtnExInClick(final int recordId) {
         dialog.setContentView(R.layout.delete_pop_up);
-        /*LayoutInflater inflater = getLayoutInflater();
-        View view = inflater.inflate(R.layout.delete_pop_up, (ViewGroup)findViewById(R.id.deletePopUp));
-        TextView message = vie*/
-
         TextView message = dialog.findViewById(R.id.message);
         message.setText("Are you sure to delete this record?");
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        Button delete = dialog.findViewById(R.id.positiveBtn);
+        Button cancel = dialog.findViewById(R.id.negativeBtn);
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
+                boolean status = databaseHelper.deleteExpenseRecord(recordId);
+                ToastMessage toastMessage = new ToastMessage(MainActivity.this, View.inflate(getApplicationContext(), R.layout.item_daily_expenses,null));
+
+                if (status) {
+                   toastMessage.successToast("Successfully Deleted");
+                } else {
+                    toastMessage.errorToast("Delete Failed");
+                }
+                dialog.dismiss();
+            }
+        });
+
         dialog.show();
     }
 
     @Override
-    public void onUpdateBtnExInClick() {
+    public void onUpdateBtnExInClick(int recordId) {
         Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
-        intent.putExtra("Fragment", "UpdateExpenses");
+        intent.putExtra("Fragment", "Update Expenses");
+        intent.putExtra("id", recordId);
         startActivity(intent);
     }
 
@@ -221,7 +240,14 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
     }
 
 
-//ewwerfwfwefewfwex
+    public void onaddincomeBtnClick() {
+
+        Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
+        intent.putExtra("Fragment", "addincome");
+        startActivity(intent);
+    }
+
+    
     public void oneditBtnincome()
     {
         Income3 income3  = new Income3();
@@ -243,6 +269,7 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
     }
+
     public void onAddBtnGoalClick() {
         Goal1 goal1 = new Goal1();
         fragmentManager = getSupportFragmentManager();
@@ -250,4 +277,8 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         fragmentTransaction.replace(R.id.nav_host_fragment, goal1);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-}}
+    }
+
+}
+
+
