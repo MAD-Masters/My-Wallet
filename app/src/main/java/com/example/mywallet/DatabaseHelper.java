@@ -26,6 +26,7 @@ import java.util.Date;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TABLE_EXPENSES = "EXPENSES";
+    public static final String INCOME = "INCOME";
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, "my_wallet.db", null, 1);
@@ -39,7 +40,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Log.d("database", "Wallet Table Created");
 
         //Income Table
-        createTable = "CREATE TABLE INCOME (ID INTEGER PRIMARY KEY AUTOINCREMENT, WALLET_ID INT, AMOUNT REAL, DATE TEXT, NOTE TEXT, FOREIGN KEY(WALLET_ID) REFERENCES WALLET(ID))";
+        createTable = "CREATE TABLE " + INCOME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, WALLET_ID INT, AMOUNT REAL, DATE TEXT, NOTE TEXT, FOREIGN KEY(WALLET_ID) REFERENCES WALLET(ID))";
         db.execSQL(createTable);
         Log.d("database", "Income Table Created");
 
@@ -74,7 +75,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE " + TABLE_EXPENSES);
-        db.execSQL("DROP TABLE INCOME");
+        db.execSQL("DROP TABLE " + INCOME);
         db.execSQL("DROP TABLE CATEGORY");
         db.execSQL("DROP TABLE WALLET");
         db.execSQL("DROP TABLE GOAL");
@@ -186,4 +187,42 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return arrayList;
     }
+
+
+    //addincome
+    public boolean addincome(IncomeModel incomeModel){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("AMOUNT",incomeModel.getMoney());
+        contentValues.put("DATE", String.valueOf(incomeModel.getDate()));
+        contentValues.put("NOTE", incomeModel.getText());
+        contentValues.put("WALLET_ID", incomeModel.getWalletid());
+
+        long status = db.insert(INCOME, null, contentValues);
+
+        if (status == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    //addwallet
+    public boolean addwallet(Wallet wallet){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("WALLET_NAME",wallet.getWalletName());
+        contentValues.put("BANK ",wallet.getBank());
+
+        long status = db.insert(INCOME, null, contentValues);
+
+        if (status == -1) {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
+
 }

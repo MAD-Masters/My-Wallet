@@ -46,7 +46,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-public class MainActivity extends AppCompatActivity implements DailyExpenseSummaryAdapter.onDailyExpenseSummaryClick, DailyExpenseAdapter.DailyExpenseInterface, Incomeadapter.IncomeInterface, Income2adapter.Income2Interface, GoalAdapter.GoalInterface {
+public class MainActivity extends AppCompatActivity implements DailyExpenseSummaryAdapter.onDailyExpenseSummaryClick, DailyExpenseAdapter.DailyExpenseInterface, Incomeadapter.IncomeInterface, GoalAdapter.GoalInterface {
     BottomAppBar bottomAppBar;
     ImageView navExpenseBtn, navIncomeBtn, navBudgetBtn, navGoalBtn;
     TextView navExpenseText, navIncomeText, navBudgetText, navGoalText;
@@ -246,23 +246,5 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         fragmentTransaction.commit();
     }
 
-    @Override
-    public void onUpdateBtnincomemoney() {
-        Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
-        intent.putExtra("Fragment", "updateincomemoney");
-        startActivity(intent);
-    }
 
-    @Override
-    public void ondeleteincome2() {
-        dialog.setContentView(R.layout.delete_pop_up);
-        /*LayoutInflater inflater = getLayoutInflater();
-        View view = inflater.inflate(R.layout.delete_pop_up, (ViewGroup)findViewById(R.id.deletePopUp));
-        TextView message = vie*/
-
-        TextView message = dialog.findViewById(R.id.message);
-        message.setText("Are you sure to delete this record?");
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.show();
-    }
 }

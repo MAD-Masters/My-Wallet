@@ -1,6 +1,7 @@
 package com.example.mywallet.UI.Income;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -16,9 +17,15 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.mywallet.DatabaseHelper;
+import com.example.mywallet.MainActivity;
+import com.example.mywallet.Model.DailyExpense;
+import com.example.mywallet.Model.IncomeModel;
 import com.example.mywallet.R;
 import com.example.mywallet.ToastMessage;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -91,6 +98,7 @@ public class Income5 extends Fragment {
 
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        toastMessage = new ToastMessage(getActivity(), view);
         eText = (TextView) view.findViewById(R.id.textInputEditText9);
         Date currentTime = Calendar.getInstance().getTime();
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -116,5 +124,56 @@ public class Income5 extends Fragment {
             }
         });
 
+        addincome = view.findViewById(R.id.add);
+        amount = view.findViewById(R.id.textInputLayout4);
+        note = view.findViewById(R.id.textInputEditText5);
+
+        addincome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (checkFields()) {
+                    DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                    Date date = Calendar.getInstance().getTime();
+                    try {
+                        date = format.parse(eText.getText().toString());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    IncomeModel incomeModel = new IncomeModel();
+                    incomeModel.setMoney(Double.parseDouble(amount.getText().toString()));
+                    incomeModel.setDate(date);
+                    incomeModel.setText(note.getText().toString());
+
+
+                    DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+                    boolean status = databaseHelper.addincome(incomeModel);
+
+                    if (status) {
+                        toastMessage.successToast("Successfully Inserted");
+
+                        Intent intent = new Intent(getContext(), MainActivity.class);
+                        startActivity(intent);
+
+                    } else {
+                        toastMessage.errorToast("Insert Failed");
+                    }
+                }
+            }
+
+
+        });
+
+    }
+    //This method checks the fields
+    public boolean checkFields() {
+        boolean status = true;
+        if (amount.getText().length() == 0) {
+            toastMessage.errorToast("Amount can not be Empty");
+            status = false;
+        } else if (note.getText().length() == 0) {
+            note.setText(" ");
+        }
+        return status;
     }
 }
