@@ -1,5 +1,6 @@
 package com.example.mywallet.UI.Goal;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -15,9 +16,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.mywallet.DatabaseHelper;
 import com.example.mywallet.R;
 import com.example.mywallet.Model.FutureGoal;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -68,7 +71,15 @@ public class Goal_Home extends Fragment {
 
         });
 
+      /*  DatabaseHelper databaseHelper=new DatabaseHelper(getContext());
+        ArrayList<FutureGoal> futuregoalArrayList=new ArrayList<>();
 
+        try {
+            futuregoalArrayList = databaseHelper.getfutureGoal();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+*/
 
         futuregoalArrayList = new ArrayList<>();
 

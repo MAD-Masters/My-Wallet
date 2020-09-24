@@ -8,14 +8,29 @@ public class FutureGoal {
     double currentAmount;
     double totalAmount;
     String goal;
+    int record_id;
 
-    public FutureGoal(Date date, double currentAmount, String goal, Double totalAmount) {
+    public FutureGoal(int record_id,Date date, double currentAmount, String goal, Double totalAmount) {
+        this.record_id=record_id;
         this.date = date;
         this.currentAmount = currentAmount;
         this.goal= goal;
         this.totalAmount = totalAmount;
 
     }
+
+    public FutureGoal(Date date, double currentAmount, String goal, Double totalAmount) {
+
+        this.date = date;
+        this.currentAmount = currentAmount;
+        this.goal= goal;
+        this.totalAmount = totalAmount;
+
+    }
+    public FutureGoal() {
+    }
+
+
 
     //Setters and Getters
 
@@ -49,7 +64,13 @@ public class FutureGoal {
 
     public void setTotalAmount(double totalAmount) { this.totalAmount = totalAmount;
     }
+    public int getRecordId() {
+        return record_id;
+    }
 
+    public void setRecordId(int record_id) {
+        this.record_id = record_id;
+    }
 
 }
 

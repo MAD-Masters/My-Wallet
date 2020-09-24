@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import com.example.mywallet.UI.Expenses.AddExpense;
 import com.example.mywallet.UI.Expenses.UpdateExpense;
+import com.example.mywallet.UI.Goal.Goal1;
 import com.example.mywallet.UI.Income.Income5;
 
 public class NoAppBarActivity extends AppCompatActivity {
@@ -43,6 +44,15 @@ public class NoAppBarActivity extends AppCompatActivity {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.noAppBarFragmentContainer, income5);
             fragmentTransaction.commit();
+        }
+
+        else if(fragment.equals("addgoal")){
+            Goal1 goal1 = new Goal1();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.noAppBarFragmentContainer, goal1);
+            fragmentTransaction.commit();
+
         }
 
     }

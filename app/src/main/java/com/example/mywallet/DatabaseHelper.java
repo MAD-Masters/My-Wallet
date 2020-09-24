@@ -14,9 +14,9 @@ import androidx.versionedparcelable.VersionedParcel;
 
 import com.example.mywallet.Model.Category;
 import com.example.mywallet.Model.DailyExpense;
+import com.example.mywallet.Model.FutureGoal;
 import com.example.mywallet.Model.IncomeModel;
 import com.example.mywallet.Model.Wallet;
-import  com.example.mywallet.Model.FutureGoal;
 
 import java.lang.reflect.Array;
 import java.text.DateFormat;
@@ -91,7 +91,6 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 
         //Goal Table
         createTable = "CREATE TABLE GOAL (" + ID_TABLE + " INTEGER PRIMARY KEY AUTOINCREMENT, GOAL_NAME TEXT, DATE TEXT, AMOUNT REAL)";
-
         db.execSQL(createTable);
         Log.d("database", "Goal Table Created");
 
@@ -154,16 +153,16 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
     public ArrayList<Category> getCategories() {
         SQLiteDatabase db = this.getWritableDatabase();
         ArrayList<Category> arrayList = new ArrayList<>();
-       Cursor cursor = db.rawQuery("SELECT * FROM CATEGORY", null);
-       cursor.moveToFirst();
-       while (cursor.isAfterLast() == false) {
-           Category category = new Category();
-           category.setCategoryId(cursor.getInt(cursor.getColumnIndex(ID_TABLE)));
-           category.setCategoryName(cursor.getString(cursor.getColumnIndex("NAME")));
+        Cursor cursor = db.rawQuery("SELECT * FROM CATEGORY", null);
+        cursor.moveToFirst();
+        while (cursor.isAfterLast() == false) {
+            Category category = new Category();
+            category.setCategoryId(cursor.getInt(cursor.getColumnIndex(ID_TABLE)));
+            category.setCategoryName(cursor.getString(cursor.getColumnIndex("NAME")));
 
-           arrayList.add(category);
-           cursor.moveToNext();
-       }
+            arrayList.add(category);
+            cursor.moveToNext();
+        }
         return arrayList;
     }
 
@@ -230,17 +229,6 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         long status = db.update(TABLE_EXPENSES, contentValues,  ID_TABLE + " = " + dailyExpense.getRecordId(), null);
 
         notifyDbChanged();
-
-    //add goal
-    public boolean addGoal(FutureGoal futureGoal){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("GOAL_NAME", futureGoal.getGoal());
-        contentValues.put("AMOUNT", futureGoal.getTotalAmount());
-        contentValues.put("DATE", futureGoal.getDate().toString());
-
-        long status = db.insert("GOAL", null, contentValues);
-
 
         if (status == -1) {
             return false;
@@ -387,4 +375,52 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 
         return arrayList;
     }
+ //add goal
+
+    public boolean addGoal(FutureGoal futureGoal){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("GOAL_NAME", futureGoal.getGoal());
+        contentValues.put("AMOUNT", futureGoal.getTotalAmount());
+        contentValues.put("DATE", futureGoal.getDate().toString());
+
+        long status = db.insert("GOAL", null, contentValues);
+
+        if (status == -1) {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
+    //viewGoal
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public ArrayList<FutureGoal> getfutureGoal() throws ParseException {
+
+        DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<FutureGoal> arrayList = new ArrayList<>();
+       Cursor cursor = db.rawQuery("SELECT * FROM GOAL " , null);
+
+        cursor.moveToFirst();
+
+        while (cursor.isAfterLast() == false) {
+            FutureGoal futureGoal = new FutureGoal();
+            futureGoal.setRecordId(cursor.getInt(cursor.getColumnIndex(ID_TABLE)));
+            futureGoal.setGoal(cursor.getString(cursor.getColumnIndex("GOAL_NAME")));
+            futureGoal.setTotalAmount(cursor.getFloat(cursor.getColumnIndex("AMOUNT")));
+            futureGoal.setDate(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
+
+
+            arrayList.add(futureGoal);
+            cursor.moveToNext();
+        }
+        return arrayList;
+    }
+
+
+
 }
+

@@ -271,12 +271,18 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
     }
 
     public void onAddBtnGoalClick() {
-        Goal1 goal1 = new Goal1();
+
+
+        Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
+        intent.putExtra("Fragment", "addgoal");
+        startActivity(intent);
+
+        /* Goal1 goal1 = new Goal1();
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.nav_host_fragment, goal1);
         fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        fragmentTransaction.commit();*/
     }
 
 }
