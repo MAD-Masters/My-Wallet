@@ -44,10 +44,11 @@ public class UpdateExpense extends Fragment {
     DatePickerDialog picker;
     TextView eText;
     DailyExpense dailyEx;
+    private int recordId;
     private EditText amount, note;
     private TextView category, wallet;
     View view;
-    private Button btnAddExpense;
+    private Button btnAddExpense, btnCancel;
     private ToastMessage toastMessage;
     private int categoryId, walletId;
 
@@ -59,8 +60,8 @@ public class UpdateExpense extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle bundle = getArguments();
-        dailyEx = bundle.getParcelable("object");
+        recordId = getActivity().getIntent().getIntExtra("id", 0);
+        System.out.println("id " + recordId);
     }
 
     @Override
@@ -74,6 +75,13 @@ public class UpdateExpense extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+        try {
+            dailyEx = databaseHelper.getDailyExpenseById(recordId);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         eText = (TextView) view.findViewById(R.id.dateInput);
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -99,12 +107,29 @@ public class UpdateExpense extends Fragment {
 
         toastMessage = new ToastMessage(getActivity(), view);
         btnAddExpense = view.findViewById(R.id.btnUpdate);
+        btnCancel = view.findViewById(R.id.cansel);
         amount = view.findViewById(R.id.amount);
         wallet = view.findViewById(R.id.walletId);
         category = view.findViewById(R.id.categoryId);
         note = view.findViewById(R.id.note);
         categoryId = -1;
         walletId = -1;
+
+        //Btn Cancel
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
+
+        //Set Current Values
+        amount.setText(String.valueOf(dailyEx.getAmount()));
+        category.setText(databaseHelper.getCategoryName(dailyEx.getCategoryId()));
+        categoryId = dailyEx.getCategoryId();
+        walletId = dailyEx.getWalletID();
+        wallet.setText(databaseHelper.getWalletNameById(dailyEx.getWalletID()));
+        note.setText(dailyEx.getNote());
 
         //Set category dialog box
         category.setOnClickListener(new View.OnClickListener() {
@@ -124,7 +149,7 @@ public class UpdateExpense extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         category.setText(categoryNames[which]);
-                        categoryId = which;
+                        categoryId = which+1;
                         dialog.dismiss();
                     }
                 });
@@ -226,9 +251,12 @@ public class UpdateExpense extends Fragment {
                     dailyExpense.setWalletID(walletId);
                     dailyExpense.setDate(date);
                     dailyExpense.setNote(note.getText().toString());
+                    dailyExpense.setRecordId(dailyEx.getRecordId());
 
                     DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
-                    boolean status = databaseHelper.updateExpense(dailyExpense);
+                    System.out.println("amount" + dailyExpense.getAmount());
+                    boolean status = false;
+                    status = databaseHelper.updateExpense(dailyExpense);
 
                     if (status) {
                         toastMessage.successToast("Successfully Updated");
