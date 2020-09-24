@@ -27,6 +27,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static android.os.Build.ID;
+
 public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservable {
     public static final String TABLE_EXPENSES = "EXPENSES";
 
@@ -456,13 +458,13 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 
         public ArrayList<IncomeModel> getincomesList () throws ParseException {
 
-            DateFormat formatter = new SimpleDateFormat("EEE MM dd HH:mm:ss zzz yyyy");
-
-
-            SQLiteDatabase db = this.getWritableDatabase();
+           SQLiteDatabase db = this.getWritableDatabase();
             ArrayList<IncomeModel> arrayList = new ArrayList<>();
             Cursor cursor = db.rawQuery("SELECT * FROM " + INCOME, null);
             cursor.moveToFirst();
+
+            DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+
             while (cursor.isAfterLast() == false) {
                 IncomeModel incomeModel = new IncomeModel();
                 incomeModel.setText(cursor.getString(cursor.getColumnIndex("NOTE")));
@@ -474,4 +476,25 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
             }
             return arrayList;
         }
+
+        public Wallet getwalletbyid(int walletid)
+        {
+            SQLiteDatabase db = this.getReadableDatabase();
+
+            String sqlQuery = "SELECT * FROM WALLET WHERE " + ID + " = " + walletid;
+
+            Cursor cursor = db.rawQuery(sqlQuery, null);
+
+            Wallet wallet = new Wallet();
+
+
+            if (cursor.moveToFirst()) {
+                wallet.setBank(cursor.getString(cursor.getColumnIndex("BANK")));
+                wallet.setWalletName(cursor.getString(cursor.getColumnIndex("WALLET_NAME")));
+            }
+            return wallet;
+
+        }
+
+
     }

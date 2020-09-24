@@ -2,12 +2,15 @@ package com.example.mywallet.UI.Income;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.mywallet.DatabaseHelper;
+import com.example.mywallet.Model.Wallet;
 import com.example.mywallet.R;
 
 /**
@@ -25,6 +28,8 @@ public class Income3 extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private int walletid;
+    Wallet wallet;
 
     public Income3() {
         // Required empty public constructor
@@ -51,6 +56,9 @@ public class Income3 extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        walletid = getActivity().getIntent().getIntExtra("walletid",0);
+
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -62,5 +70,15 @@ public class Income3 extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_income3, container, false);
+    }
+
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+
+        wallet = databaseHelper.getwalletbyid(walletid);
+
+
     }
 }

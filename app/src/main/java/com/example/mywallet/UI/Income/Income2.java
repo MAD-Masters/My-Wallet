@@ -115,10 +115,6 @@ public class Income2 extends Fragment {
             e.printStackTrace();
         }
 
-
-//        incomeModelArrayListList.add(incomeModelArrayListList));
-
-
         recyclerView = root.findViewById(R.id.list_income);
         recyclerView.setHasFixedSize(true);
 
