@@ -16,8 +16,8 @@ import com.example.mywallet.DatabaseHelper;
 import com.example.mywallet.MainActivity;
 import com.example.mywallet.R;
 import com.example.mywallet.ToastMessage;
-import com.example.mywallet.UI.Expenses.Model.DailyExpense;
-import com.example.mywallet.UI.Goal.Model.FutureGoal;
+import com.example.mywallet.Model.DailyExpense;
+import com.example.mywallet.Model.FutureGoal;
 
 import java.text.DateFormat;
 import java.text.ParseException;

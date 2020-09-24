@@ -42,6 +42,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 
     static DatabaseHelper databaseHelper;
     static ArrayList<DatabaseObserver> observerArrayList;
+
     //make it Singleton
     public static synchronized DatabaseHelper getInstance(Context context) {
         if (databaseHelper == null) {
@@ -53,7 +54,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 
     @Override
     public void registerDbObserver(DatabaseObserver databaseObserver) {
-        if (!observerArrayList.contains(databaseObserver)){
+        if (!observerArrayList.contains(databaseObserver)) {
             observerArrayList.add(databaseObserver);
         }
     }
@@ -66,16 +67,17 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
     @Override
     public void notifyDbChanged() {
         System.out.println("HELLO WORLD " + observerArrayList.size());
-        for (DatabaseObserver databaseObserver:observerArrayList){
-            if (databaseObserver!= null){
+        for (DatabaseObserver databaseObserver : observerArrayList) {
+            if (databaseObserver != null) {
                 databaseObserver.onDatabaseChanged();
-            }}
+            }
+        }
     }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         //Wallet Table
 
-       
 
         String createTable = "CREATE TABLE " + WALLET + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, WALLET_NAME TEXT, BANK TEXT)";
 
@@ -97,12 +99,10 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 
         //Expense Table
 
-      
+
         createTable = "CREATE TABLE " + TABLE_EXPENSES + "(" + ID_TABLE + " INTEGER PRIMARY KEY AUTOINCREMENT, AMOUNT REAL, DATE TEXT, CATEGORY INTEGER, NOTE TEXT, WALLET_ID INT, FOREIGN KEY(WALLET_ID) REFERENCES WALLET(ID))";
 
-      
-      
-  
+
         db.execSQL(createTable);
         Log.d("database", "Expense Table Created");
 
@@ -150,7 +150,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
     }
 
     //Add Expenses
-    public boolean addExpense(DailyExpense dailyExpense){
+    public boolean addExpense(DailyExpense dailyExpense) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("AMOUNT", dailyExpense.getAmount());
@@ -158,9 +158,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         contentValues.put("CATEGORY", dailyExpense.getCategoryId());
         contentValues.put("NOTE", dailyExpense.getNote());
 
-        contentValues.put("WALLET_ID" , dailyExpense.getWalletID());
+        contentValues.put("WALLET_ID", dailyExpense.getWalletID());
 
-        
 
         long status = db.insert(TABLE_EXPENSES, null, contentValues);
 
@@ -176,16 +175,16 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
     public ArrayList<Category> getCategories() {
         SQLiteDatabase db = this.getWritableDatabase();
         ArrayList<Category> arrayList = new ArrayList<>();
-       Cursor cursor = db.rawQuery("SELECT * FROM CATEGORY", null);
-       cursor.moveToFirst();
-       while (cursor.isAfterLast() == false) {
-           Category category = new Category();
-           category.setCategoryId(cursor.getInt(cursor.getColumnIndex(ID_TABLE)));
-           category.setCategoryName(cursor.getString(cursor.getColumnIndex("NAME")));
+        Cursor cursor = db.rawQuery("SELECT * FROM CATEGORY", null);
+        cursor.moveToFirst();
+        while (cursor.isAfterLast() == false) {
+            Category category = new Category();
+            category.setCategoryId(cursor.getInt(cursor.getColumnIndex(ID_TABLE)));
+            category.setCategoryName(cursor.getString(cursor.getColumnIndex("NAME")));
 
-           arrayList.add(category);
-           cursor.moveToNext();
-       }
+            arrayList.add(category);
+            cursor.moveToNext();
+        }
         return arrayList;
     }
 
@@ -199,9 +198,9 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
             Wallet wallet = new Wallet();
 
             wallet.setWalletId(cursor.getInt(cursor.getColumnIndex(ID_TABLE)));
-           wallet.setWalletName(cursor.getString(cursor.getColumnIndex("WALLET_NAME")));
+            wallet.setWalletName(cursor.getString(cursor.getColumnIndex("WALLET_NAME")));
 
-          
+
             wallet.setBank(cursor.getString(cursor.getColumnIndex("BANK")));
 
             arrayList.add(wallet);
@@ -241,7 +240,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         return arrayList;
     }
 
-    public boolean updateExpense(DailyExpense dailyExpense){
+    public boolean updateExpense(DailyExpense dailyExpense) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
@@ -251,21 +250,9 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         contentValues.put("NOTE", dailyExpense.getNote());
         contentValues.put("WALLET_ID", dailyExpense.getWalletID());
 
-        long status = db.update(TABLE_EXPENSES, contentValues,  ID_TABLE + " = " + dailyExpense.getRecordId(), null);
+        long status = db.update(TABLE_EXPENSES, contentValues, ID_TABLE + " = " + dailyExpense.getRecordId(), null);
 
         notifyDbChanged();
-
-    //add goal
-    public boolean addGoal(FutureGoal futureGoal){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("GOAL_NAME", futureGoal.getGoal());
-        contentValues.put("AMOUNT", futureGoal.getTotalAmount());
-        contentValues.put("DATE", futureGoal.getDate().toString());
-
-        long status = db.insert("GOAL", null, contentValues);
-
-
         if (status == -1) {
             return false;
         } else {
@@ -273,204 +260,218 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         }
     }
 
-    //Get Daily Expense By Id
-    public DailyExpense getDailyExpenseById(int id) throws ParseException {
-        SQLiteDatabase db = this.getReadableDatabase();
+        //add goal
+        public boolean addGoal(FutureGoal futureGoal){
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("GOAL_NAME", futureGoal.getGoal());
+            contentValues.put("AMOUNT", futureGoal.getTotalAmount());
+            contentValues.put("DATE", futureGoal.getDate().toString());
 
-        String sqlQuery = "SELECT * FROM EXPENSES WHERE " + ID_TABLE + " = " + id;
-        Cursor cursor = db.rawQuery(sqlQuery, null);
+            long status = db.insert("GOAL", null, contentValues);
 
-        DailyExpense dailyExpense = new DailyExpense();
 
-        DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
-
-        if (cursor.moveToFirst()) {
-            dailyExpense.setRecordId(cursor.getInt(cursor.getColumnIndex(ID_TABLE)));
-            dailyExpense.setAmount(cursor.getFloat(cursor.getColumnIndex("AMOUNT")));
-            dailyExpense.setWalletID(cursor.getInt(cursor.getColumnIndex("WALLET_" + ID_TABLE)));
-            dailyExpense.setCategoryId(cursor.getInt(cursor.getColumnIndex("CATEGORY")));
-            dailyExpense.setDate(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
-            dailyExpense.setNote(cursor.getString(cursor.getColumnIndex("NOTE")));
+            if (status == -1) {
+                return false;
+            } else {
+                return true;
+            }
         }
 
-        return dailyExpense;
-    }
+        //Get Daily Expense By Id
+        public DailyExpense getDailyExpenseById ( int id) throws ParseException {
+            SQLiteDatabase db = this.getReadableDatabase();
 
-    //Get Category Name By Id
-    public String getCategoryName(int id) {
-        SQLiteDatabase db = this.getReadableDatabase();
+            String sqlQuery = "SELECT * FROM EXPENSES WHERE " + ID_TABLE + " = " + id;
+            Cursor cursor = db.rawQuery(sqlQuery, null);
 
-        String sqlQuery = "SELECT * FROM CATEGORY WHERE " + ID_TABLE + " = " + id;
-
-        Cursor cursor = db.rawQuery(sqlQuery, null);
-
-
-
-        if (cursor.moveToFirst()) {
-            System.out.println("category" + cursor.getString(cursor.getColumnIndex("NAME")));
-            return cursor.getString(cursor.getColumnIndex("NAME"));
-        }
-
-        return null;
-    }
-
-    //Get Wallet Name By Id
-    public String getWalletNameById(int id){
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        String sqlQuery = "SELECT * FROM WALLET WHERE " + ID_TABLE + " = "  + id;
-
-        Cursor cursor = db.rawQuery(sqlQuery, null);
-
-        if (cursor.moveToFirst()) {
-            return cursor.getString(cursor.getColumnIndex("WALLET_NAME"));
-        }
-
-        return null;
-    }
-
-    //Get Expenses By Date
-    public ArrayList<DailyExpense> getDailyExpensesByDate(String date) throws ParseException{
-        ArrayList<DailyExpense> dailyExpenses = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        String sqlQuery = "SELECT * FROM EXPENSES WHERE DATE LIKE'" + date +"'";
-        Cursor cursor = db.rawQuery(sqlQuery, null);
-
-        DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
-
-        cursor.moveToFirst();
-
-        while (cursor.isAfterLast() == false) {
             DailyExpense dailyExpense = new DailyExpense();
 
-            dailyExpense.setRecordId(cursor.getInt(cursor.getColumnIndex(ID_TABLE)));
-            dailyExpense.setAmount(cursor.getFloat(cursor.getColumnIndex("AMOUNT")));
-            dailyExpense.setWalletID(cursor.getInt(cursor.getColumnIndex("WALLET_" + ID_TABLE)));
-            dailyExpense.setCategoryId(cursor.getInt(cursor.getColumnIndex("CATEGORY")));
-            dailyExpense.setDate(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
-            dailyExpense.setNote(cursor.getString(cursor.getColumnIndex("NOTE")));
+            DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
 
-            dailyExpenses.add(dailyExpense);
+            if (cursor.moveToFirst()) {
+                dailyExpense.setRecordId(cursor.getInt(cursor.getColumnIndex(ID_TABLE)));
+                dailyExpense.setAmount(cursor.getFloat(cursor.getColumnIndex("AMOUNT")));
+                dailyExpense.setWalletID(cursor.getInt(cursor.getColumnIndex("WALLET_" + ID_TABLE)));
+                dailyExpense.setCategoryId(cursor.getInt(cursor.getColumnIndex("CATEGORY")));
+                dailyExpense.setDate(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
+                dailyExpense.setNote(cursor.getString(cursor.getColumnIndex("NOTE")));
+            }
 
-            cursor.moveToNext();
+            return dailyExpense;
         }
 
-        return dailyExpenses;
-    }
+        //Get Category Name By Id
+        public String getCategoryName ( int id){
+            SQLiteDatabase db = this.getReadableDatabase();
 
-    //Delete Expenses Record
-    public boolean deleteExpenseRecord(int id) {
-        SQLiteDatabase db = getWritableDatabase();
-        String whereClause = ID_TABLE + " = " + id;
-        long status = db.delete("EXPENSES", whereClause, null);
+            String sqlQuery = "SELECT * FROM CATEGORY WHERE " + ID_TABLE + " = " + id;
 
-        notifyDbChanged();
+            Cursor cursor = db.rawQuery(sqlQuery, null);
 
-        if (status == -1) {
-            return false;
-        } else {
-            return true;
-        }
-    }
 
-    //Get date array from Income Table
-    public ArrayList<Date> getDatesFromIncome() throws ParseException {
-        ArrayList<Date> arrayList = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
-        String sqlQuery = "SELECT * FROM INCOME";
+            if (cursor.moveToFirst()) {
+                System.out.println("category" + cursor.getString(cursor.getColumnIndex("NAME")));
+                return cursor.getString(cursor.getColumnIndex("NAME"));
+            }
 
-        Cursor cursor = db.rawQuery(sqlQuery, null);
-        cursor.moveToFirst();
-
-        DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
-
-        while (cursor.isAfterLast() == false) {
-            arrayList.add(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
-            cursor.moveToNext();
+            return null;
         }
 
-        return arrayList;
-    }
+        //Get Wallet Name By Id
+        public String getWalletNameById ( int id){
+            SQLiteDatabase db = this.getReadableDatabase();
 
-    //Get date array from Expenses Table
-    public ArrayList<Date> getDatesFromExpenses() throws ParseException {
-        ArrayList<Date> arrayList = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
-        String sqlQuery = "SELECT * FROM " + TABLE_EXPENSES;
+            String sqlQuery = "SELECT * FROM WALLET WHERE " + ID_TABLE + " = " + id;
 
-        Cursor cursor = db.rawQuery(sqlQuery, null);
-        cursor.moveToFirst();
+            Cursor cursor = db.rawQuery(sqlQuery, null);
 
-        DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+            if (cursor.moveToFirst()) {
+                return cursor.getString(cursor.getColumnIndex("WALLET_NAME"));
+            }
 
-        while (cursor.isAfterLast() == false) {
-            arrayList.add(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
-            cursor.moveToNext();
+            return null;
         }
 
-        return arrayList;
-    }
+        //Get Expenses By Date
+        public ArrayList<DailyExpense> getDailyExpensesByDate (String date) throws ParseException {
+            ArrayList<DailyExpense> dailyExpenses = new ArrayList<>();
+            SQLiteDatabase db = this.getReadableDatabase();
 
+            String sqlQuery = "SELECT * FROM EXPENSES WHERE DATE LIKE'" + date + "'";
+            Cursor cursor = db.rawQuery(sqlQuery, null);
 
-    //addincome
-    public boolean addincome(IncomeModel incomeModel){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("AMOUNT",incomeModel.getMoney());
-        contentValues.put("DATE", String.valueOf(incomeModel.getDate()));
-        contentValues.put("NOTE", incomeModel.getText());
-        contentValues.put(WALLET + "_ID", incomeModel.getWalletid());
+            DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
 
-        long status = db.insert(INCOME, null, contentValues);
+            cursor.moveToFirst();
 
-        if (status == -1) {
-            return false;
-        } else {
-            return true;
-        }
-    }
+            while (cursor.isAfterLast() == false) {
+                DailyExpense dailyExpense = new DailyExpense();
 
-    //addwallet
-    public boolean addwallet(Wallet wallet){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("WALLET_NAME",wallet.getWalletName());
-        contentValues.put("BANK ",wallet.getBank());
+                dailyExpense.setRecordId(cursor.getInt(cursor.getColumnIndex(ID_TABLE)));
+                dailyExpense.setAmount(cursor.getFloat(cursor.getColumnIndex("AMOUNT")));
+                dailyExpense.setWalletID(cursor.getInt(cursor.getColumnIndex("WALLET_" + ID_TABLE)));
+                dailyExpense.setCategoryId(cursor.getInt(cursor.getColumnIndex("CATEGORY")));
+                dailyExpense.setDate(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
+                dailyExpense.setNote(cursor.getString(cursor.getColumnIndex("NOTE")));
 
-        long status = db.insert(WALLET, null, contentValues);
+                dailyExpenses.add(dailyExpense);
 
-        if (status == -1) {
-            return false;
-        } else {
-            return true;
+                cursor.moveToNext();
+            }
+
+            return dailyExpenses;
         }
 
-    }
+        //Delete Expenses Record
+        public boolean deleteExpenseRecord ( int id){
+            SQLiteDatabase db = getWritableDatabase();
+            String whereClause = ID_TABLE + " = " + id;
+            long status = db.delete("EXPENSES", whereClause, null);
 
-    //getincomeList
+            notifyDbChanged();
 
-    public ArrayList<IncomeModel> getincomesList() throws ParseException {
-
-        DateFormat formatter = new SimpleDateFormat("EEE MM dd HH:mm:ss zzz yyyy");
-
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        ArrayList<IncomeModel> arrayList = new ArrayList<>();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + INCOME, null);
-        cursor.moveToFirst();
-        while (cursor.isAfterLast() == false) {
-            IncomeModel incomeModel = new IncomeModel();
-            incomeModel.setText(cursor.getString(cursor.getColumnIndex("NOTE")));
-            incomeModel.setMoney(cursor.getDouble(cursor.getColumnIndex("AMOUNT")));
-            incomeModel.setDate(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
-
-            arrayList.add(incomeModel);
-            cursor.moveToNext();
+            if (status == -1) {
+                return false;
+            } else {
+                return true;
+            }
         }
-        return arrayList;
+
+        //Get date array from Income Table
+        public ArrayList<Date> getDatesFromIncome () throws ParseException {
+            ArrayList<Date> arrayList = new ArrayList<>();
+            SQLiteDatabase db = this.getReadableDatabase();
+            String sqlQuery = "SELECT * FROM INCOME";
+
+            Cursor cursor = db.rawQuery(sqlQuery, null);
+            cursor.moveToFirst();
+
+            DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+
+            while (cursor.isAfterLast() == false) {
+                arrayList.add(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
+                cursor.moveToNext();
+            }
+
+            return arrayList;
+        }
+
+        //Get date array from Expenses Table
+        public ArrayList<Date> getDatesFromExpenses () throws ParseException {
+            ArrayList<Date> arrayList = new ArrayList<>();
+            SQLiteDatabase db = this.getReadableDatabase();
+            String sqlQuery = "SELECT * FROM " + TABLE_EXPENSES;
+
+            Cursor cursor = db.rawQuery(sqlQuery, null);
+            cursor.moveToFirst();
+
+            DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+
+            while (cursor.isAfterLast() == false) {
+                arrayList.add(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
+                cursor.moveToNext();
+            }
+
+            return arrayList;
+        }
+
+
+        //addincome
+        public boolean addincome (IncomeModel incomeModel){
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("AMOUNT", incomeModel.getMoney());
+            contentValues.put("DATE", String.valueOf(incomeModel.getDate()));
+            contentValues.put("NOTE", incomeModel.getText());
+            contentValues.put(WALLET + "_ID", incomeModel.getWalletid());
+
+            long status = db.insert(INCOME, null, contentValues);
+
+            if (status == -1) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        //addwallet
+        public boolean addwallet (Wallet wallet){
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("WALLET_NAME", wallet.getWalletName());
+            contentValues.put("BANK ", wallet.getBank());
+
+            long status = db.insert(WALLET, null, contentValues);
+
+            if (status == -1) {
+                return false;
+            } else {
+                return true;
+            }
+
+        }
+
+        //getincomeList
+
+        public ArrayList<IncomeModel> getincomesList () throws ParseException {
+
+            DateFormat formatter = new SimpleDateFormat("EEE MM dd HH:mm:ss zzz yyyy");
+
+
+            SQLiteDatabase db = this.getWritableDatabase();
+            ArrayList<IncomeModel> arrayList = new ArrayList<>();
+            Cursor cursor = db.rawQuery("SELECT * FROM " + INCOME, null);
+            cursor.moveToFirst();
+            while (cursor.isAfterLast() == false) {
+                IncomeModel incomeModel = new IncomeModel();
+                incomeModel.setText(cursor.getString(cursor.getColumnIndex("NOTE")));
+                incomeModel.setMoney(cursor.getDouble(cursor.getColumnIndex("AMOUNT")));
+                incomeModel.setDate(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
+
+                arrayList.add(incomeModel);
+                cursor.moveToNext();
+            }
+            return arrayList;
+        }
     }
-
-//
-
-}
