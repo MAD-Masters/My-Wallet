@@ -11,6 +11,7 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
+import com.example.mywallet.Model.Budgetmodel;
 import com.example.mywallet.Model.Category;
 import com.example.mywallet.Model.DailyExpense;
 import com.example.mywallet.Model.IncomeModel;
@@ -28,6 +29,7 @@ import java.util.Date;
 public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservable {
     public static final String TABLE_EXPENSES = "EXPENSES";
     public static final String ID_TABLE = "ID";
+    public static final String TABLE_BUDGET = "BUDGET";
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, "my_wallet.db", null, 1);
@@ -337,4 +339,21 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
                 databaseObserver.onDatabaseChanged();
             }}
     }
+
+    //Add Budget
+    public boolean addBudget(Budgetmodel budgetmodel){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("CAT_ID" , budgetmodel.getCat_ID());
+        contentValues.put("AMOUNT", budgetmodel.getAmount());
+
+        long status = db.insert(TABLE_BUDGET, null, contentValues);
+
+        if (status == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 }

@@ -26,11 +26,6 @@ import com.example.mywallet.UI.BudgetManager.Model.Budget2;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Budget1#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class Budget1 extends Fragment {
 
     private RecyclerView recyclerView;
