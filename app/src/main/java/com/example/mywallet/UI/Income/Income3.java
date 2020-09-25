@@ -103,8 +103,9 @@ public class Income3 extends Fragment {
             @Override
             public void onClick(View view) {
 
-                Wallet wallet = new Wallet();
+
                 wallet.setWalletName(wallets.getText().toString());
+                wallet.setWalletId(walletid);
                 wallet.setBank(bank.getText().toString());
 
                 DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
@@ -112,9 +113,7 @@ public class Income3 extends Fragment {
 
                 if (status) {
                     toastMessage.successToast("Successfully updated");
-
-                    Intent intent = new Intent(getContext(), MainActivity.class);
-                    startActivity(intent);
+                    getActivity().onBackPressed();
 
                 } else {
                     toastMessage.errorToast("update Failed");

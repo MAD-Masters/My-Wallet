@@ -68,7 +68,7 @@ public class Home extends Fragment implements DatabaseObserver {
     @Override
     public void onPause() {
         super.onPause();
-        dbHelper.registerDbObserver(this);
+        dbHelper.removeDbObserver(this);
     }
 
     @Override

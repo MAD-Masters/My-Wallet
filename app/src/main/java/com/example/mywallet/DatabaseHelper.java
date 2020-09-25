@@ -529,9 +529,10 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
             contentValues.put("NOTE", incomeModel.getText());
             contentValues.put("WALLET_ID", incomeModel.getWalletid());
 
-            long status = db.update(TABLE_EXPENSES, contentValues, ID_TABLE + " = " + incomeModel.getRecordID(), null);
+            System.out.println("updateone"+incomeModel.getRecordID());
 
-            notifyDbChanged();
+            long status = db.update(INCOME, contentValues, ID_TABLE + " = " + incomeModel.getRecordID(), null);
+
             if (status == -1) {
                 return false;
             } else {

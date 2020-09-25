@@ -140,12 +140,15 @@ public class Income6 extends Fragment {
         note.setText(incomeModel.getText());
         amount.setText(String.valueOf(incomeModel.getMoney()));
 
+        System.out.println("update"+incomeModel.getText());
+
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                IncomeModel incomeModel = new IncomeModel();
+//                IncomeModel incomeModel = new IncomeModel();
 
                 incomeModel.setText(note.getText().toString());
+               incomeModel.setRecordID(incomeid);
                 incomeModel.setMoney(Double.parseDouble(amount.getText().toString()));
 
                 DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
@@ -153,10 +156,7 @@ public class Income6 extends Fragment {
 
                 if (status) {
                     toastMessage.successToast("Successfully updated");
-
-                    Intent intent = new Intent(getContext(), MainActivity.class);
-                    startActivity(intent);
-
+                    getActivity().onBackPressed();
                 } else {
                     toastMessage.errorToast("update Failed");
                 }

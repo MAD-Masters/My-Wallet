@@ -1,5 +1,6 @@
 package com.example.mywallet.UI.Income;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -17,7 +18,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.mywallet.DatabaseHelper;
+import com.example.mywallet.MainActivity;
 import com.example.mywallet.Model.Wallet;
+import com.example.mywallet.NoAppBarActivity;
 import com.example.mywallet.R;
 import com.example.mywallet.Model.IncomeModel;
 
