@@ -47,7 +47,7 @@ public class Income2 extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+     int walletid;
 
     public Income2() {
         // Required empty public constructor
@@ -74,6 +74,7 @@ public class Income2 extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        walletid = getActivity().getIntent().getIntExtra("walletid",0);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -110,7 +111,7 @@ public class Income2 extends Fragment {
         ArrayList<IncomeModel> incomeModelArrayListList = new ArrayList<>();
 
         try {
-            incomeModelArrayListList = databaseHelper.getincomesList();
+            incomeModelArrayListList = databaseHelper.getincomesListbyid(walletid);
         } catch (ParseException e) {
             e.printStackTrace();
         }

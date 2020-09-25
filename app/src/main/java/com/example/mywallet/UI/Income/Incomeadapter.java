@@ -58,7 +58,7 @@ public class Incomeadapter extends RecyclerView.Adapter<Incomeadapter.Income1lay
            resourcetitle.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View view) {
-                   activity.onBtnTitleincome();
+                   activity.onBtnTitleincome(getWalletsList.get(getWalletsList.indexOf(itemView.getTag())).getWalletId());
                }
            });
            btndelete.setOnClickListener(new View.OnClickListener() {
@@ -96,7 +96,7 @@ public class Incomeadapter extends RecyclerView.Adapter<Incomeadapter.Income1lay
 
     public interface IncomeInterface {
 
-        public void onBtnTitleincome();
+        public void onBtnTitleincome(int walletid);
         public void onUpdateBtnincome(int recordid);
         public void onaddBtnincome(int walletid);
         public void ondeleteincome1();

@@ -206,10 +206,13 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
     }
 
     @Override
-    public void onBtnTitleincome() {
+    public void onBtnTitleincome(int walletid) {
         Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
         intent.putExtra("Fragment", "titleincome");
+        intent.putExtra("walletid",walletid);
         startActivity(intent);
+        startActivity(intent);
+
     }
 
     @Override

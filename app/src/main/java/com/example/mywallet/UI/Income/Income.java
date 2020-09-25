@@ -37,6 +37,7 @@ public class Income extends Fragment {
     Button btn;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
+    int walletid;
 
 
     public Income() {
@@ -47,6 +48,7 @@ public class Income extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
 
     }

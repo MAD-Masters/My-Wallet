@@ -560,4 +560,29 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
     }
 
 
+    public ArrayList<IncomeModel> getincomesListbyid (int walletid) throws ParseException {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<IncomeModel> arrayList = new ArrayList<>();
+        String sqlQuery ="SELECT * FROM INCOME WHERE " + ID_TABLE + " = " + walletid;
+        Cursor cursor = db.rawQuery(sqlQuery, null);
+        cursor.moveToFirst();
+
+
+        DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+
+        while (cursor.isAfterLast() == false) {
+            IncomeModel incomeModel = new IncomeModel();
+            incomeModel.setRecordID(cursor.getInt(cursor.getColumnIndex("ID")));
+            incomeModel.setText(cursor.getString(cursor.getColumnIndex("NOTE")));
+            incomeModel.setMoney(cursor.getDouble(cursor.getColumnIndex("AMOUNT")));
+            incomeModel.setDate(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
+
+            arrayList.add(incomeModel);
+            cursor.moveToNext();
+        }
+        return arrayList;
+    }
+
+
     }
