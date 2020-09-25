@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.mywallet.UI.BudgetManager.Model.Budget2;
 import com.example.mywallet.UI.Expenses.AddExpense;
 import com.example.mywallet.UI.Expenses.UpdateExpense;
 import com.example.mywallet.UI.Income.Income5;
@@ -42,6 +43,14 @@ public class NoAppBarActivity extends AppCompatActivity {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.noAppBarFragmentContainer, income5);
+            fragmentTransaction.commit();
+        } else if (fragment.equals("budgetInsert")) {
+            Budget2 budget2 = new Budget2();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.noAppBarFragmentContainer, budget2);
+            fragmentTransaction.addToBackStack(null);
+            setActionBarTitle("Budget Item Insert");
             fragmentTransaction.commit();
         }
 

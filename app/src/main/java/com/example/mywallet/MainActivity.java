@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.mywallet.UI.BudgetManager.Budget1;
 
+import com.example.mywallet.UI.BudgetManager.BudgetAdapter;
 import com.example.mywallet.UI.BudgetManager.Model.Budget2;
 import com.example.mywallet.UI.Expenses.AddExpense;
 
@@ -36,7 +37,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-public class MainActivity extends AppCompatActivity implements DailyExpenseSummaryAdapter.onDailyExpenseSummaryClick, DailyExpenseAdapter.DailyExpenseInterface, Incomeadapter.IncomeInterface, GoalAdapter.GoalInterface {
+public class MainActivity extends AppCompatActivity implements DailyExpenseSummaryAdapter.onDailyExpenseSummaryClick, DailyExpenseAdapter.DailyExpenseInterface, Incomeadapter.IncomeInterface, GoalAdapter.GoalInterface, BudgetAdapter.BudgetInterface {
     BottomAppBar bottomAppBar;
     ImageView navExpenseBtn, navIncomeBtn, navBudgetBtn, navGoalBtn;
     TextView navExpenseText, navIncomeText, navBudgetText, navGoalText;
@@ -255,6 +256,5 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
-
 }
 

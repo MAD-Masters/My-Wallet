@@ -1,5 +1,6 @@
 package com.example.mywallet.UI.BudgetManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -14,7 +15,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
+import com.example.mywallet.NoAppBarActivity;
 import com.example.mywallet.R;
 import com.example.mywallet.Model.Budgetmodel;
 
@@ -35,7 +38,7 @@ public class Budget1 extends Fragment {
     private BudgetAdapter budgetAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private View root;
-    Button btn, btnAdd;
+    ImageView btnAdd;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
 
@@ -52,31 +55,10 @@ public class Budget1 extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Budget1.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Budget1 newInstance(String param1, String param2) {
-        Budget1 fragment = new Budget1();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
@@ -89,32 +71,15 @@ public class Budget1 extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        btn = root.findViewById(R.id.addresorce);
 
         btnAdd =root.findViewById(R.id.addButton);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Budget2 budget2 = new Budget2();
-                fragmentManager = getParentFragmentManager();
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment, budget2);
-                fragmentTransaction.replace(R.id.nav_host_fragment, budget2);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            }
-        });
-
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("Btn", "LKJFSKDJF");
-                Budget2 budget2 = new Budget2();
-                fragmentManager = getParentFragmentManager();
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment, budget2);
-                fragmentTransaction.commit();
+                Intent intent = new Intent(getContext(), NoAppBarActivity.class);
+                intent.putExtra("Fragment", "budgetInsert");
+                startActivity(intent);
             }
         });
 
@@ -131,5 +96,7 @@ public class Budget1 extends Fragment {
 
        budgetAdapter = new BudgetAdapter(getContext(), budgetModelArrayListList);
         recyclerView.setAdapter(budgetAdapter);
+
+
     }
 }
