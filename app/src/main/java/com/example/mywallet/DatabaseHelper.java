@@ -467,6 +467,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 
             while (cursor.isAfterLast() == false) {
                 IncomeModel incomeModel = new IncomeModel();
+                incomeModel.setRecordID(cursor.getInt(cursor.getColumnIndex("ID")));
                 incomeModel.setText(cursor.getString(cursor.getColumnIndex("NOTE")));
                 incomeModel.setMoney(cursor.getDouble(cursor.getColumnIndex("AMOUNT")));
                 incomeModel.setDate(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
@@ -481,7 +482,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         {
             SQLiteDatabase db = this.getReadableDatabase();
 
-            String sqlQuery = "SELECT * FROM WALLET WHERE " + ID + " = " + walletid;
+            String sqlQuery = "SELECT * FROM WALLET WHERE " + ID_TABLE + " = " + walletid;
 
             Cursor cursor = db.rawQuery(sqlQuery, null);
 
@@ -495,6 +496,67 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
             return wallet;
 
         }
+
+
+        public boolean updatewallet(Wallet wallet){
+
+            SQLiteDatabase db = this.getWritableDatabase();
+
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("WALLET_NAME", wallet.getWalletName());
+            contentValues.put("BANK",wallet.getBank());
+
+
+            long status = db.update(WALLET, contentValues, ID_TABLE + " = " +wallet.getWalletId(), null);
+
+            notifyDbChanged();
+            if (status == -1) {
+                return false;
+            } else {
+                return true;
+            }
+
+
+        }
+
+        public boolean updateincome(IncomeModel incomeModel)
+        {
+            SQLiteDatabase db = this.getWritableDatabase();
+
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("AMOUNT", incomeModel.getMoney());
+            contentValues.put("DATE", String.valueOf(incomeModel.getDate()));
+            contentValues.put("NOTE", incomeModel.getText());
+            contentValues.put("WALLET_ID", incomeModel.getWalletid());
+
+            long status = db.update(TABLE_EXPENSES, contentValues, ID_TABLE + " = " + incomeModel.getRecordID(), null);
+
+            notifyDbChanged();
+            if (status == -1) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+    public IncomeModel getincomeById ( int id) throws ParseException {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String sqlQuery = "SELECT * FROM INCOME WHERE " + ID_TABLE + " = " + id;
+        Cursor cursor = db.rawQuery(sqlQuery, null);
+
+       IncomeModel incomeModel= new IncomeModel();
+
+        DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+
+        if (cursor.moveToFirst()) {
+            incomeModel.setMoney(cursor.getDouble(cursor.getColumnIndex("AMOUNT")));
+            incomeModel.setDate(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
+            incomeModel.setText(cursor.getString(cursor.getColumnIndex("NOTE")));
+        }
+
+        return incomeModel;
+    }
 
 
     }

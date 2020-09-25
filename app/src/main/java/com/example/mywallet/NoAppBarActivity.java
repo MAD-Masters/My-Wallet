@@ -71,13 +71,18 @@ public class NoAppBarActivity extends AppCompatActivity implements Income2adapte
         getSupportActionBar().setTitle(title);
     }
 
+
     @Override
-    public void onUpdateBtnincomemoney() {
+    public void onUpdateBtnincomemoney(int recordid) {
         Income6 income6 = new Income6();
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", recordid);
+        income6.setArguments(bundle);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.noAppBarFragmentContainer, income6);
         fragmentTransaction.commit();
+        System.out.println("recordid"+recordid);
 
     }
 

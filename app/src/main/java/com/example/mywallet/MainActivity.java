@@ -216,8 +216,9 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
     public void onUpdateBtnincome(int walletid) {
         Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
         intent.putExtra("Fragment", "updateincome");
-        intent.putExtra("walletid","walletid");
+        intent.putExtra("walletid",walletid);
         startActivity(intent);
+        System.out.println("wlletid"+walletid);
     }
 
     @Override

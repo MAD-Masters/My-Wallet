@@ -1,5 +1,6 @@
 package com.example.mywallet.UI.Income;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -8,10 +9,14 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.mywallet.DatabaseHelper;
+import com.example.mywallet.MainActivity;
 import com.example.mywallet.Model.Wallet;
 import com.example.mywallet.R;
+import com.example.mywallet.ToastMessage;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,6 +35,10 @@ public class Income3 extends Fragment {
     private String mParam2;
     private int walletid;
     Wallet wallet;
+    private Button update;
+    private EditText wallets,bank;
+    private ToastMessage toastMessage;
+    View view;
 
     public Income3() {
         // Required empty public constructor
@@ -57,6 +66,7 @@ public class Income3 extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         walletid = getActivity().getIntent().getIntExtra("walletid",0);
+        System.out.println("wallteid"+walletid);
 
 
         if (getArguments() != null) {
@@ -69,7 +79,8 @@ public class Income3 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_income3, container, false);
+        view = inflater.inflate(R.layout.fragment_income3, container, false);
+        return view;
     }
 
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -78,6 +89,39 @@ public class Income3 extends Fragment {
         DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
 
         wallet = databaseHelper.getwalletbyid(walletid);
+
+        toastMessage = new ToastMessage(getActivity(), view);
+        update = view.findViewById(R.id.addwallet);
+        wallets = view.findViewById(R.id.textInputEditText);
+        bank = view.findViewById(R.id.textInputEditText4);
+
+
+        wallets.setText(wallet.getWalletName());
+        bank.setText(wallet.getBank());
+
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Wallet wallet = new Wallet();
+                wallet.setWalletName(wallets.getText().toString());
+                wallet.setBank(bank.getText().toString());
+
+                DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+                boolean status = databaseHelper.updatewallet(wallet);
+
+                if (status) {
+                    toastMessage.successToast("Successfully updated");
+
+                    Intent intent = new Intent(getContext(), MainActivity.class);
+                    startActivity(intent);
+
+                } else {
+                    toastMessage.errorToast("update Failed");
+                }
+
+            }
+        });
 
 
     }

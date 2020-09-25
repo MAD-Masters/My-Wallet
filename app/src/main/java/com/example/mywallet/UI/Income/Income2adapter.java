@@ -35,6 +35,7 @@ public class Income2adapter extends RecyclerView.Adapter<Income2adapter.Income2l
 
     @Override
     public void onBindViewHolder(@NonNull Income2layoutViewHolder holder, int position) {
+        holder.itemView.setTag(income.get(position));
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         holder.date.setText(sdf.format(income.get(position).getDate()));
@@ -53,7 +54,7 @@ public class Income2adapter extends RecyclerView.Adapter<Income2adapter.Income2l
         ImageView btnedit,btndelete;
 
 
-        public Income2layoutViewHolder(@NonNull View itemView) {
+        public Income2layoutViewHolder(@NonNull final View itemView) {
             super(itemView);
             date = itemView.findViewById(R.id.date);
             amount = itemView.findViewById(R.id.amount);
@@ -65,7 +66,8 @@ public class Income2adapter extends RecyclerView.Adapter<Income2adapter.Income2l
             btnedit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    activity.onUpdateBtnincomemoney();
+                    System.out.println("incomeid"+income.get(income.indexOf(itemView.getTag())).getRecordID());
+                    activity.onUpdateBtnincomemoney(income.get(income.indexOf(itemView.getTag())).getRecordID());
                 }
             });
 
@@ -80,7 +82,7 @@ public class Income2adapter extends RecyclerView.Adapter<Income2adapter.Income2l
     }
 
     public interface Income2Interface {
-       public void onUpdateBtnincomemoney();
+       public void onUpdateBtnincomemoney(int recordid);
        public void ondeleteincome2();
 
    }
