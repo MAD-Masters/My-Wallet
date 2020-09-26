@@ -37,9 +37,9 @@ import java.util.ArrayList;
 
         @Override
         public void onBindViewHolder(@NonNull BudgetviewHolder holder, int position) {
-            holder.number1.setText(((Double)budget.get(position).getNumber1()).toString());
-            holder.number2.setText(((Double)budget.get(position).getNumber2()).toString());
-            holder.FoodAndBeverages.setText(budget.get(position).getText());
+            holder.number1.setText(((Double)budget.get(position).getAmount()).toString());
+            holder.number2.setText(((Double)budget.get(position).getUsedAmount()).toString());
+            //holder.FoodAndBeverages.setText(budget.get(position).getCat_ID());
             holder.progressBar.setImageResource(R.drawable.rectangle);
             holder.foodIcon.setImageResource(R.drawable.food);
         }

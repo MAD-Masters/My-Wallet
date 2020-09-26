@@ -33,10 +33,11 @@ import java.util.Date;
 
 public class Budget2 extends Fragment {
 
-    int categoryId;
+    int categoryId = 1;
     private Button budbtn;
      View view;
-     private EditText category,budamount;
+     private EditText budamount;
+     TextView category;
      private ToastMessage toastMessage;
 
     public Budget2() {
@@ -69,6 +70,7 @@ public class Budget2 extends Fragment {
 
             @Override
             public void onClick(View v) {
+                System.out.println("click category");
                 DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
                 ArrayList<Category> arrayList = databaseHelper.getCategories();
                 final String[] categoryNames = new String[arrayList.size()];
@@ -99,10 +101,11 @@ public class Budget2 extends Fragment {
                 mDialog.show();
             }
         });
+
        budbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                System.out.println("click add");
                 Budgetmodel budgetmodel = new Budgetmodel();
                 budgetmodel.setCat_ID (categoryId);
                 budgetmodel.setAmount(Double.parseDouble(budamount.getText().toString()));
@@ -113,8 +116,6 @@ public class Budget2 extends Fragment {
 
                 if (status) {
                     toastMessage.successToast("Successfully Inserted");
-
-                    Intent intent = new Intent(getContext(), MainActivity.class);
                     getActivity().onBackPressed();
 
                 } else {

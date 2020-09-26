@@ -80,8 +80,8 @@ public class Budget1 extends Fragment {
 
        budgetModelArrayListList = new ArrayList<>();
 
-        budgetModelArrayListList.add(new Budgetmodel(25000.00,40000,"food and beverages"));
-        budgetModelArrayListList.add(new Budgetmodel(50000.00,50000,"clothes"));
+        budgetModelArrayListList.add(new Budgetmodel(1,40000, 200.0));
+        budgetModelArrayListList.add(new Budgetmodel(1,50000,200.0));
 
         recyclerView = root.findViewById(R.id.repeat);
         recyclerView.setHasFixedSize(true);
