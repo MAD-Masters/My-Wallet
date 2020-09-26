@@ -148,7 +148,7 @@ public class Income6 extends Fragment {
 //                IncomeModel incomeModel = new IncomeModel();
 
                 incomeModel.setText(note.getText().toString());
-               incomeModel.setRecordID(incomeid);
+                incomeModel.setRecordID(incomeid);
                 incomeModel.setMoney(Double.parseDouble(amount.getText().toString()));
 
                 DatabaseHelper databaseHelper = new DatabaseHelper(getContext());

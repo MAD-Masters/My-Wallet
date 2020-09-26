@@ -34,6 +34,7 @@ public class Income extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private View root;
     private TextView wallet;
+    double total;
     Button btn;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
@@ -77,6 +78,8 @@ public class Income extends Fragment {
                 fragmentTransaction.commit();
             }
         });
+
+
 
         DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
         ArrayList<Wallet>  walletArrayListList = new ArrayList<>();

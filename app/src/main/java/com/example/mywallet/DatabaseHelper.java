@@ -477,7 +477,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
             }
             return arrayList;
         }
-
+//get wallet by id
         public Wallet getwalletbyid(int walletid)
         {
             SQLiteDatabase db = this.getReadableDatabase();
@@ -497,7 +497,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 
         }
 
-
+//update wallet
         public boolean updatewallet(Wallet wallet){
 
             SQLiteDatabase db = this.getWritableDatabase();
@@ -519,6 +519,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 
         }
 
+        //update income
         public boolean updateincome(IncomeModel incomeModel)
         {
             SQLiteDatabase db = this.getWritableDatabase();
@@ -540,6 +541,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
             }
         }
 
+        //get incomebyid
     public IncomeModel getincomeById ( int id) throws ParseException {
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -559,7 +561,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         return incomeModel;
     }
 
-
+// get incomelistbyid
     public ArrayList<IncomeModel> getincomesListbyid (int walletid) throws ParseException {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -582,6 +584,33 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
             cursor.moveToNext();
         }
         return arrayList;
+    }
+
+
+    //Delete WALLET Record
+    public boolean deleteWallet ( int id){
+        SQLiteDatabase db = getWritableDatabase();
+        String whereClause = ID_TABLE + " = " + id;
+        long status = db.delete("WALLET", whereClause, null);
+
+        notifyDbChanged();
+
+        if (status == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    public double getfullamount(){
+        
+        double TOTAL = 0;
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sqlQuery = "SELECT TOTAL = SUM(AMOUNT)  FROM"+INCOME;
+        Cursor cursor = db.rawQuery(sqlQuery, null);
+        
+          return TOTAL;      
+        
     }
 
 

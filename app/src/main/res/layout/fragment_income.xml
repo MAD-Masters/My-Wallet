@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".UI.Income.Income">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -56,12 +61,10 @@
             android:id="@+id/addresorce"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="147dp"
-            android:layout_marginBottom="144dp"
+            android:layout_marginTop="8dp"
             android:text="@string/addresource"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.428"
+            app:layout_constraintHorizontal_bias="0.424"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/list_income" />
 
@@ -91,6 +94,6 @@
             app:layout_constraintTop_toBottomOf="@+id/textView29"
             app:layout_constraintVertical_bias="0.16" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </FrameLayout>
