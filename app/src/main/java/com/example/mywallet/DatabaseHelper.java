@@ -395,7 +395,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         return budgetmodelArrayList;
     }
 
-    public boolean updateExpense(Budgetmodel budgetmodel){
+    public boolean updateBudget (Budgetmodel budgetmodel){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 

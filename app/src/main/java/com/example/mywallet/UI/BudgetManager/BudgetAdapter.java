@@ -22,6 +22,7 @@ import java.util.ArrayList;
         private ArrayList<Budgetmodel> budget;
         private BudgetInterface activity;
         private Button addBTN;
+        private Button btnEdit;
 
         public BudgetAdapter(Context context, ArrayList<Budgetmodel> budget) {
             this.budget = budget;
@@ -37,6 +38,7 @@ import java.util.ArrayList;
 
         @Override
         public void onBindViewHolder(@NonNull BudgetviewHolder holder, int position) {
+            holder.itemView.setTag(budget.get(position));
             holder.number1.setText(((Double)budget.get(position).getAmount()).toString());
             holder.number2.setText(((Double)budget.get(position).getUsedAmount()).toString());
             //holder.FoodAndBeverages.setText(budget.get(position).getCat_ID());
@@ -54,7 +56,7 @@ import java.util.ArrayList;
             TextView number1, number2, FoodAndBeverages;
             ImageView progressBar, foodIcon;
 
-            public BudgetviewHolder(@NonNull View itemView) {
+            public BudgetviewHolder(@NonNull final View itemView) {
                 super(itemView);
                 number1 = itemView.findViewById(R.id.number1);
                 number2 = itemView.findViewById(R.id.number2);
@@ -62,12 +64,20 @@ import java.util.ArrayList;
                 progressBar = itemView.findViewById(R.id.progressBar);
                 foodIcon = itemView.findViewById(R.id.foodIcon);
 
+                btnEdit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        activity.onUpdateBudgetClick(budget.get(budget.indexOf(itemView.getTag())).getCat_ID());
+                    }
+                });
+
             }
             
                 }
 
         public interface BudgetInterface {
 
+            public void onUpdateBudgetClick(int CAT_ID);
         }
             }
 

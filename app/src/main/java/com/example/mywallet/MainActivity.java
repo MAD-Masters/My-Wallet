@@ -256,5 +256,13 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
+
+    @Override
+    public void onUpdateBudgetClick(int cat_ID) {
+        Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
+        intent.putExtra("Fragment", "budget3");
+        intent.putExtra("id", cat_ID);
+        startActivity(intent);
+    }
 }
 
