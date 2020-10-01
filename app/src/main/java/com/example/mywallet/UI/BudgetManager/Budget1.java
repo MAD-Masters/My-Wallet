@@ -33,9 +33,10 @@ public class Budget1 extends Fragment {
     private BudgetAdapter budgetAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private View root;
-    ImageView btnAdd;
+    ImageView btnAdd,btnDelete,btnEdit;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -91,7 +92,6 @@ public class Budget1 extends Fragment {
 
        budgetAdapter = new BudgetAdapter(getContext(), budgetModelArrayListList);
         recyclerView.setAdapter(budgetAdapter);
-
 
     }
 }
