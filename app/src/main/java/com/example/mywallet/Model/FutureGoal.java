@@ -18,7 +18,7 @@ public class FutureGoal {
     }
 
     public FutureGoal() {
-        
+
     }
 
     //Setters and Getters

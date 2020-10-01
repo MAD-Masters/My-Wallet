@@ -26,7 +26,10 @@ import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+
+import static android.os.Build.ID;
 
 public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservable {
     public static final String TABLE_EXPENSES = "EXPENSES";
@@ -193,7 +196,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         return arrayList;
     }
 
-    //Get CategoriesList
+    //Get WalletList
     public ArrayList<Wallet> getWalletsList() {
         SQLiteDatabase db = this.getWritableDatabase();
         ArrayList<Wallet> arrayList = new ArrayList<>();
@@ -204,8 +207,6 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 
             wallet.setWalletId(cursor.getInt(cursor.getColumnIndex(ID_TABLE)));
             wallet.setWalletName(cursor.getString(cursor.getColumnIndex("WALLET_NAME")));
-
-
             wallet.setBank(cursor.getString(cursor.getColumnIndex("BANK")));
 
             arrayList.add(wallet);
@@ -461,15 +462,16 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 
         public ArrayList<IncomeModel> getincomesList () throws ParseException {
 
-            DateFormat formatter = new SimpleDateFormat("EEE MM dd HH:mm:ss zzz yyyy");
-
-
-            SQLiteDatabase db = this.getWritableDatabase();
+           SQLiteDatabase db = this.getWritableDatabase();
             ArrayList<IncomeModel> arrayList = new ArrayList<>();
             Cursor cursor = db.rawQuery("SELECT * FROM " + INCOME, null);
             cursor.moveToFirst();
+
+            DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+
             while (cursor.isAfterLast() == false) {
                 IncomeModel incomeModel = new IncomeModel();
+                incomeModel.setRecordID(cursor.getInt(cursor.getColumnIndex("ID")));
                 incomeModel.setText(cursor.getString(cursor.getColumnIndex("NOTE")));
                 incomeModel.setMoney(cursor.getDouble(cursor.getColumnIndex("AMOUNT")));
                 incomeModel.setDate(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
@@ -479,7 +481,160 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
             }
             return arrayList;
         }
+//get wallet by id
+        public Wallet getwalletbyid(int walletid)
+        {
+            SQLiteDatabase db = this.getReadableDatabase();
+
+            String sqlQuery = "SELECT * FROM WALLET WHERE " + ID_TABLE + " = " + walletid;
+
+            Cursor cursor = db.rawQuery(sqlQuery, null);
+
+            Wallet wallet = new Wallet();
+
+
+            if (cursor.moveToFirst()) {
+                wallet.setBank(cursor.getString(cursor.getColumnIndex("BANK")));
+                wallet.setWalletName(cursor.getString(cursor.getColumnIndex("WALLET_NAME")));
+            }
+            return wallet;
+
+        }
+
+//update wallet
+        public boolean updatewallet(Wallet wallet){
+
+            SQLiteDatabase db = this.getWritableDatabase();
+
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("WALLET_NAME", wallet.getWalletName());
+            contentValues.put("BANK",wallet.getBank());
+
+
+            long status = db.update(WALLET, contentValues, ID_TABLE + " = " +wallet.getWalletId(), null);
+
+            notifyDbChanged();
+            if (status == -1) {
+                return false;
+            } else {
+                return true;
+            }
+
+
+        }
+
+        //update income
+        public boolean updateincome(IncomeModel incomeModel)
+        {
+            SQLiteDatabase db = this.getWritableDatabase();
+
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("AMOUNT", incomeModel.getMoney());
+            contentValues.put("DATE", String.valueOf(incomeModel.getDate()));
+            contentValues.put("NOTE", incomeModel.getText());
+            contentValues.put("WALLET_ID", incomeModel.getWalletid());
+
+            System.out.println("updateone"+incomeModel.getRecordID());
+
+            long status = db.update(INCOME, contentValues, ID_TABLE + " = " + incomeModel.getRecordID(), null);
+
+            if (status == -1) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        //get incomebyid
+    public IncomeModel getincomeById ( int id) throws ParseException {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String sqlQuery = "SELECT * FROM INCOME WHERE " + ID_TABLE + " = " + id;
+        Cursor cursor = db.rawQuery(sqlQuery, null);
+
+       IncomeModel incomeModel= new IncomeModel();
+
+        DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+
+        if (cursor.moveToFirst()) {
+            incomeModel.setMoney(cursor.getDouble(cursor.getColumnIndex("AMOUNT")));
+            incomeModel.setDate(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
+            incomeModel.setText(cursor.getString(cursor.getColumnIndex("NOTE")));
+        }
+
+        return incomeModel;
     }
+
+// get incomelistbyid
+    public ArrayList<IncomeModel> getincomesListbyid (int walletid) throws ParseException {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<IncomeModel> arrayList = new ArrayList<>();
+        String sqlQuery ="SELECT * FROM INCOME WHERE " + ID_TABLE + " = " + walletid;
+        Cursor cursor = db.rawQuery(sqlQuery, null);
+        cursor.moveToFirst();
+
+
+        DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+
+        while (cursor.isAfterLast() == false) {
+            IncomeModel incomeModel = new IncomeModel();
+            incomeModel.setRecordID(cursor.getInt(cursor.getColumnIndex("ID")));
+            incomeModel.setText(cursor.getString(cursor.getColumnIndex("NOTE")));
+            incomeModel.setMoney(cursor.getDouble(cursor.getColumnIndex("AMOUNT")));
+            incomeModel.setDate(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
+
+            arrayList.add(incomeModel);
+            cursor.moveToNext();
+        }
+        return arrayList;
+    }
+
+
+    //Delete WALLET Record
+    public boolean deleteWallet ( int id){
+        SQLiteDatabase db = getWritableDatabase();
+        String whereClause = ID_TABLE + " = " + id;
+        long status = db.delete("WALLET", whereClause, null);
+
+        notifyDbChanged();
+
+        if (status == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
+
+    //Delete incomerecord
+    public boolean deleteincomerecord ( int id){
+        SQLiteDatabase db = getWritableDatabase();
+        String whereClause = ID_TABLE + " = " + id;
+        long status = db.delete("INCOME", whereClause, null);
+
+        notifyDbChanged();
+
+        if (status == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
+    public double getfullamount(){
+        
+        double TOTAL = 0;
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sqlQuery = "SELECT sum(AMOUNT) FROM INCOME";
+        Cursor cursor = db.rawQuery(sqlQuery, null);
+        cursor.moveToFirst();
+        return cursor.getDouble(0);
+
+    }
+
     //Add Budget
     public boolean addBudget(Budgetmodel budgetmodel){
         SQLiteDatabase db = this.getWritableDatabase();

@@ -207,17 +207,22 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
     }
 
     @Override
-    public void onBtnTitleincome() {
+    public void onBtnTitleincome(int walletid) {
         Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
         intent.putExtra("Fragment", "titleincome");
+        intent.putExtra("walletid",walletid);
         startActivity(intent);
+        startActivity(intent);
+
     }
 
     @Override
-    public void onUpdateBtnincome() {
+    public void onUpdateBtnincome(int walletid) {
         Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
         intent.putExtra("Fragment", "updateincome");
+        intent.putExtra("walletid",walletid);
         startActivity(intent);
+        System.out.println("wlletid"+walletid);
     }
 
     @Override
@@ -232,7 +237,7 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
 
 
     @Override
-    public void ondeleteincome1() {
+    public void ondeleteincome1(final int walletid) {
 
         dialog.setContentView(R.layout.delete_pop_up);
         /*LayoutInflater inflater = getLayoutInflater();
@@ -242,6 +247,33 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         TextView message = dialog.findViewById(R.id.message);
         message.setText("Are you sure to delete this resource?");
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+
+        Button delete = dialog.findViewById(R.id.positiveBtn);
+        Button cancel = dialog.findViewById(R.id.negativeBtn);
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
+                boolean status = databaseHelper.deleteWallet(walletid);
+                ToastMessage toastMessage = new ToastMessage(MainActivity.this, View.inflate(getApplicationContext(), R.layout.income1layout,null));
+
+                if (status) {
+                    toastMessage.successToast("Successfully Deleted");
+                } else {
+                    toastMessage.errorToast("Delete Failed");
+                }
+                dialog.dismiss();
+            }
+        });
         dialog.show();
     }
 
