@@ -40,7 +40,7 @@
 
         <TextView
             android:id="@+id/textView29"
-            android:layout_width="108dp"
+            android:layout_width="115dp"
             android:layout_height="34dp"
             android:layout_marginTop="136dp"
             android:background="@drawable/background_pink_no_fills"
@@ -84,7 +84,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:padding="5dp"
-            app:layout_constraintBottom_toTopOf="@+id/button7"
+            app:layout_constraintBottom_toTopOf="@+id/btndelete"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"

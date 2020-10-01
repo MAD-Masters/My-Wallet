@@ -58,11 +58,11 @@ public class Goal_Home extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("Btn", "LKJFSKDJF");
-                Goal goal = new  Goal();
+                Goal goal = new Goal();
                 fragmentManager = getParentFragmentManager();
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.nav_host_fragment, goal);
+                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
 

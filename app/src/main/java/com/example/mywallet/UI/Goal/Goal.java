@@ -1,14 +1,30 @@
 package com.example.mywallet.UI.Goal;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
+import com.example.mywallet.DatabaseHelper;
+import com.example.mywallet.MainActivity;
 import com.example.mywallet.R;
+import com.example.mywallet.ToastMessage;
+import com.example.mywallet.Model.DailyExpense;
+import com.example.mywallet.Model.FutureGoal;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Formatter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,9 +41,14 @@ public class Goal extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    View view;
+    private Button btnAddgoal;
+    private EditText goal,amount,date;
+    private ToastMessage toastMessage;
 
     public Goal() {
         // Required empty public constructor
+
     }
 
     /**
@@ -49,21 +70,58 @@ public class Goal extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_goal, container, false);
+        view =  inflater.inflate(R.layout.fragment_goal, container, false);
+        return view;
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        goal =view.findViewById(R.id.addgoal);
+        amount=view.findViewById(R.id.addamount);
+        date=view.findViewById(R.id.adddate);
+        btnAddgoal=view.findViewById(R.id.btnAddgoal);
+
+        toastMessage = new ToastMessage(getActivity(), view);
+
+        btnAddgoal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                Date dateS = Calendar.getInstance().getTime();
+                try {
+                    dateS = format.parse(date.getText().toString());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                FutureGoal futureGoal = new FutureGoal();
+                futureGoal.setGoal(goal.getText().toString());
+                futureGoal.setTotalAmount(Double.parseDouble(amount.getText().toString()));
+                futureGoal.setDate(dateS);
 
 
+                DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+                boolean status = databaseHelper.addGoal(futureGoal);
+
+                if (status) {
+                    toastMessage.successToast("Successfully Inserted");
+
+                    Intent intent = new Intent(getContext(), MainActivity.class);
+                    startActivity(intent);
+
+                } else {
+                    toastMessage.errorToast("Insert Failed");
+                }
+            }});
+
+    }
 }

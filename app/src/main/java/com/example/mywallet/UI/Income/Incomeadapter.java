@@ -10,38 +10,41 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mywallet.Model.Wallet;
 import com.example.mywallet.R;
 import com.example.mywallet.Model.IncomeModel;
 
 import java.util.ArrayList;
 
 public class Incomeadapter extends RecyclerView.Adapter<Incomeadapter.Income1layoutViewHolder> {
-    private ArrayList<IncomeModel> income;
+//    private ArrayList<IncomeModel> income;
+    private ArrayList<Wallet> getWalletsList;
     private IncomeInterface activity;
 
-    public Incomeadapter(Context context, ArrayList<IncomeModel> income) {
+    public Incomeadapter(Context context, ArrayList<Wallet> getWalletsList){
 
-        this.income = income;
+        this.getWalletsList = getWalletsList;
         activity = (IncomeInterface)context;
     }
 
     public  class Income1layoutViewHolder extends RecyclerView.ViewHolder {
 
         TextView resource,resourcetitle;
-        ImageView resourceview,btnAdd,btnEdit;
+        ImageView resourceview,btnAdd,btnEdit,btndelete;
 
-        public Income1layoutViewHolder(@NonNull View itemView) {
+        public Income1layoutViewHolder(@NonNull final View itemView) {
             super(itemView);
             resourceview = itemView.findViewById(R.id.resourceview);
             resourcetitle = itemView.findViewById(R.id.resourcetitle);
             btnAdd = itemView.findViewById((R.id.btnAdd));
             btnEdit = itemView.findViewById(R.id.btnEdit);
+            btndelete = itemView.findViewById(R.id.btndelete);
 
 
            btnAdd.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View view) {
-                   activity.onaddBtnincome();
+                   activity.onaddBtnincome(getWalletsList.get(getWalletsList.indexOf(itemView.getTag())).getWalletId());
 
                }
 
@@ -49,13 +52,19 @@ public class Incomeadapter extends RecyclerView.Adapter<Incomeadapter.Income1lay
            btnEdit.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View view) {
-                   activity.onUpdateBtnincome();
+                  activity.onUpdateBtnincome();
                }
            });
            resourcetitle.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View view) {
                    activity.onBtnTitleincome();
+               }
+           });
+           btndelete.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+                   activity.ondeleteincome1();
                }
            });
 
@@ -72,13 +81,14 @@ public class Incomeadapter extends RecyclerView.Adapter<Incomeadapter.Income1lay
 
     @Override
     public void onBindViewHolder(@NonNull Income1layoutViewHolder holder, int position) {
-        holder.resourcetitle.setText(income.get(position).getResourcename());
+        holder.itemView.setTag(getWalletsList.get(position));
+        holder.resourcetitle.setText(getWalletsList.get(position).getWalletName());
         holder.resourceview.setImageResource(R.drawable.creditcard);
     }
 
     @Override
     public int getItemCount() {
-        return income.size();
+        return getWalletsList.size();
     }
 
 
@@ -86,10 +96,10 @@ public class Incomeadapter extends RecyclerView.Adapter<Incomeadapter.Income1lay
 
     public interface IncomeInterface {
 
-
         public void onBtnTitleincome();
         public void onUpdateBtnincome();
-        public void onaddBtnincome();
+        public void onaddBtnincome(int walletid);
+        public void ondeleteincome1();
 
     }
 

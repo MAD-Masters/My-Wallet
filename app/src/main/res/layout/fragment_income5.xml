@@ -10,33 +10,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputLayout6"
-            android:layout_width="209dp"
-            android:layout_height="31dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/background_blue_no_fills"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.607"
-            app:layout_constraintStart_toEndOf="@+id/textView20"
-            app:layout_constraintTop_toBottomOf="@+id/textInputEditText9"
-            app:layout_constraintVertical_bias="0.0">
-
-        </com.google.android.material.textfield.TextInputEditText>
-
-        <com.google.android.material.textfield.TextInputEditText
+        <TextView
             android:id="@+id/textInputEditText9"
             android:layout_width="209dp"
             android:layout_height="31dp"
             android:layout_marginTop="24dp"
             android:background="@drawable/background_blue_no_fills"
+            android:drawableRight="@drawable/calendar"
+            android:drawableTint="@color/primaryColor"
+            android:inputType="date"
+            android:textColor="@color/primaryColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.612"
             app:layout_constraintStart_toEndOf="@+id/textView19"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
 
-        </com.google.android.material.textfield.TextInputEditText>
+        </TextView>
 
         <TextView
             android:id="@+id/textView13"
@@ -69,17 +58,14 @@
             android:id="@+id/add"
             android:layout_width="125dp"
             android:layout_height="42dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/background_blue_fully_rounded"
             android:text="@string/add"
             android:textColor="@color/colorWhite"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.068"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputEditText5"
-            app:layout_constraintVertical_bias="0.254" />
+            app:layout_constraintTop_toBottomOf="@+id/textInputEditText5" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/cansel3"
@@ -92,41 +78,36 @@
             android:text="@string/goal12"
             android:textColor="#ffff"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.839"
             app:layout_constraintStart_toEndOf="@+id/add"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputEditText5"
-            app:layout_constraintVertical_bias="0.254" />
+            app:layout_constraintTop_toBottomOf="@+id/textInputEditText5" />
 
         <TextView
             android:id="@+id/textView14"
             android:layout_width="70dp"
             android:layout_height="28dp"
-            android:layout_marginTop="21dp"
-            android:layout_marginBottom="11dp"
+            android:layout_marginBottom="8dp"
             android:gravity="center_vertical|center_horizontal"
             android:text="@string/note"
             android:textColor="#0189FF"
             app:layout_constraintBottom_toTopOf="@+id/textInputEditText5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.046"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView20"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintStart_toStartOf="parent" ></TextView>
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textInputEditText5"
             android:layout_width="364dp"
             android:layout_height="76dp"
-            android:layout_marginTop="49dp"
+            android:layout_marginTop="81dp"
             android:background="@drawable/background_blue_no_fills"
             android:hint="Lorem Ispham"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.34"
+            app:layout_constraintHorizontal_bias="0.425"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout6" />
+            app:layout_constraintTop_toBottomOf="@+id/textInputEditText9"></com.google.android.material.textfield.TextInputEditText>
 
         <TextView
             android:id="@+id/textView18"
@@ -155,24 +136,6 @@
             app:layout_constraintHorizontal_bias="0.064"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView18" />
-
-        <TextView
-            android:id="@+id/textView20"
-            android:layout_width="103dp"
-            android:layout_height="34dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="46dp"
-            android:background="@drawable/background_blue_fill"
-
-            android:gravity="center_vertical|center_horizontal"
-            android:text="@string/category"
-            android:textColor="#ffff"
-            app:layout_constraintBottom_toTopOf="@+id/textInputEditText5"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.064"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView19"
-            app:layout_constraintVertical_bias="0.7" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textInputLayout4"
