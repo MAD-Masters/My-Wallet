@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.mywallet.UI.BudgetManager.Model.Budget2;
 import com.example.mywallet.UI.Expenses.AddExpense;
 import com.example.mywallet.UI.Expenses.UpdateExpense;
 import com.example.mywallet.UI.Income.Income2;
@@ -53,12 +54,23 @@ public class NoAppBarActivity extends AppCompatActivity implements Income2adapte
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.noAppBarFragmentContainer, income5);
             fragmentTransaction.commit();
+
         } else if (fragment.equals("updateincome")) {
             Income3 income3 = new Income3();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.noAppBarFragmentContainer, income3);
             fragmentTransaction.commit();
+
+        } else if (fragment.equals("budgetInsert")) {
+            Budget2 budget2 = new Budget2();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.noAppBarFragmentContainer, budget2);
+            fragmentTransaction.addToBackStack(null);
+            setActionBarTitle("Budget Item Insert");
+            fragmentTransaction.commit();
+        }
 
         } else if (fragment.equals("titleincome")) {
             Income2 income2 = new Income2();
