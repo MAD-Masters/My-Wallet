@@ -71,6 +71,7 @@
         android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="PIN Code"
+        android:maxLength="4"
         android:backgroundTint="@color/primaryLightColor"
         android:textColor="@color/primaryColor"
         android:inputType="numberPassword"

@@ -84,14 +84,12 @@ public class DailyExpensesInDetail extends Fragment implements DatabaseObserver 
     @Override
     public void onResume() {
         super.onResume();
-        onActivityCreated(new Bundle());
         dbHelper.registerDbObserver(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        dbHelper.removeDbObserver(this);
     }
 
     @Override
