@@ -45,6 +45,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
     public void registerDbObserver(DatabaseObserver databaseObserver) {
         if (!observerArrayList.contains(databaseObserver)){
             observerArrayList.add(databaseObserver);
+            Log.d("db", "database observer regiserting..... " + observerArrayList.size());
         }
     }
 
@@ -55,9 +56,10 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 
     @Override
     public void notifyDbChanged() {
-        System.out.println("HELLO WORLD " + observerArrayList.size());
+        Log.d("db", "Notify db changed db helper " + observerArrayList.size());
         for (DatabaseObserver databaseObserver:observerArrayList){
             if (databaseObserver!= null){
+                Log.d("db", "Notify db changed db helperr done ");
                 databaseObserver.onDatabaseChanged();
             }}
     }
@@ -181,7 +183,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
     //Get Expenses ArrayList
     @RequiresApi(api = Build.VERSION_CODES.O)
     public ArrayList<DailyExpense> getMonthlyExpenses(int month, int year) throws ParseException {
-        String[] monthArray = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Aug", "Nov", "Dec"};
+        String[] monthArray = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
         String monthString = monthArray[month];
 
         DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");

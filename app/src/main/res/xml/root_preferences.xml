@@ -7,6 +7,7 @@
         <CheckBoxPreference
             android:key="isPin"
             android:icon="@drawable/ic_baseline_security_24"
+            android:tint="@color/primaryLightColor"
             android:summaryOff="Not Required"
             android:summaryOn="Required"
             android:title="Use PIN to Open App"></CheckBoxPreference>
@@ -15,6 +16,7 @@
             android:dialogMessage="Please Remember PIN Code"
             android:dialogTitle="Enter New PIN Code"
             android:title="PIN Code"
+            android:tint="@color/primaryLightColor"
             android:summary="PIN is used to unlock the app"
             android:key="pinCode"
             android:inputType="number"
@@ -24,6 +26,7 @@
 
         <EditTextPreference
             app:key="name"
+            android:tint="@color/primaryLightColor"
             android:icon="@drawable/ic_baseline_account_circle_24"
             app:title="Name"
             app:useSimpleSummaryProvider="true" />
@@ -31,6 +34,7 @@
         <EditTextPreference
             app:key="email"
             app:title="Email"
+            android:tint="@color/primaryLightColor"
             android:icon="@drawable/ic_baseline_email_24"
             app:useSimpleSummaryProvider="true" />
 
@@ -38,6 +42,7 @@
     <PreferenceCategory app:title="Notifications">
         <SwitchPreferenceCompat
             app:key="isNotify"
+            android:tint="@color/primaryLightColor"
             android:icon="@drawable/ic_baseline_notifications_active_24"
             app:title="Remainder Notifications"
             android:summary="This will remind you to update your wallet"/>
