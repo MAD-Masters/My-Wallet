@@ -39,6 +39,7 @@ public class UserDetails extends AppCompatActivity {
                     editor.putBoolean("isPin", checkBox.isChecked());
                     editor.apply();
 
+                    finish();
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
                 }

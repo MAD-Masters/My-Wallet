@@ -32,11 +32,12 @@ public class NoAppBarActivity extends AppCompatActivity implements Income2adapte
 
         String fragment = intent.getStringExtra("Fragment");
 
-        if (fragment.equals("AddExpense")) {
+        if (fragment.equals("Add Expense")) {
             AddExpense addExpense = new AddExpense();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.noAppBarFragmentContainer, addExpense);
+            setActionBarTitle("Add Expense");
             fragmentTransaction.commit();
         } else if (fragment.equals("UpdateExpenses")) {
 
@@ -44,6 +45,7 @@ public class NoAppBarActivity extends AppCompatActivity implements Income2adapte
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.noAppBarFragmentContainer, updateExpense);
+            setActionBarTitle("Update Expense");
             fragmentTransaction.commit();
         } else if (fragment.equals("addincome")) {
             Income5 income5 = new Income5();
