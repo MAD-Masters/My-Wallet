@@ -36,7 +36,7 @@ public class NoAppBarActivity extends AppCompatActivity implements Income2adapte
 
         String fragment = intent.getStringExtra("Fragment");
 
-        if (fragment.equals("AddExpense")) {
+        if (fragment.equals("Add Expense")) {
             AddExpense addExpense = new AddExpense();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

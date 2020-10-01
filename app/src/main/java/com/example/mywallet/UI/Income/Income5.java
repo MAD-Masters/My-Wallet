@@ -42,7 +42,7 @@ public class Income5 extends Fragment {
     TextView eText;
     DatePickerDialog picker;
     View view;
-    private Button addincome;
+    private Button addincome,cansel;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
     private ToastMessage toastMessage;
@@ -127,6 +127,14 @@ public class Income5 extends Fragment {
         addincome = view.findViewById(R.id.add);
         amount = view.findViewById(R.id.textInputLayout4);
         note = view.findViewById(R.id.textInputEditText5);
+        cansel = view.findViewById(R.id.cansel3);
+
+        cansel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
 
         addincome.setOnClickListener(new View.OnClickListener() {
             @Override

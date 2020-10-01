@@ -111,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
                 fragmentManager = getSupportFragmentManager();
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.nav_host_fragment, home);
+                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
         });
@@ -122,6 +123,7 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
                 fragmentManager = getSupportFragmentManager();
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.nav_host_fragment, income);
+                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
         });
@@ -133,6 +135,7 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
                 fragmentManager = getSupportFragmentManager();
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.nav_host_fragment, goalHome);
+                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
         });
@@ -144,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
                 fragmentManager = getSupportFragmentManager();
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.nav_host_fragment, budget1);
+                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
         });
@@ -211,7 +215,6 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
         intent.putExtra("Fragment", "titleincome");
         intent.putExtra("walletid",walletid);
-        startActivity(intent);
         startActivity(intent);
 
     }

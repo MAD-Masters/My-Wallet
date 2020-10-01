@@ -9,10 +9,12 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.mywallet.DatabaseHelper;
 import com.example.mywallet.R;
@@ -33,6 +35,8 @@ public class Income2 extends Fragment {
     private Income2adapter income2adapter;
     private RecyclerView.LayoutManager layoutManager;
     private View root;
+    private TextView fullamount;
+    double amount;
     Button btn;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
@@ -110,8 +114,14 @@ public class Income2 extends Fragment {
         DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
         ArrayList<IncomeModel> incomeModelArrayListList = new ArrayList<>();
 
+        amount = databaseHelper.getfullamount();
+
+        fullamount = root.findViewById(R.id.textView11);
+        fullamount.setText(String.valueOf(amount));
+
         try {
             incomeModelArrayListList = databaseHelper.getincomesListbyid(walletid);
+            Log.d("msg", "Array List Called");
         } catch (ParseException e) {
             e.printStackTrace();
         }
