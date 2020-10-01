@@ -16,6 +16,11 @@ import com.example.mywallet.R;
 
 import com.example.mywallet.Model.Budgetmodel;
 
+import com.example.mywallet.UI.Expenses.DailyExpenseAdapter;
+import com.example.mywallet.Model.DailyExpense;
+import com.example.mywallet.UI.Income.Incomeadapter;
+
+
 import java.util.ArrayList;
 
 

@@ -74,32 +74,32 @@
             android:id="@+id/textInputLayout"
             android:layout_width="364dp"
             android:layout_height="76dp"
-            android:layout_marginTop="54dp"
+            android:layout_marginTop="92dp"
             android:background="@drawable/background_blue_no_fills"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.34"
+            app:layout_constraintHorizontal_bias="0.319"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputEditText7" />
+            app:layout_constraintTop_toBottomOf="@+id/textInputEditText2" />
 
         <TextView
             android:id="@+id/textView16"
             android:layout_width="44dp"
             android:layout_height="25dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="49dp"
             android:gravity="center_vertical|center_horizontal"
             android:text="@string/note"
             android:textColor="#0189FF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.043"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView23" />
+            app:layout_constraintTop_toBottomOf="@+id/textView22"></TextView>
 
         <TextView
             android:id="@+id/textView21"
             android:layout_width="104dp"
-            android:layout_height="34dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="312dp"
+            android:layout_height="31dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="308dp"
             android:background="@drawable/background_blue_fill"
             android:gravity="center_vertical|center_horizontal"
             android:text="@string/amount"
@@ -110,8 +110,8 @@
         <TextView
             android:id="@+id/textView22"
             android:layout_width="104dp"
-            android:layout_height="34dp"
-            android:layout_marginStart="32dp"
+            android:layout_height="31dp"
+            android:layout_marginStart="36dp"
             android:layout_marginTop="32dp"
             android:background="@drawable/background_blue_fill"
             android:gravity="center_vertical|center_horizontal"
@@ -121,23 +121,13 @@
             app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
         <TextView
-            android:id="@+id/textView23"
-            android:layout_width="106dp"
-            android:layout_height="31dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/background_blue_fill"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="@string/category"
-            android:textColor="#ffff"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView22" />
-
-        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textInputEditText2"
             android:layout_width="209dp"
             android:layout_height="31dp"
             android:layout_marginTop="28dp"
+            android:drawableRight="@drawable/calendar"
+            android:drawableTint="@color/primaryColor"
+            android:inputType="date"
             android:background="@drawable/background_blue_no_fills"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.709"
@@ -154,17 +144,6 @@
             app:layout_constraintHorizontal_bias="0.724"
             app:layout_constraintStart_toEndOf="@+id/textView21"
             app:layout_constraintTop_toBottomOf="@+id/imageView13" />
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputEditText7"
-            android:layout_width="209dp"
-            android:layout_height="31dp"
-            android:layout_marginTop="32dp"
-            android:background="@drawable/background_blue_no_fills"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.709"
-            app:layout_constraintStart_toEndOf="@+id/textView23"
-            app:layout_constraintTop_toBottomOf="@+id/textInputEditText2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

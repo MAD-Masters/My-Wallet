@@ -15,7 +15,7 @@
         android:orientation="vertical"
         android:padding="10dp"
         android:background="@drawable/background_blue_left_bold_no_fills"
-        android:layout_height="140dp">
+        android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -25,6 +25,7 @@
                 android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:layout_weight="1"
+                android:layout_marginLeft="10dp"
                 android:src="@drawable/bill"></ImageView>
 
             <TextView
@@ -46,6 +47,7 @@
             <ImageView
                 android:id="@+id/btnDelete"
                 android:layout_width="0dp"
+                android:layout_marginRight="5dp"
                 android:layout_height="25dp"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/delete_btn" />
@@ -53,53 +55,55 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
             android:orientation="horizontal">
+
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:orientation="vertical"
-                android:layout_weight="2">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_margin="5dp">
+                android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
+                    android:layout_weight="2"
                     android:background="@drawable/background_blue_fill"
                     android:gravity="center_horizontal|center_vertical"
                     android:text="@string/amount"
                     android:textColor="@color/colorWhite"></TextView>
 
+
                 <TextView
                     android:id="@+id/amount"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="2"
                     android:background="@drawable/background_blue_no_fills"
                     android:gravity="center_horizontal|center_vertical"
                     android:text="@string/defaultAmount"
                     android:textColor="@color/primaryColor"></TextView>
             </LinearLayout>
-                <TextView
-                    android:id="@+id/note"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="40dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/background_blue_no_fills"
-                    android:text="Note Here"
-                    android:textSize="@dimen/smallText"
-                    android:layout_marginLeft="5dp"
-                    android:textColor="@color/primaryColor"></TextView>
-            </LinearLayout>
         </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/noteView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            <TextView
+                android:id="@+id/note"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:textAlignment="inherit"
+                android:minHeight="0dp"
+                android:text="Note Here"
+                android:textColor="@color/primaryColor"
+                android:textSize="@dimen/smallText"></TextView></LinearLayout>
+
     </LinearLayout>
     </androidx.cardview.widget.CardView>
 

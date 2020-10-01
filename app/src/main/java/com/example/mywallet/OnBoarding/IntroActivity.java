@@ -18,9 +18,11 @@ import android.widget.Button;
 import com.example.mywallet.DatabaseHelper;
 import com.example.mywallet.MainActivity;
 import com.example.mywallet.R;
+import com.example.mywallet.UserDetails;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class IntroActivity extends AppCompatActivity {
@@ -113,7 +115,7 @@ public class IntroActivity extends AppCompatActivity {
         btnGetStarted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), UserDetails.class);
                 startActivity(intent);
 
                 //Then we need to store a value in the storage to get that these screens should not display again
@@ -135,6 +137,7 @@ public class IntroActivity extends AppCompatActivity {
         SharedPreferences myPreferences = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
         SharedPreferences.Editor editor = myPreferences.edit();
         editor.putBoolean("isIntroOpened", true);
+        editor.putString("date", Calendar.getInstance().getTime().toString());
         editor.commit();
     }
 

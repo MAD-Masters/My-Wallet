@@ -1,8 +1,11 @@
 package com.example.mywallet.UI.Expenses;
 
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -12,26 +15,26 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.mywallet.DatabaseHelper;
+import com.example.mywallet.DatabaseObserver;
 import com.example.mywallet.R;
 import com.example.mywallet.Model.DailyExpesnseSummary;
 import com.example.mywallet.Model.MonthlySummary;
+import com.example.mywallet.UserSettings;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Home extends Fragment {
-    //private RecyclerView recyclerView;
-    private ArrayList<DailyExpesnseSummary> dailyExpesnseSummaryArrayList;
-    //private DailyExpenseSummaryAdapter dailyExpenseAdapter;
-    //private RecyclerView.LayoutManager layoutManager;
+public class Home extends Fragment implements DatabaseObserver {
     private ViewPager viewPager;
     private MonthlyExpenseViewPagerAdapter monthlyExpenseViewPagerAdapter;
-    private ArrayList<MonthlySummary> monthlySummaryArrayList;
 
     private View root;
     private ImageView greetingImage;
+    private DatabaseHelper dbHelper;
 
     public Home() {
         // Required empty public constructor
@@ -40,6 +43,7 @@ public class Home extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dbHelper = DatabaseHelper.getInstance(getContext());
     }
 
     @Override
@@ -50,9 +54,33 @@ public class Home extends Fragment {
         return root;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        setPageContent();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        dbHelper.registerDbObserver(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        dbHelper.removeDbObserver(this);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    public void onDatabaseChanged() {
+        setPageContent();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void setPageContent() {
         Calendar c = Calendar.getInstance();
         int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
         String greeting = null;
@@ -70,29 +98,22 @@ public class Home extends Fragment {
         }else if(timeOfDay >= 16 && timeOfDay < 21){
             greeting = "Good Evening";
             greetingImage.setImageResource(R.drawable.evening);
-            greetings.setTextColor(getResources().getColor(R.color.primaryLightColor));
+            greetings.setTextColor(getResources().getColor(R.color.yellowLight));
         }else if(timeOfDay >= 21 && timeOfDay < 24){
             greeting = "Good Night";
             greetingImage.setImageResource(R.drawable.night);
             greetings.setTextColor(getResources().getColor(R.color.yellowLight));
         }
 
-        Date currentTime = Calendar.getInstance().getTime();
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-
-        String dateString = format.format( new Date());
-
-        TextView dateDisplay = root.findViewById(R.id.dateDisplay);
-        dateDisplay.setText(dateString);
         greetings.setText(greeting);
 
-
-        int dates[][] = new int[2][2];
-        dates[0][0]  = 7;
-        dates[0][1] = 2020;
-        dates[1][0]  = 8;
-        dates[1][1] = 2020;
-
+        ExpenseServicesImple expenseServicesImple = new ExpenseServicesImple();
+        int dates[][] = new int[0][];
+        try {
+            dates = expenseServicesImple.getArrayForViewPager(getContext());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         //Setting up view pager
         viewPager = root.findViewById(R.id.viewPager);
@@ -100,5 +121,14 @@ public class Home extends Fragment {
 
         viewPager.setAdapter(monthlyExpenseViewPagerAdapter);
         viewPager.setCurrentItem(dates.length - 1);
+
+        ImageView user = root.findViewById(R.id.userImg);
+        user.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), UserSettings.class);
+                startActivity(intent);
+            }
+        });
     }
 }

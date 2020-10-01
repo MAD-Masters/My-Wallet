@@ -240,10 +240,7 @@ public class AddExpense extends Fragment {
 
                     if (status) {
                         toastMessage.successToast("Successfully Inserted");
-
-                        Intent intent = new Intent(getContext(), MainActivity.class);
-                        startActivity(intent);
-
+                        getActivity().onBackPressed();
                     } else {
                         toastMessage.errorToast("Insert Failed");
                     }
