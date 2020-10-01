@@ -33,7 +33,7 @@ public class Income extends Fragment {
     private Incomeadapter incomeadapter;
     private RecyclerView.LayoutManager layoutManager;
     private View root;
-    private TextView wallet;
+    private TextView wallet,totals;
     double total;
     Button btn;
     private FragmentManager fragmentManager;
@@ -86,6 +86,10 @@ public class Income extends Fragment {
 
 
         walletArrayListList = databaseHelper.getWalletsList();
+        total = databaseHelper.getfullamount();
+
+        totals = root.findViewById(R.id.textView29);
+        totals.setText(String.valueOf(total));
 
 
         recyclerView = root.findViewById(R.id.list_income);

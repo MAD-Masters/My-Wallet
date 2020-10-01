@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.mywallet.UI.Expenses.AddExpense;
@@ -87,7 +89,7 @@ public class NoAppBarActivity extends AppCompatActivity implements Income2adapte
     }
 
     @Override
-    public void ondeleteincome2() {
+    public void ondeleteincome2(final int recordid) {
         dialog.setContentView(R.layout.delete_pop_up);
         /*LayoutInflater inflater = getLayoutInflater();
         View view = inflater.inflate(R.layout.delete_pop_up, (ViewGroup)findViewById(R.id.deletePopUp));
@@ -96,7 +98,31 @@ public class NoAppBarActivity extends AppCompatActivity implements Income2adapte
         TextView message = dialog.findViewById(R.id.message);
         message.setText("Are you sure to delete this resource?");
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.show();
+        Button delete = dialog.findViewById(R.id.positiveBtn);
+        Button cancel = dialog.findViewById(R.id.negativeBtn);
 
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
+                boolean status = databaseHelper.deleteincomerecord(recordid);
+                ToastMessage toastMessage = new ToastMessage(NoAppBarActivity.this, View.inflate(getApplicationContext(), R.layout.income2layout,null));
+
+                if (status) {
+                    toastMessage.successToast("Successfully Deleted");
+                } else {
+                    toastMessage.errorToast("Delete Failed");
+                }
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 }

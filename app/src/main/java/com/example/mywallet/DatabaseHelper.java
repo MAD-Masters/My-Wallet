@@ -190,7 +190,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         return arrayList;
     }
 
-    //Get CategoriesList
+    //Get WalletList
     public ArrayList<Wallet> getWalletsList() {
         SQLiteDatabase db = this.getWritableDatabase();
         ArrayList<Wallet> arrayList = new ArrayList<>();
@@ -201,8 +201,6 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 
             wallet.setWalletId(cursor.getInt(cursor.getColumnIndex(ID_TABLE)));
             wallet.setWalletName(cursor.getString(cursor.getColumnIndex("WALLET_NAME")));
-
-
             wallet.setBank(cursor.getString(cursor.getColumnIndex("BANK")));
 
             arrayList.add(wallet);
@@ -601,16 +599,34 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
             return true;
         }
     }
-    
+
+
+
+    //Delete incomerecord
+    public boolean deleteincomerecord ( int id){
+        SQLiteDatabase db = getWritableDatabase();
+        String whereClause = ID_TABLE + " = " + id;
+        long status = db.delete("INCOME", whereClause, null);
+
+        notifyDbChanged();
+
+        if (status == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
     public double getfullamount(){
         
         double TOTAL = 0;
         SQLiteDatabase db = this.getWritableDatabase();
-        String sqlQuery = "SELECT TOTAL = SUM(AMOUNT)  FROM"+INCOME;
+        String sqlQuery = "SELECT sum(AMOUNT) FROM INCOME";
         Cursor cursor = db.rawQuery(sqlQuery, null);
-        
-          return TOTAL;      
-        
+        cursor.moveToFirst();
+        return cursor.getDouble(0);
+
     }
 
 

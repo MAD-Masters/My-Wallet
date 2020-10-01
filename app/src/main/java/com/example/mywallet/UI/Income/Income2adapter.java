@@ -74,7 +74,7 @@ public class Income2adapter extends RecyclerView.Adapter<Income2adapter.Income2l
             btndelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    activity.ondeleteincome2();
+                    activity.ondeleteincome2(income.get(income.indexOf(itemView.getTag())).getRecordID());
                 }
             });
 
@@ -83,7 +83,7 @@ public class Income2adapter extends RecyclerView.Adapter<Income2adapter.Income2l
 
     public interface Income2Interface {
        public void onUpdateBtnincomemoney(int recordid);
-       public void ondeleteincome2();
+       public void ondeleteincome2(int recordid);
 
    }
 }
