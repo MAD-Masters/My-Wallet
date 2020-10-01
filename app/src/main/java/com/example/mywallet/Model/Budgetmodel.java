@@ -2,57 +2,41 @@ package com.example.mywallet.Model;
 
 public class Budgetmodel{
 
-   double number1;
-   double number2;
-   String text;
-   double bar;
-   String img;
-    public double getNumber1() {
-        return number1;
+   int cat_ID;
+   double amount;
+   double usedAmount;
+
+    public Budgetmodel(int cat_ID, double amount, double usedAmount) {
+        this.cat_ID = cat_ID;
+        this.amount = amount;
+        this.usedAmount = usedAmount;
     }
 
-    public void setNumber1(double number1) {
-        this.number1 = number1;
+    public Budgetmodel() {
     }
 
-    public double getNumber2() {
-        return number2;
+    public int getCat_ID() {
+        return cat_ID;
     }
 
-    public void setNumber2(double number2) {
-        this.number2 = number2;
+    public void setCat_ID(int cat_ID) {
+        this.cat_ID = cat_ID;
     }
 
-    public String getText() {
-        return text;
+    public double getAmount() {
+        return amount;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 
-    public double getBar() {
-        return bar;
+    public double getUsedAmount() {
+        return usedAmount;
     }
 
-    public void setBar(double bar) {
-        this.bar = bar;
-    }
-
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
-    }
-
-    public Budgetmodel(double number1, double number2, String text) {
-        this.number1 = number1;
-        this.number2 = number2;
-        this.text = text;
-        this.bar = bar;
-        this.img = img;
+    public void setUsedAmount(double usedAmount) {
+        this.usedAmount = usedAmount;
     }
 }
 

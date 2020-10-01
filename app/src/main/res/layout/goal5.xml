@@ -72,7 +72,9 @@
                 app:layout_constraintVertical_bias="0.432" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btndelete"
+
+                android:id="@+id/addBtn"
+
                 android:layout_width="108dp"
                 android:layout_height="30dp"
                 android:background="@drawable/background_pink_fully_rounded"

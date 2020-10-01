@@ -11,6 +11,7 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
+import com.example.mywallet.Model.Budgetmodel;
 import com.example.mywallet.Model.Category;
 import com.example.mywallet.Model.DailyExpense;
 import com.example.mywallet.Model.IncomeModel;
@@ -31,6 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
     public static final String TABLE_EXPENSES = "EXPENSES";
 
     public static final String ID_TABLE = "ID";
+    public static final String TABLE_BUDGET = "BUDGET";
 
     public static final String INCOME = "INCOME";
     public static final String WALLET = "WALLET";
@@ -118,7 +120,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         Log.d("database", "Goal Money Table Created");
 
         //Budget Table
-        createTable = "CREATE TABLE BUDGET (" + ID_TABLE + " INTEGER PRIMARY KEY AUTOINCREMENT, CAT_ID INT, AMOUNT REAL, FOREIGN KEY(CAT_ID) REFERENCES CATEGORY(ID))";
+        createTable = "CREATE TABLE BUDGET (CAT_ID INT PRIMARY KEY, AMOUNT REAL, FOREIGN KEY(CAT_ID) REFERENCES CATEGORY(ID))";
         db.execSQL(createTable);
         Log.d("database", "Budget Table Created");
 
@@ -475,3 +477,75 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
             return arrayList;
         }
     }
+    //Add Budget
+    public boolean addBudget(Budgetmodel budgetmodel){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("CAT_ID" , budgetmodel.getCat_ID());
+        contentValues.put("AMOUNT", budgetmodel.getAmount());
+
+        long status = db.insert(TABLE_BUDGET, null, contentValues);
+
+        if (status == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    //Get Budget
+    public ArrayList<Budgetmodel> getBudgetArray() throws ParseException{
+        ArrayList<Budgetmodel> budgetmodelArrayList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(cal.getTime());
+        String[] monthArray = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Aug", "Nov", "Dec"};
+        int month = cal.MONTH;
+        int year = cal.YEAR;
+
+        String sqlQuery = "SELECT * FROM BUDGET";
+        Cursor cursor = db.rawQuery(sqlQuery, null);
+
+        cursor.moveToFirst();
+
+        while (cursor.isAfterLast() == false) {
+            Budgetmodel budgetmodell = new Budgetmodel();
+            budgetmodell.setCat_ID(cursor.getInt(cursor.getColumnIndex(ID_TABLE)));
+            budgetmodell.setAmount(cursor.getDouble(cursor.getColumnIndex("AMOUNT")));
+
+            double totalAmount = 0.0;
+            String sqlQuery1 = "SELECT * FROM EXPENSES WHERE CATEGORY_= "+ budgetmodell.getCat_ID() +"AND DATE like '%" + monthArray[month] + "%" + year + "'" ;
+            Cursor cursor1 = db.rawQuery(sqlQuery1, null);
+            cursor1.moveToFirst();
+
+            while (cursor.isAfterLast() == false) {
+                totalAmount += cursor1.getDouble(cursor1.getColumnIndex("AMOUNT"));
+            }
+
+            budgetmodell.setUsedAmount(totalAmount);
+
+            budgetmodelArrayList.add(budgetmodell);
+            cursor.moveToNext();
+        }
+
+        return budgetmodelArrayList;
+    }
+
+    public boolean updateExpense(Budgetmodel budgetmodel){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put("CATEGORY", budgetmodel.getCat_ID());
+        contentValues.put("AMOUNT", budgetmodel.getAmount());
+
+        long status = db.update(TABLE_BUDGET, contentValues,  ID_TABLE + " = " + budgetmodel.getCat_ID(), null);
+
+        if (status == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+}
