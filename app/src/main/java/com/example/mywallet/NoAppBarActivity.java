@@ -19,6 +19,7 @@ import com.example.mywallet.UI.Expenses.UpdateExpense;
 import com.example.mywallet.UI.Income.Income2;
 import com.example.mywallet.UI.Income.Income2adapter;
 import com.example.mywallet.UI.Income.Income3;
+import com.example.mywallet.UI.Income.Income4;
 import com.example.mywallet.UI.Income.Income5;
 import com.example.mywallet.UI.Income.Income6;
 
@@ -70,13 +71,18 @@ public class NoAppBarActivity extends AppCompatActivity implements Income2adapte
             fragmentTransaction.addToBackStack(null);
             setActionBarTitle("Budget Item Insert");
             fragmentTransaction.commit();
-        }
 
         } else if (fragment.equals("titleincome")) {
             Income2 income2 = new Income2();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.noAppBarFragmentContainer, income2);
+            fragmentTransaction.commit();
+        } else if (fragment.equals("addresource")) {
+            Income4 income4 = new Income4();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.noAppBarFragmentContainer, income4);
             fragmentTransaction.commit();
         }
     }

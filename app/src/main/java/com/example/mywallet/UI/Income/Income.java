@@ -71,11 +71,11 @@ public class Income extends Fragment {
             @Override
             public void onClick(View view) {
                 Log.d("Btn", "LKJFSKDJF");
-                Income4 income4 = new Income4();
-                fragmentManager = getParentFragmentManager();
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment, income4);
-                fragmentTransaction.commit();
+                Intent intent = new Intent(getActivity(),NoAppBarActivity.class);
+                intent.putExtra("Fragment", "addresource");
+                intent.putExtra("walletid",walletid);
+                startActivity(intent);
+                startActivity(intent);
             }
         });
 
