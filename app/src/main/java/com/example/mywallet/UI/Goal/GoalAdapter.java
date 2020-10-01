@@ -28,13 +28,13 @@ public class GoalAdapter extends RecyclerView.Adapter<com.example.mywallet.UI.Go
 
     public  class GoalViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
-        TextView goal, totalAmount, date;
+        TextView goal, totalAmount, date,amount;
         ImageView btngoal;
-        Button btndelete;
+       ImageView btndelete,btnCamount;
 
 
 
-        public GoalViewHolder(@NonNull View itemView) {
+        public GoalViewHolder(@NonNull final View itemView) {
             super(itemView);
             goal = itemView.findViewById(R.id.goal);
             cardView = itemView.findViewById(R.id.cardViewFutureGoal);
@@ -42,19 +42,26 @@ public class GoalAdapter extends RecyclerView.Adapter<com.example.mywallet.UI.Go
            date = itemView.findViewById(R.id.date);
             btngoal = itemView.findViewById(R.id.btngoal);
             btndelete=itemView.findViewById(R.id.btndelete);
-
+            btnCamount=itemView.findViewById(R.id.btnCamount);
+            amount=itemView.findViewById(R.id.currentamount);
 
                     btndelete.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            activity1.onDeletBtnGoInClick();             }
+                            activity1.onDeletBtnGoInClick(futuregoal.get(futuregoal.indexOf(itemView.getTag())).getRecord_id());             }
                     });
 
                             btngoal.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    activity1.onAddBtnGoalClick();
+                                    activity1.onAddBtnGoalClick(futuregoal.get(futuregoal.indexOf(itemView.getTag())).getRecord_id());
                         }
+            });
+
+            btnCamount.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    activity1.onAddBtnAmountClick(futuregoal.get(futuregoal.indexOf(itemView.getTag())).getRecord_id());             }
             });
 
         }
@@ -74,7 +81,7 @@ public class GoalAdapter extends RecyclerView.Adapter<com.example.mywallet.UI.Go
         holder.date.setText(((Date)futuregoal.get(position).getDate()).toString());
         holder.totalAmount.setText(((Double)futuregoal.get(position).getTotalAmount()).toString());
         holder.goal.setText(futuregoal.get(position).getGoal());
-
+        holder.amount.setText(((Double)futuregoal.get(position).getTotalAmount()).toString());
     }
 
     @Override
@@ -83,9 +90,10 @@ public class GoalAdapter extends RecyclerView.Adapter<com.example.mywallet.UI.Go
     }
 
     public interface GoalInterface{
-        public  void onDeletBtnGoInClick();
-        public void onAddBtnGoalClick();
+        public  void onDeletBtnGoInClick(int recorde_id);
+        public void onAddBtnGoalClick(int recorde_id);
 
+        public void onAddBtnAmountClick(int record_id);
     }
 
 }

@@ -1,6 +1,7 @@
 package com.example.mywallet.UI.Goal;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -17,6 +18,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.mywallet.DatabaseHelper;
+import com.example.mywallet.MainActivity;
+import com.example.mywallet.NoAppBarActivity;
 import com.example.mywallet.R;
 import com.example.mywallet.Model.FutureGoal;
 
@@ -61,17 +64,22 @@ public class Goal_Home extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Goal goal = new Goal();
+                Intent intent = new Intent(getActivity(), NoAppBarActivity.class);
+                intent.putExtra("Fragment", "addgoal12");
+                //intent.putExtra("id",Record_id);
+                startActivity(intent);
+
+              /*  Goal goal = new Goal();
                 fragmentManager = getParentFragmentManager();
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.nav_host_fragment, goal);
                 fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                fragmentTransaction.commit();*/
             }
 
         });
 
-      /*  DatabaseHelper databaseHelper=new DatabaseHelper(getContext());
+        DatabaseHelper databaseHelper=new DatabaseHelper(getContext());
         ArrayList<FutureGoal> futuregoalArrayList=new ArrayList<>();
 
         try {
@@ -79,12 +87,22 @@ public class Goal_Home extends Fragment {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-*/
 
-        futuregoalArrayList = new ArrayList<>();
+      /*  DatabaseHelper databaseHelper1=new DatabaseHelper(getContext());
+        ArrayList<FutureGoal> futuregoalArrayList1=new ArrayList<>();
+
+        try {
+            futuregoalArrayList = databaseHelper.getAmount();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }/*
+
+
+
+      /*  futuregoalArrayList = new ArrayList<>();
 
         futuregoalArrayList.add(new FutureGoal(Calendar.getInstance().getTime(),7777.00,"xxxxx",68888.00));
-        futuregoalArrayList.add(new FutureGoal(Calendar.getInstance().getTime(),21257.00,"fgdfg",242742.00));
+        futuregoalArrayList.add(new FutureGoal(Calendar.getInstance().getTime(),21257.00,"fgdfg",242742.00));*/
 
         recyclerView = root.findViewById(R.id.goalInDetail);
         recyclerView.setHasFixedSize(true);

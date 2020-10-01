@@ -96,7 +96,7 @@ public class Goal extends Fragment {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
         String dateString = format.format( new Date());
-       date.setText(String.format(dateString, currentTime));
+        date.setText(String.format(dateString, currentTime));
         date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,7 +135,7 @@ public class Goal extends Fragment {
                 }
                 FutureGoal futureGoal = new FutureGoal();
                 futureGoal.setGoal(goal1.getText().toString());
-          //      System.out.println("add goal" + goal);
+                System.out.println("add goal" + futureGoal.getGoal());
                 futureGoal.setTotalAmount(Double.parseDouble(amount.getText().toString()));
                 futureGoal.setDate(dateS);
 
@@ -147,7 +147,7 @@ public class Goal extends Fragment {
                     toastMessage.successToast("Successfully Inserted");
 
                     Intent intent = new Intent(getContext(), MainActivity.class);
-                    startActivity(intent);
+                    getActivity().onBackPressed();
 
                 } else {
                     toastMessage.errorToast("Insert Failed");

@@ -244,10 +244,11 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
 
         Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
         intent.putExtra("Fragment", "addincome");
+
         startActivity(intent);
     }
 
-    
+
     public void oneditBtnincome()
     {
         Income3 income3  = new Income3();
@@ -258,23 +259,50 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         fragmentTransaction.commit();
     }
 
-    public void onDeletBtnGoInClick() {
-        dialog.setContentView(R.layout.delete_pop_up);
-        /*LayoutInflater inflater = getLayoutInflater();
-        View view = inflater.inflate(R.layout.delete_pop_up, (ViewGroup)findViewById(R.id.deletePopUp));
-        TextView message = vie*/
 
+
+    @Override
+    public void onDeletBtnGoInClick(final int Record_id) {
+        dialog.setContentView(R.layout.delete_pop_up);
         TextView message = dialog.findViewById(R.id.message);
-        message.setText("Are you sure to delete this Goal?");
+        message.setText("Are you sure to delete this record?");
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        Button delete = dialog.findViewById(R.id.positiveBtn);
+        Button cancel = dialog.findViewById(R.id.negativeBtn);
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
+                boolean status = databaseHelper.deleteGoalRecord(Record_id);
+                ToastMessage toastMessage = new ToastMessage(MainActivity.this, View.inflate(getApplicationContext(), R.layout.fragment_goal1,null));
+
+                if (status) {
+                    toastMessage.successToast("Successfully Deleted");
+                } else {
+                    toastMessage.errorToast("Delete Failed");
+                }
+                dialog.dismiss();
+            }
+        });
+
         dialog.show();
     }
 
-    public void onAddBtnGoalClick() {
+    public void onAddBtnGoalClick(int Record_id) {
 
 
         Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
         intent.putExtra("Fragment", "addgoal");
+        intent.putExtra("id",Record_id);
         startActivity(intent);
 
         /* Goal1 goal1 = new Goal1();
@@ -285,6 +313,14 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         fragmentTransaction.commit();*/
     }
 
+    public void onAddBtnAmountClick(int Record_id) {
+
+
+        Intent intent = new Intent(MainActivity.this, NoAppBarActivity.class);
+        intent.putExtra("Fragment", "addgoal123");
+        intent.putExtra("id", Record_id);
+        startActivity(intent);
+    }
 }
 
 

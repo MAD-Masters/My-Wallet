@@ -381,6 +381,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("GOAL_NAME", futureGoal.getGoal());
+        System.out.println(futureGoal.getGoal());
         contentValues.put("AMOUNT", futureGoal.getTotalAmount());
         contentValues.put("DATE", futureGoal.getDate().toString());
 
@@ -396,7 +397,6 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 
     //viewGoal
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public ArrayList<FutureGoal> getfutureGoal() throws ParseException {
 
         DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
@@ -408,10 +408,102 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 
         while (cursor.isAfterLast() == false) {
             FutureGoal futureGoal = new FutureGoal();
-            futureGoal.setRecordId(cursor.getInt(cursor.getColumnIndex(ID_TABLE)));
+            futureGoal.setRecord_id(cursor.getInt(cursor.getColumnIndex(ID_TABLE)));
             futureGoal.setGoal(cursor.getString(cursor.getColumnIndex("GOAL_NAME")));
             futureGoal.setTotalAmount(cursor.getFloat(cursor.getColumnIndex("AMOUNT")));
             futureGoal.setDate(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
+
+
+            arrayList.add(futureGoal);
+            cursor.moveToNext();
+        }
+        return arrayList;
+    }
+
+    //Update Goal
+
+    public boolean updateGoal(FutureGoal futureGoal){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("GOAL_NAME", futureGoal.getGoal());
+        contentValues.put("AMOUNT", futureGoal.getTotalAmount());
+        contentValues.put("DATE", String.valueOf(futureGoal.getDate()));
+
+        long status = db.update("GOAL", contentValues,  ID_TABLE + " = " + futureGoal.getRecord_id(), null);
+
+
+        if (status == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    //get Goal
+
+    public FutureGoal getGoalById(int Record_id) throws ParseException {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String sqlQuery = "SELECT * FROM GOAL WHERE " + ID_TABLE + " = " + Record_id;
+        Cursor cursor = db.rawQuery(sqlQuery, null);
+
+        FutureGoal futureGoal = new FutureGoal();
+
+        DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+
+        if (cursor.moveToFirst()) {
+            futureGoal.setRecord_id(cursor.getInt(cursor.getColumnIndex(ID_TABLE)));
+            futureGoal.setGoal(cursor.getString(cursor.getColumnIndex("GOAL_NAME")));
+            futureGoal.setTotalAmount(cursor.getFloat(cursor.getColumnIndex("AMOUNT")));
+            futureGoal.setDate(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
+
+        }
+
+        return futureGoal;
+    }
+
+    public boolean deleteGoalRecord(int Record_id) {
+        SQLiteDatabase db = getWritableDatabase();
+        String whereClause = ID_TABLE + " = " + Record_id;
+        long status = db.delete("GOAL", whereClause, null);
+
+        if (status == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    public boolean addAmount(int record_id,double amount){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put("AMOUNT", amount);
+        contentValues.put("GOAL_ID", record_id);
+
+        long status = db.insert("GOAL_MONEY", null, contentValues);
+
+        if (status == -1) {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+    public ArrayList<FutureGoal> getAmount() throws ParseException {
+
+      //  DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<FutureGoal> arrayList = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT * FROM GOAL_MONEY " , null);
+
+        cursor.moveToFirst();
+
+        while (cursor.isAfterLast() == false) {
+            FutureGoal futureGoal = new FutureGoal();
+            futureGoal.setRecord_id(cursor.getInt(cursor.getColumnIndex(ID_TABLE)));
+         //   futureGoal.setGoal(cursor.getString(cursor.getColumnIndex("GOAL_NAME")));
+            futureGoal.setCurrentAmount(cursor.getFloat(cursor.getColumnIndex("AMOUNT REAL")));
+          //  futureGoal.setDate(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
 
 
             arrayList.add(futureGoal);
