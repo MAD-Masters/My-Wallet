@@ -565,7 +565,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         } else {
             return true;
         }
-        
+
     }
 
     //Get Daily Budget By Id

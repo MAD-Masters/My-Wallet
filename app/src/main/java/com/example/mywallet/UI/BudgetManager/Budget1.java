@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.mywallet.DatabaseHelper;
 import com.example.mywallet.DatabaseObserver;
@@ -44,6 +45,7 @@ public class Budget1 extends Fragment implements DatabaseObserver {
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
     private DatabaseHelper dbHelper;
+    private TextView total,totalused;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -86,6 +88,7 @@ public class Budget1 extends Fragment implements DatabaseObserver {
 
         btnAdd =root.findViewById(R.id.addButton);
 
+
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,7 +106,6 @@ public class Budget1 extends Fragment implements DatabaseObserver {
         DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
         ArrayList<Budgetmodel>  budgetModelArrayListList = new ArrayList<>();
 
-
         budgetModelArrayListList = databaseHelper.getBudgetArray();
 
         recyclerView = root.findViewById(R.id.repeat);
@@ -115,6 +117,27 @@ public class Budget1 extends Fragment implements DatabaseObserver {
         budgetAdapter = new BudgetAdapter(getContext(), budgetModelArrayListList);
         recyclerView.setAdapter(budgetAdapter);
 
+        total= root.findViewById(R.id.textView24);
+        total.setText(String.valueOf(getTotalBudget(budgetModelArrayListList)));
+
+        totalused = root.findViewById(R.id.textView25);
+        totalused.setText(String.valueOf(getTotalUsed(budgetModelArrayListList)));
+    }
+
+    public double getTotalBudget(ArrayList<Budgetmodel> budgetmodelArrayList) {
+        double total = 0.0;
+        for (Budgetmodel budgetmodel : budgetmodelArrayList) {
+            total += budgetmodel.getAmount();
+        }
+        return total;
+    }
+
+    public double getTotalUsed(ArrayList<Budgetmodel> budgetmodelArrayList) {
+        double total = 0.0;
+        for (Budgetmodel budgetmodel : budgetmodelArrayList) {
+            total += budgetmodel.getUsedAmount();
+        }
+        return total;
     }
 
     @Override
