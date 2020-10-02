@@ -1,6 +1,7 @@
 package com.example.mywallet.UI.BudgetManager;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -9,19 +10,26 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.mywallet.DatabaseHelper;
+import com.example.mywallet.MainActivity;
 import com.example.mywallet.Model.Budgetmodel;
+import com.example.mywallet.Model.DailyExpense;
+import com.example.mywallet.Model.Wallet;
 import com.example.mywallet.R;
+import com.example.mywallet.ToastMessage;
 
 import org.w3c.dom.Text;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,10 +39,12 @@ import java.util.Calendar;
 public class UpdateBudget extends Fragment {
 
     private int BudId;
-    Budgetmodel bud;
-    TextView eText;
-    EditText amount;
+    private ToastMessage toastMessage;
     View view;
+    Budgetmodel bud;
+    TextView eText, upBudget;
+    EditText amount;
+    private Button btnUpdate;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -101,9 +111,38 @@ public class UpdateBudget extends Fragment {
         amount= view.findViewById(R.id.textView10);
         amount.setText(String.valueOf(bud.getAmount()));
         TextView category = view.findViewById(R.id.categoryId);
+        TextView btnUpdate = view.findViewById(R.id.textView7);
         category.setText(catName);
 
-            }
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                    Budgetmodel budgetmodel = new Budgetmodel();
+                budgetmodel.setAmount(Double.parseDouble(amount.getText().toString()));
+                budgetmodel.setCat_ID(BudId);
+
+                toastMessage = new ToastMessage(getActivity(), view);
+
+                    DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+                    System.out.println("amount" + budgetmodel.getAmount());
+                    boolean status = false;
+                    status = databaseHelper.updateBudget(budgetmodel);
+
+                    if (status) {
+                        toastMessage.successToast("Successfully Updated");
+                        getActivity().onBackPressed();
+
+                    } else {
+                        toastMessage.errorToast("Insert Failed");
+                    }
+                }
+
+        });
+    }
+
+
+
 
 
     //Get image for category
@@ -131,5 +170,8 @@ public class UpdateBudget extends Fragment {
         }
         return name;
     }
+
+
+
         }
 

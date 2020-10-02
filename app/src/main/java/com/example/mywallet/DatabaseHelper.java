@@ -537,10 +537,11 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
-        contentValues.put("CATEGORY", budgetmodel.getCat_ID());
         contentValues.put("AMOUNT", budgetmodel.getAmount());
 
-        long status = db.update(TABLE_BUDGET, contentValues,  ID_TABLE + " = " + budgetmodel.getCat_ID(), null);
+        Log.d("msg", String.valueOf(budgetmodel.getCat_ID()));
+
+        long status = db.update("BUDGET", contentValues,  "CAT_ID = " + budgetmodel.getCat_ID(), null);
 
         if (status == -1) {
             return false;
