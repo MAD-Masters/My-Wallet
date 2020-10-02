@@ -65,11 +65,6 @@ public class Home extends Fragment implements DatabaseObserver {
         dbHelper.registerDbObserver(this);
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        dbHelper.registerDbObserver(this);
-    }
 
     @Override
     public void onDatabaseChanged() {

@@ -11,18 +11,24 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mywallet.DatabaseHelper;
 import com.example.mywallet.R;
 import com.example.mywallet.Model.FutureGoal;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class GoalAdapter extends RecyclerView.Adapter<com.example.mywallet.UI.Goal.GoalAdapter.GoalViewHolder> {
     private ArrayList<FutureGoal> futuregoal;
     private GoalInterface activity1;
+    Context context;
+    DatabaseHelper dbHelper;
+
 
     public  GoalAdapter(Context context, ArrayList<FutureGoal> futuregoal) {
         this.futuregoal = futuregoal;
+        context = context;
         activity1= (GoalInterface) context;
     }
 
@@ -44,6 +50,7 @@ public class GoalAdapter extends RecyclerView.Adapter<com.example.mywallet.UI.Go
             btndelete=itemView.findViewById(R.id.btndelete);
             btnCamount=itemView.findViewById(R.id.btnCamount);
             amount=itemView.findViewById(R.id.currentamount);
+            dbHelper = new DatabaseHelper(context);
 
                     btndelete.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -81,7 +88,7 @@ public class GoalAdapter extends RecyclerView.Adapter<com.example.mywallet.UI.Go
         holder.date.setText(((Date)futuregoal.get(position).getDate()).toString());
         holder.totalAmount.setText(((Double)futuregoal.get(position).getTotalAmount()).toString());
         holder.goal.setText(futuregoal.get(position).getGoal());
-        holder.amount.setText(((Double)futuregoal.get(position).getTotalAmount()).toString());
+        holder.amount.setText(String.valueOf(dbHelper.getGoalCurrenValue(futuregoal.get(position).getRecord_id())));
     }
 
     @Override

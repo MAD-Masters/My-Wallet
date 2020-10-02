@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.mywallet.DatabaseHelper;
+import com.example.mywallet.DatabaseObserver;
 import com.example.mywallet.MainActivity;
 import com.example.mywallet.NoAppBarActivity;
 import com.example.mywallet.R;
@@ -27,7 +28,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class Goal_Home extends Fragment {
+public class Goal_Home extends Fragment implements DatabaseObserver {
 
     private RecyclerView recyclerView;
     private ArrayList<FutureGoal> futuregoalArrayList;
@@ -37,6 +38,7 @@ public class Goal_Home extends Fragment {
     private Button btn;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
+    private DatabaseHelper dbHelper;
 
     public Goal_Home() {
         // Required empty public constructor
@@ -45,6 +47,7 @@ public class Goal_Home extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dbHelper = DatabaseHelper.getInstance(getContext());
     }
 
     @Override
@@ -66,19 +69,20 @@ public class Goal_Home extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), NoAppBarActivity.class);
                 intent.putExtra("Fragment", "addgoal12");
-                //intent.putExtra("id",Record_id);
                 startActivity(intent);
-
-              /*  Goal goal = new Goal();
-                fragmentManager = getParentFragmentManager();
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment, goal);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();*/
             }
 
         });
 
+        setContent();
+    }
+
+    public void onResume() {
+        super.onResume();
+        dbHelper.registerDbObserver(this);
+    }
+
+    public void setContent() {
         DatabaseHelper databaseHelper=new DatabaseHelper(getContext());
         ArrayList<FutureGoal> futuregoalArrayList=new ArrayList<>();
 
@@ -88,21 +92,6 @@ public class Goal_Home extends Fragment {
             e.printStackTrace();
         }
 
-      /*  DatabaseHelper databaseHelper1=new DatabaseHelper(getContext());
-        ArrayList<FutureGoal> futuregoalArrayList1=new ArrayList<>();
-
-        try {
-            futuregoalArrayList = databaseHelper.getAmount();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }/*
-
-
-
-      /*  futuregoalArrayList = new ArrayList<>();
-
-        futuregoalArrayList.add(new FutureGoal(Calendar.getInstance().getTime(),7777.00,"xxxxx",68888.00));
-        futuregoalArrayList.add(new FutureGoal(Calendar.getInstance().getTime(),21257.00,"fgdfg",242742.00));*/
 
         recyclerView = root.findViewById(R.id.goalInDetail);
         recyclerView.setHasFixedSize(true);
@@ -112,5 +101,10 @@ public class Goal_Home extends Fragment {
 
         goalAdapter = new GoalAdapter(getContext(),futuregoalArrayList);
         recyclerView.setAdapter(goalAdapter);
+    }
+
+    @Override
+    public void onDatabaseChanged() {
+        setContent();
     }
 }

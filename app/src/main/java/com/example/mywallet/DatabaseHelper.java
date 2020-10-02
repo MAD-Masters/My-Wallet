@@ -10,12 +10,10 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.versionedparcelable.VersionedParcel;
 
 import com.example.mywallet.Model.Category;
 import com.example.mywallet.Model.DailyExpense;
 import com.example.mywallet.Model.FutureGoal;
-import com.example.mywallet.Model.IncomeModel;
 import com.example.mywallet.Model.Wallet;
 
 import java.lang.reflect.Array;
@@ -163,6 +161,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
             arrayList.add(category);
             cursor.moveToNext();
         }
+
+        db.close();
         return arrayList;
     }
 
@@ -387,6 +387,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 
         long status = db.insert("GOAL", null, contentValues);
 
+        notifyDbChanged();
+
         if (status == -1) {
             return false;
         } else {
@@ -400,7 +402,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
     public ArrayList<FutureGoal> getfutureGoal() throws ParseException {
 
         DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = databaseHelper.getWritableDatabase();
         ArrayList<FutureGoal> arrayList = new ArrayList<>();
        Cursor cursor = db.rawQuery("SELECT * FROM GOAL " , null);
 
@@ -431,6 +433,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 
         long status = db.update("GOAL", contentValues,  ID_TABLE + " = " + futureGoal.getRecord_id(), null);
 
+        notifyDbChanged();
 
         if (status == -1) {
             return false;
@@ -467,6 +470,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         String whereClause = ID_TABLE + " = " + Record_id;
         long status = db.delete("GOAL", whereClause, null);
 
+        notifyDbChanged();
+
         if (status == -1) {
             return false;
         } else {
@@ -481,6 +486,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         contentValues.put("GOAL_ID", record_id);
 
         long status = db.insert("GOAL_MONEY", null, contentValues);
+        notifyDbChanged();
 
         if (status == -1) {
             return false;
@@ -489,27 +495,18 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         }
 
     }
-    public ArrayList<FutureGoal> getAmount() throws ParseException {
-
-      //  DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
-        SQLiteDatabase db = this.getWritableDatabase();
-        ArrayList<FutureGoal> arrayList = new ArrayList<>();
-        Cursor cursor = db.rawQuery("SELECT * FROM GOAL_MONEY " , null);
+    public double getGoalCurrenValue(int id) {
+        SQLiteDatabase db =  databaseHelper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM GOAL_MONEY  WHERE GOAL_ID = " + id , null);
 
         cursor.moveToFirst();
+        double total = 0.0;
 
         while (cursor.isAfterLast() == false) {
-            FutureGoal futureGoal = new FutureGoal();
-            futureGoal.setRecord_id(cursor.getInt(cursor.getColumnIndex(ID_TABLE)));
-         //   futureGoal.setGoal(cursor.getString(cursor.getColumnIndex("GOAL_NAME")));
-            futureGoal.setCurrentAmount(cursor.getFloat(cursor.getColumnIndex("AMOUNT REAL")));
-          //  futureGoal.setDate(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
-
-
-            arrayList.add(futureGoal);
+            total += cursor.getDouble(cursor.getColumnIndex("AMOUNT"));
             cursor.moveToNext();
         }
-        return arrayList;
+        return total;
     }
 
 

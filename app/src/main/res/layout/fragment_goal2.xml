@@ -58,8 +58,8 @@
             android:id="@+id/currentA"
             android:layout_width="180dp"
             android:layout_height="33dp"
-             android:inputType="number"
             android:background="@drawable/background_blue_no_fills"
+            android:inputType="number"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.935"
@@ -71,29 +71,13 @@
             android:id="@+id/btnCamount"
             android:layout_width="140dp"
             android:layout_height="56dp"
+            android:layout_marginTop="120dp"
             android:background="@drawable/background_blue_fully_rounded"
             android:text="@string/goal15"
             android:textColor="#ffff"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.059"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView9"
-            app:layout_constraintVertical_bias="0.955" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btncancel"
-            android:layout_width="143dp"
-            android:layout_height="56dp"
-            android:background="@drawable/background_pink_fully_rounded"
-            android:text="@string/goal16"
-            android:textColor="#ffff"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.805"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.956" />
+            app:layout_constraintTop_toBottomOf="@+id/currentA" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
