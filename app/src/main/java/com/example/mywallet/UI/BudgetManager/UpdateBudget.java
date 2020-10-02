@@ -44,7 +44,7 @@ public class UpdateBudget extends Fragment {
     Budgetmodel bud;
     TextView eText, upBudget;
     EditText amount;
-    private Button btnUpdate;
+    private Button btnUpdate,btnCancel;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -106,12 +106,21 @@ public class UpdateBudget extends Fragment {
         TextView category = view.findViewById(R.id.categoryId);
         TextView btnUpdate = view.findViewById(R.id.textView7);
         category.setText(catName);
+        btnCancel = view.findViewById(R.id.cansel);
+
+        //Btn Cancel
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                    Budgetmodel budgetmodel = new Budgetmodel();
+                Budgetmodel budgetmodel = new Budgetmodel();
                 budgetmodel.setAmount(Double.parseDouble(amount.getText().toString()));
                 budgetmodel.setCat_ID(BudId);
 
