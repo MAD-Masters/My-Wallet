@@ -303,7 +303,7 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
             @Override
             public void onClick(View v) {
                 DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
-                boolean status = databaseHelper.deleteExpenseRecord(cat_ID);
+                boolean status = databaseHelper.onDeletBtnBudget(cat_ID);
                 ToastMessage toastMessage = new ToastMessage(MainActivity.this, View.inflate(getApplicationContext(), R.layout.fragment_budget1,null));
 
                 if (status) {

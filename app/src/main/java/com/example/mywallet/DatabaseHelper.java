@@ -553,7 +553,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
     //Delete Budget Record
     public boolean onDeletBtnBudget (final int cat_ID) {
         SQLiteDatabase db = getWritableDatabase();
-        String whereClause = ID_TABLE + " = " + cat_ID;
+        String whereClause = "CAT_ID"+ " = " + cat_ID;
         long status = db.delete("BUDGET", whereClause, null);
 
         notifyDbChanged();
