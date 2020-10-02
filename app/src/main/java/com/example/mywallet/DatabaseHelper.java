@@ -379,6 +379,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
             } else {
                 return true;
             }
+
         }
 
         //Get date array from Income Table
@@ -396,6 +397,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
                 arrayList.add(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
                 cursor.moveToNext();
             }
+            db.close();
 
             return arrayList;
         }
@@ -506,7 +508,6 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
             contentValues.put("AMOUNT", incomeModel.getMoney());
             contentValues.put("DATE", String.valueOf(incomeModel.getDate()));
             contentValues.put("NOTE", incomeModel.getText());
-            contentValues.put("WALLET_ID", incomeModel.getWalletid());
 
             System.out.println("updateone"+incomeModel.getRecordID());
 
@@ -542,7 +543,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 // get incomelistbyid
     public ArrayList<IncomeModel> getincomesListbyid (int walletid) throws ParseException {
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = databaseHelper.getWritableDatabase();
         ArrayList<IncomeModel> arrayList = new ArrayList<>();
         String sqlQuery ="SELECT * FROM INCOME WHERE WALLET_ID = " + walletid;
         Cursor cursor = db.rawQuery(sqlQuery, null);
@@ -598,7 +599,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         }
     }
 
-
+//get amount by id
     public double getfullamount(){
         
         double TOTAL = 0;
@@ -608,6 +609,15 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         cursor.moveToFirst();
         return cursor.getDouble(0);
 
+    }
+    //get full amount by id
+    public double getfullamountbyid(int walletid){
+        double TOTAL = 0;
+        SQLiteDatabase db = databaseHelper.getWritableDatabase();
+        String sqlQuery = "SELECT sum(AMOUNT) FROM INCOME WHERE WALLET_ID="+walletid;
+        Cursor cursor = db.rawQuery(sqlQuery, null);
+        cursor.moveToFirst();
+        return cursor.getDouble(0);
     }
 
     //Add Budget

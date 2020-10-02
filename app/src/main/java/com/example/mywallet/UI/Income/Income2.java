@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.mywallet.DatabaseHelper;
+import com.example.mywallet.DatabaseObserver;
 import com.example.mywallet.R;
 import com.example.mywallet.Model.IncomeModel;
 
@@ -29,7 +30,7 @@ import java.util.Calendar;
  * Use the {@link Income2#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Income2 extends Fragment {
+public class Income2 extends Fragment implements DatabaseObserver {
     private RecyclerView recyclerView;
     private ArrayList<IncomeModel> incomeModelArrayListList;
     private Income2adapter income2adapter;
@@ -40,6 +41,7 @@ public class Income2 extends Fragment {
     Button btn;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
+    private DatabaseHelper dbHelper;
 
 
 
@@ -79,6 +81,7 @@ public class Income2 extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         walletid = getActivity().getIntent().getIntExtra("walletid",0);
+        dbHelper = DatabaseHelper.getInstance(getContext());
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -111,10 +114,25 @@ public class Income2 extends Fragment {
             }
         });
 
+       content();
+    }
+
+    public void onResume() {
+        super.onResume();
+        onActivityCreated(new Bundle());
+        dbHelper.registerDbObserver(this);
+    }
+
+    @Override
+    public void onDatabaseChanged() {
+        content();
+    }
+
+    public void content(){
         DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
         ArrayList<IncomeModel> incomeModelArrayListList = new ArrayList<>();
 
-        amount = databaseHelper.getfullamount();
+        amount = databaseHelper.getfullamountbyid(walletid);
 
         fullamount = root.findViewById(R.id.textView11);
         fullamount.setText(String.valueOf(amount));
