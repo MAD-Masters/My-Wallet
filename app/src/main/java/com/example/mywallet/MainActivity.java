@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.example.mywallet.UI.BudgetManager.Budget1;
 
 import com.example.mywallet.UI.BudgetManager.BudgetAdapter;
-import com.example.mywallet.UI.BudgetManager.Model.Budget2;
+import com.example.mywallet.UI.BudgetManager.Budget2;
 import com.example.mywallet.UI.Expenses.AddExpense;
 
 import com.example.mywallet.UI.Expenses.DailyExpenseAdapter;
@@ -346,5 +346,48 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         startActivity(intent);
     }
 
+    @Override
+    public void onUpdateBudgetClick(int cat_ID) {
+        Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
+        intent.putExtra("Fragment", "budget3");
+        intent.putExtra("id", cat_ID);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onDeletBtnBudget(final int cat_ID) {
+        dialog.setContentView(R.layout.delete_pop_up);
+        TextView message = dialog.findViewById(R.id.message);
+        message.setText("Are you sure to delete this record?");
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        Button delete = dialog.findViewById(R.id.positiveBtn);
+        Button cancel = dialog.findViewById(R.id.negativeBtn);
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
+                boolean status = databaseHelper.onDeletBtnBudget(cat_ID);
+                ToastMessage toastMessage = new ToastMessage(MainActivity.this, View.inflate(getApplicationContext(), R.layout.fragment_budget1,null));
+
+                if (status) {
+                    toastMessage.successToast("Successfully Deleted");
+                } else {
+                    toastMessage.errorToast("Delete Failed");
+                }
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
 }
 

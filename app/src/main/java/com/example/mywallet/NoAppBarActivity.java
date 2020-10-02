@@ -13,7 +13,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.mywallet.UI.BudgetManager.Model.Budget2;
+import com.example.mywallet.UI.BudgetManager.Budget2;
+import com.example.mywallet.UI.BudgetManager.UpdateBudget;
 import com.example.mywallet.UI.Expenses.AddExpense;
 import com.example.mywallet.UI.Expenses.UpdateExpense;
 
@@ -88,6 +89,7 @@ public class NoAppBarActivity extends AppCompatActivity implements Income2adapte
 
      else if(fragment.equals("updateincome"))
 
+
     {
         Income3 income3 = new Income3();
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -105,6 +107,36 @@ public class NoAppBarActivity extends AppCompatActivity implements Income2adapte
         fragmentTransaction.addToBackStack(null);
         setActionBarTitle("Budget Item Insert");
         fragmentTransaction.commit();
+
+        } else if (fragment.equals("budgetInsert")) {
+            Budget2 budget2 = new Budget2();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.noAppBarFragmentContainer, budget2);
+            setActionBarTitle("Budget Item Insert");
+            fragmentTransaction.commit();
+
+        } else if (fragment.equals("titleincome")) {
+            Income2 income2 = new Income2();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.noAppBarFragmentContainer, income2);
+            fragmentTransaction.commit();
+        }else if (fragment.equals("budget3")) {
+             UpdateBudget budget2 = new UpdateBudget();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.noAppBarFragmentContainer, budget2);
+            setActionBarTitle("Budget Item update");
+            fragmentTransaction.commit();
+        } else if (fragment.equals("addresource")) {
+            Income4 income4 = new Income4();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.noAppBarFragmentContainer, income4);
+            fragmentTransaction.commit();
+
+        }
 
     } else if(fragment.equals("titleincome"))
 
