@@ -101,7 +101,7 @@ public class UserSettings extends AppCompatActivity {
                         long timeInterval = 1000 * 60 * 60 * 24;
 
                         Intent notifyIntent = new Intent(getApplicationContext(), MyReceiver.class);
-                        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 1, notifyIntent, 0);
+                        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 1, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                         //alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
                         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, timeMilli,
                                 timeInterval, pendingIntent);

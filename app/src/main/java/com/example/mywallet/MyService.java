@@ -1,5 +1,6 @@
 package com.example.mywallet;
 
+import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -15,17 +16,15 @@ import android.os.IBinder;
 import androidx.annotation.Nullable;
 import androidx.preference.PreferenceManager;
 
-public class MyService extends Service {
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
+
+public class MyService extends IntentService {
+    public MyService() {
+        super("Notification Create");
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    protected void onHandleIntent(@Nullable Intent intent) {
         createNotification();
-        return Service.START_STICKY;
     }
 
     private static final String NOTIFICATION_CHANNEL_ID = "Channel01";
@@ -49,6 +48,7 @@ public class MyService extends Service {
                     .setContentText("Hey " + name + ", Let's update your wallet")
                     .setSmallIcon(R.drawable.wallet)
                     .setChannelId(NOTIFICATION_CHANNEL_ID)
+                    .setPriority(Notification.PRIORITY_MAX)
                     .setLargeIcon(BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.wallet_new))
                     .setContentIntent(pendingIntent)
                     .build();

@@ -14,9 +14,8 @@ import androidx.annotation.RequiresApi;
 import com.example.mywallet.Model.Budgetmodel;
 import com.example.mywallet.Model.Category;
 import com.example.mywallet.Model.DailyExpense;
-import com.example.mywallet.Model.IncomeModel;
+import com.example.mywallet.Model.FutureGoal;
 import com.example.mywallet.Model.Wallet;
-import  com.example.mywallet.Model.FutureGoal;
 
 import java.text.DateFormat;
 
@@ -28,6 +27,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+
+import static android.os.Build.ID;
 
 public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservable {
     public static final String TABLE_EXPENSES = "EXPENSES";
@@ -59,6 +60,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
     public void registerDbObserver(DatabaseObserver databaseObserver) {
         if (!observerArrayList.contains(databaseObserver)) {
             observerArrayList.add(databaseObserver);
+            Log.d("db", "database observer regiserting..... " + observerArrayList.size());
         }
     }
 
@@ -69,9 +71,11 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 
     @Override
     public void notifyDbChanged() {
-        System.out.println("HELLO WORLD " + observerArrayList.size());
-        for (DatabaseObserver databaseObserver : observerArrayList) {
-            if (databaseObserver != null) {
+        Log.d("db", "Notify db changed db helper " + observerArrayList.size());
+        for (DatabaseObserver databaseObserver:observerArrayList){
+            if (databaseObserver!= null){
+                Log.d("db", "Notify db changed db helperr done ");
+
                 databaseObserver.onDatabaseChanged();
             }
         }
@@ -111,7 +115,6 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 
         //Goal Table
         createTable = "CREATE TABLE GOAL (" + ID_TABLE + " INTEGER PRIMARY KEY AUTOINCREMENT, GOAL_NAME TEXT, DATE TEXT, AMOUNT REAL)";
-
         db.execSQL(createTable);
         Log.d("database", "Goal Table Created");
 
@@ -188,11 +191,11 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
             arrayList.add(category);
             cursor.moveToNext();
         }
-
+        db.close();
         return arrayList;
     }
 
-    //Get CategoriesList
+    //Get WalletList
     public ArrayList<Wallet> getWalletsList() {
         SQLiteDatabase db = this.getWritableDatabase();
         ArrayList<Wallet> arrayList = new ArrayList<>();
@@ -203,8 +206,6 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 
             wallet.setWalletId(cursor.getInt(cursor.getColumnIndex(ID_TABLE)));
             wallet.setWalletName(cursor.getString(cursor.getColumnIndex("WALLET_NAME")));
-
-
             wallet.setBank(cursor.getString(cursor.getColumnIndex("BANK")));
 
             arrayList.add(wallet);
@@ -257,6 +258,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         long status = db.update(TABLE_EXPENSES, contentValues, ID_TABLE + " = " + dailyExpense.getRecordId(), null);
 
         notifyDbChanged();
+
         if (status == -1) {
             return false;
         } else {
@@ -461,15 +463,16 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 
         public ArrayList<IncomeModel> getincomesList () throws ParseException {
 
-            DateFormat formatter = new SimpleDateFormat("EEE MM dd HH:mm:ss zzz yyyy");
-
-
-            SQLiteDatabase db = this.getWritableDatabase();
+           SQLiteDatabase db = this.getWritableDatabase();
             ArrayList<IncomeModel> arrayList = new ArrayList<>();
             Cursor cursor = db.rawQuery("SELECT * FROM " + INCOME, null);
             cursor.moveToFirst();
+
+            DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+
             while (cursor.isAfterLast() == false) {
                 IncomeModel incomeModel = new IncomeModel();
+                incomeModel.setRecordID(cursor.getInt(cursor.getColumnIndex("ID")));
                 incomeModel.setText(cursor.getString(cursor.getColumnIndex("NOTE")));
                 incomeModel.setMoney(cursor.getDouble(cursor.getColumnIndex("AMOUNT")));
                 incomeModel.setDate(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
@@ -479,6 +482,161 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
             }
             return arrayList;
         }
+
+//get wallet by id
+        public Wallet getwalletbyid(int walletid)
+        {
+            SQLiteDatabase db = this.getReadableDatabase();
+
+            String sqlQuery = "SELECT * FROM WALLET WHERE " + ID_TABLE + " = " + walletid;
+
+            Cursor cursor = db.rawQuery(sqlQuery, null);
+
+            Wallet wallet = new Wallet();
+
+
+            if (cursor.moveToFirst()) {
+                wallet.setBank(cursor.getString(cursor.getColumnIndex("BANK")));
+                wallet.setWalletName(cursor.getString(cursor.getColumnIndex("WALLET_NAME")));
+            }
+            return wallet;
+
+        }
+
+//update wallet
+        public boolean updatewallet(Wallet wallet){
+
+            SQLiteDatabase db = this.getWritableDatabase();
+
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("WALLET_NAME", wallet.getWalletName());
+            contentValues.put("BANK",wallet.getBank());
+
+
+            long status = db.update(WALLET, contentValues, ID_TABLE + " = " +wallet.getWalletId(), null);
+
+            notifyDbChanged();
+            if (status == -1) {
+                return false;
+            } else {
+                return true;
+            }
+
+
+        }
+
+        //update income
+        public boolean updateincome(IncomeModel incomeModel)
+        {
+            SQLiteDatabase db = this.getWritableDatabase();
+
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("AMOUNT", incomeModel.getMoney());
+            contentValues.put("DATE", String.valueOf(incomeModel.getDate()));
+            contentValues.put("NOTE", incomeModel.getText());
+            contentValues.put("WALLET_ID", incomeModel.getWalletid());
+
+            System.out.println("updateone"+incomeModel.getRecordID());
+
+            long status = db.update(INCOME, contentValues, ID_TABLE + " = " + incomeModel.getRecordID(), null);
+
+            if (status == -1) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        //get incomebyid
+    public IncomeModel getincomeById ( int id) throws ParseException {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String sqlQuery = "SELECT * FROM INCOME WHERE " + ID_TABLE + " = " + id;
+        Cursor cursor = db.rawQuery(sqlQuery, null);
+
+       IncomeModel incomeModel= new IncomeModel();
+
+        DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+
+        if (cursor.moveToFirst()) {
+            incomeModel.setMoney(cursor.getDouble(cursor.getColumnIndex("AMOUNT")));
+            incomeModel.setDate(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
+            incomeModel.setText(cursor.getString(cursor.getColumnIndex("NOTE")));
+        }
+
+        return incomeModel;
+    }
+
+// get incomelistbyid
+    public ArrayList<IncomeModel> getincomesListbyid (int walletid) throws ParseException {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<IncomeModel> arrayList = new ArrayList<>();
+        String sqlQuery ="SELECT * FROM INCOME WHERE " + ID_TABLE + " = " + walletid;
+        Cursor cursor = db.rawQuery(sqlQuery, null);
+        cursor.moveToFirst();
+
+
+        DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+
+        while (cursor.isAfterLast() == false) {
+            IncomeModel incomeModel = new IncomeModel();
+            incomeModel.setRecordID(cursor.getInt(cursor.getColumnIndex("ID")));
+            incomeModel.setText(cursor.getString(cursor.getColumnIndex("NOTE")));
+            incomeModel.setMoney(cursor.getDouble(cursor.getColumnIndex("AMOUNT")));
+            incomeModel.setDate(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
+
+            arrayList.add(incomeModel);
+            cursor.moveToNext();
+        }
+        return arrayList;
+    }
+
+
+    //Delete WALLET Record
+    public boolean deleteWallet ( int id){
+        SQLiteDatabase db = getWritableDatabase();
+        String whereClause = ID_TABLE + " = " + id;
+        long status = db.delete("WALLET", whereClause, null);
+
+        notifyDbChanged();
+
+        if (status == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
+
+    //Delete incomerecord
+    public boolean deleteincomerecord ( int id){
+        SQLiteDatabase db = getWritableDatabase();
+        String whereClause = ID_TABLE + " = " + id;
+        long status = db.delete("INCOME", whereClause, null);
+
+        notifyDbChanged();
+
+        if (status == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
+    public double getfullamount(){
+        
+        double TOTAL = 0;
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sqlQuery = "SELECT sum(AMOUNT) FROM INCOME";
+        Cursor cursor = db.rawQuery(sqlQuery, null);
+        cursor.moveToFirst();
+        return cursor.getDouble(0);
+
+    }
+
     //Add Budget
     public boolean addBudget(Budgetmodel budgetmodel){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -535,7 +693,30 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         return budgetmodelArrayList;
     }
 
-    public boolean updateBudget (Budgetmodel budgetmodel){
+
+ //add goal
+
+    public boolean addGoal(FutureGoal futureGoal){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("GOAL_NAME", futureGoal.getGoal());
+        System.out.println(futureGoal.getGoal());
+        contentValues.put("AMOUNT", futureGoal.getTotalAmount());
+        contentValues.put("DATE", futureGoal.getDate().toString());
+
+        long status = db.insert("GOAL", null, contentValues);
+
+        notifyDbChanged();
+  if (status == -1) {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
+    public boolean updateExpense(Budgetmodel budgetmodel){
+
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
@@ -550,13 +731,98 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         } else {
             return true;
         }
+
+
     }
+
+    //viewGoal
+
+    public ArrayList<FutureGoal> getfutureGoal() throws ParseException {
+
+        DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+        SQLiteDatabase db = databaseHelper.getWritableDatabase();
+        ArrayList<FutureGoal> arrayList = new ArrayList<>();
+       Cursor cursor = db.rawQuery("SELECT * FROM GOAL " , null);
+
+        cursor.moveToFirst();
+
+        while (cursor.isAfterLast() == false) {
+            FutureGoal futureGoal = new FutureGoal();
+            futureGoal.setRecord_id(cursor.getInt(cursor.getColumnIndex(ID_TABLE)));
+            futureGoal.setGoal(cursor.getString(cursor.getColumnIndex("GOAL_NAME")));
+            futureGoal.setTotalAmount(cursor.getFloat(cursor.getColumnIndex("AMOUNT")));
+            futureGoal.setDate(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
+
+
+            arrayList.add(futureGoal);
+            cursor.moveToNext();
+        }
+        return arrayList;
+    }
+
+    //Update Goal
+
+    public boolean updateGoal(FutureGoal futureGoal){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("GOAL_NAME", futureGoal.getGoal());
+        contentValues.put("AMOUNT", futureGoal.getTotalAmount());
+        contentValues.put("DATE", String.valueOf(futureGoal.getDate()));
+
+        long status = db.update("GOAL", contentValues,  ID_TABLE + " = " + futureGoal.getRecord_id(), null);
+
+        notifyDbChanged();
+
+        if (status == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    //get Goal
+
+    public FutureGoal getGoalById(int Record_id) throws ParseException {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String sqlQuery = "SELECT * FROM GOAL WHERE " + ID_TABLE + " = " + Record_id;
+        Cursor cursor = db.rawQuery(sqlQuery, null);
+
+        FutureGoal futureGoal = new FutureGoal();
+
+        DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+
+        if (cursor.moveToFirst()) {
+            futureGoal.setRecord_id(cursor.getInt(cursor.getColumnIndex(ID_TABLE)));
+            futureGoal.setGoal(cursor.getString(cursor.getColumnIndex("GOAL_NAME")));
+            futureGoal.setTotalAmount(cursor.getFloat(cursor.getColumnIndex("AMOUNT")));
+            futureGoal.setDate(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
+
+        }
+
+        return futureGoal;
+    }
+
 
     //Delete Budget Record
     public boolean onDeletBtnBudget (final int cat_ID) {
         SQLiteDatabase db = getWritableDatabase();
         String whereClause = "CAT_ID"+ " = " + cat_ID;
         long status = db.delete("BUDGET", whereClause, null);
+  notifyDbChanged();
+
+        if (status == -1) {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
+    public boolean deleteGoalRecord(int Record_id) {
+        SQLiteDatabase db = getWritableDatabase();
+        String whereClause = ID_TABLE + " = " + Record_id;
+        long status = db.delete("GOAL", whereClause, null);
 
         notifyDbChanged();
 
@@ -586,4 +852,38 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         return budgetmodel;
     }
 
+
+    }
+    public boolean addAmount(int record_id,double amount){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put("AMOUNT", amount);
+        contentValues.put("GOAL_ID", record_id);
+
+        long status = db.insert("GOAL_MONEY", null, contentValues);
+        notifyDbChanged();
+
+        if (status == -1) {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+    public double getGoalCurrenValue(int id) {
+        SQLiteDatabase db =  databaseHelper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM GOAL_MONEY  WHERE GOAL_ID = " + id , null);
+
+        cursor.moveToFirst();
+        double total = 0.0;
+
+        while (cursor.isAfterLast() == false) {
+            total += cursor.getDouble(cursor.getColumnIndex("AMOUNT"));
+            cursor.moveToNext();
+        }
+        return total;
+    }
+
 }
+

@@ -195,6 +195,7 @@ public class ExpenseServicesImple {
             System.out.println(array[i+1][0] + " " +array[i+1][1] );
         }
 
+        System.out.println("Array : " + array[array.length-1]);
         return array;
     }
 }
