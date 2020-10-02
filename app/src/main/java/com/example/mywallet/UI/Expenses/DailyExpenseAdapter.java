@@ -23,6 +23,10 @@ public class DailyExpenseAdapter extends RecyclerView.Adapter<DailyExpenseAdapte
     private Dialog dialog;
     private LinearLayout linearLayoutNote;
 
+    public DailyExpenseAdapter() {
+
+    }
+
     public DailyExpenseAdapter(Context context, ArrayList<DailyExpense> dailyExpenses) {
         this.dailyExpenses = dailyExpenses;
         activity = (DailyExpenseInterface) context;
