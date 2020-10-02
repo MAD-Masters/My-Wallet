@@ -1,5 +1,6 @@
 package com.example.mywallet.UI.Income;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -17,23 +18,29 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.mywallet.DatabaseHelper;
+import com.example.mywallet.DatabaseObserver;
+import com.example.mywallet.MainActivity;
 import com.example.mywallet.Model.Wallet;
+import com.example.mywallet.NoAppBarActivity;
 import com.example.mywallet.R;
 import com.example.mywallet.Model.IncomeModel;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class Income extends Fragment {
+public class Income extends Fragment implements DatabaseObserver {
     private RecyclerView recyclerView;
     private ArrayList<Wallet> walletArrayListList;
     private Incomeadapter incomeadapter;
     private RecyclerView.LayoutManager layoutManager;
     private View root;
-    private TextView wallet;
+    private TextView wallet,totals;
+    double total;
     Button btn;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
+    int walletid;
+    private DatabaseHelper dbHelper;
 
 
     public Income() {
@@ -44,6 +51,8 @@ public class Income extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dbHelper = DatabaseHelper.getInstance(getContext());
+
 
 
     }
@@ -65,19 +74,36 @@ public class Income extends Fragment {
             @Override
             public void onClick(View view) {
                 Log.d("Btn", "LKJFSKDJF");
-                Income4 income4 = new Income4();
-                fragmentManager = getParentFragmentManager();
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment, income4);
-                fragmentTransaction.commit();
+                Intent intent = new Intent(getActivity(),NoAppBarActivity.class);
+                intent.putExtra("Fragment", "addresource");
+                intent.putExtra("walletid",walletid);
+                startActivity(intent);
+                startActivity(intent);
             }
         });
+
+            content();
+
+
+    }
+
+    public void onResume() {
+        super.onResume();
+        onActivityCreated(new Bundle());
+        dbHelper.registerDbObserver(this);
+    }
+
+    public void content(){
 
         DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
         ArrayList<Wallet>  walletArrayListList = new ArrayList<>();
 
 
         walletArrayListList = databaseHelper.getWalletsList();
+        total = databaseHelper.getfullamount();
+
+        totals = root.findViewById(R.id.textView29);
+        totals.setText(String.valueOf(total));
 
 
         recyclerView = root.findViewById(R.id.list_income);
@@ -88,5 +114,10 @@ public class Income extends Fragment {
 
         incomeadapter = new Incomeadapter(getContext(),  walletArrayListList);
         recyclerView.setAdapter(incomeadapter);
+    }
+
+    @Override
+    public void onDatabaseChanged() {
+        content();
     }
 }

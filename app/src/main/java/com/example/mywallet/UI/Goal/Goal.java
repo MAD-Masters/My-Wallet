@@ -1,5 +1,6 @@
 package com.example.mywallet.UI.Goal;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -10,7 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.mywallet.DatabaseHelper;
 import com.example.mywallet.MainActivity;
@@ -43,8 +46,10 @@ public class Goal extends Fragment {
     private String mParam2;
     View view;
     private Button btnAddgoal;
-    private EditText goal,amount,date;
+    private EditText goal1,amount;
+    TextView date;
     private ToastMessage toastMessage;
+    DatePickerDialog picker;
 
     public Goal() {
         // Required empty public constructor
@@ -86,9 +91,34 @@ public class Goal extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        goal =view.findViewById(R.id.addgoal);
+       date = (TextView) view.findViewById(R.id.adddate);
+        Date currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+
+        String dateString = format.format( new Date());
+        date.setText(String.format(dateString, currentTime));
+        date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar cldr = Calendar.getInstance();
+                int day = cldr.get(Calendar.DAY_OF_MONTH);
+                int month = cldr.get(Calendar.MONTH);
+                int year = cldr.get(Calendar.YEAR);
+                // date picker dialog
+                picker = new DatePickerDialog(getContext(),
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                date.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                            }
+                        }, year, month, day);
+                picker.show();
+            }
+        });
+
+        goal1 =view.findViewById(R.id.addgoal);
         amount=view.findViewById(R.id.addamount);
-        date=view.findViewById(R.id.adddate);
+     //   date=view.findViewById(R.id.adddate);
         btnAddgoal=view.findViewById(R.id.btnAddgoal);
 
         toastMessage = new ToastMessage(getActivity(), view);
@@ -104,7 +134,8 @@ public class Goal extends Fragment {
                     e.printStackTrace();
                 }
                 FutureGoal futureGoal = new FutureGoal();
-                futureGoal.setGoal(goal.getText().toString());
+                futureGoal.setGoal(goal1.getText().toString());
+                System.out.println("add goal" + futureGoal.getGoal());
                 futureGoal.setTotalAmount(Double.parseDouble(amount.getText().toString()));
                 futureGoal.setDate(dateS);
 
@@ -116,7 +147,7 @@ public class Goal extends Fragment {
                     toastMessage.successToast("Successfully Inserted");
 
                     Intent intent = new Intent(getContext(), MainActivity.class);
-                    startActivity(intent);
+                    getActivity().onBackPressed();
 
                 } else {
                     toastMessage.errorToast("Insert Failed");

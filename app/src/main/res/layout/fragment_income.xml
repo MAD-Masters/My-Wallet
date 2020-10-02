@@ -6,12 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".UI.Income.Income">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/textView27"
+            android:id="@+id/categoryId"
             android:layout_width="141dp"
             android:layout_height="41dp"
             android:background="@drawable/background_blue_fill"
@@ -26,42 +31,40 @@
             app:layout_constraintVertical_bias="0.042" />
 
         <TextView
-            android:id="@+id/textView28"
+            android:id="@+id/budamount"
             android:layout_width="115dp"
             android:layout_height="34dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="64dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="76dp"
             android:background="@drawable/background_pink_fill"
             android:gravity="center_horizontal|center_vertical"
             android:text="@string/balance"
             android:textColor="#ffff"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView27" />
+            app:layout_constraintTop_toBottomOf="@+id/categoryId" />
 
         <TextView
             android:id="@+id/textView29"
             android:layout_width="115dp"
             android:layout_height="34dp"
-            android:layout_marginTop="136dp"
+            android:layout_marginTop="76dp"
             android:background="@drawable/background_pink_no_fills"
             android:gravity="center_horizontal|center_vertical"
             android:text="@string/price"
             android:textColor="#E32552"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.094"
-            app:layout_constraintStart_toEndOf="@+id/textView28"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintHorizontal_bias="0.103"
+            app:layout_constraintStart_toEndOf="@+id/budamount"
+            app:layout_constraintTop_toBottomOf="@+id/category" />
 
         <Button
             android:id="@+id/addresorce"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="147dp"
-            android:layout_marginBottom="144dp"
+            android:layout_marginTop="8dp"
             android:text="@string/addresource"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.428"
+            app:layout_constraintHorizontal_bias="0.424"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/list_income" />
 
@@ -84,13 +87,14 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:padding="5dp"
-            app:layout_constraintBottom_toTopOf="@+id/btndelete"
+
+            app:layout_constraintBottom_toTopOf="@+id/addBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView29"
             app:layout_constraintVertical_bias="0.16" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </FrameLayout>

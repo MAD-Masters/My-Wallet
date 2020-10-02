@@ -28,7 +28,7 @@ import com.example.mywallet.ToastMessage;
 public class Income4 extends Fragment {
 
     private EditText mywallet,bank;
-    private Button addwallet;
+    private Button addwallet,cansel;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
     private ToastMessage toastMessage;
@@ -90,6 +90,14 @@ public class Income4 extends Fragment {
         mywallet = view.findViewById(R.id.textInputEditText8);
         bank = view.findViewById(R.id.textInputEditText3);
         addwallet = view.findViewById(R.id.update);
+        cansel = view.findViewById(R.id.cansel2);
+
+        cansel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
 
         addwallet.setOnClickListener(new View.OnClickListener() {
             @Override

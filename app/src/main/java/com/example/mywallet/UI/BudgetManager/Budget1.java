@@ -1,5 +1,6 @@
 package com.example.mywallet.UI.BudgetManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -14,33 +15,38 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.example.mywallet.DatabaseHelper;
+import com.example.mywallet.DatabaseObserver;
+import com.example.mywallet.Model.Wallet;
+import com.example.mywallet.NoAppBarActivity;
 import com.example.mywallet.R;
 import com.example.mywallet.Model.Budgetmodel;
 
-import com.example.mywallet.UI.BudgetManager.Model.Budget2;
+import com.example.mywallet.UI.BudgetManager.Budget2;
 import com.example.mywallet.UI.Income.Income4;
 import com.example.mywallet.UI.Income.Incomeadapter;
 import com.example.mywallet.Model.IncomeModel;
 
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Budget1#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class Budget1 extends Fragment {
+public class Budget1 extends Fragment implements DatabaseObserver {
 
     private RecyclerView recyclerView;
     private ArrayList<Budgetmodel> budgetModelArrayListList;
     private BudgetAdapter budgetAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private View root;
-    Button btn, btnAdd;
+    ImageView btnAdd,btnDelete,btnEdit;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
+    private DatabaseHelper dbHelper;
+    private TextView total,totalused;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -55,31 +61,10 @@ public class Budget1 extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Budget1.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Budget1 newInstance(String param1, String param2) {
-        Budget1 fragment = new Budget1();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        dbHelper = DatabaseHelper.getInstance(getContext());
     }
 
     @Override
@@ -89,42 +74,39 @@ public class Budget1 extends Fragment {
         root = inflater.inflate(R.layout.fragment_budget1, container, false);
         return root;
     }
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        onActivityCreated(new Bundle());
+        dbHelper.registerDbObserver(this);
+    }
+
+        public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        btn = root.findViewById(R.id.addresorce);
 
         btnAdd =root.findViewById(R.id.addButton);
+
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Budget2 budget2 = new Budget2();
-                fragmentManager = getParentFragmentManager();
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment, budget2);
-                fragmentTransaction.replace(R.id.nav_host_fragment, budget2);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                Intent intent = new Intent(getContext(), NoAppBarActivity.class);
+                intent.putExtra("Fragment", "budgetInsert");
+                startActivity(intent);
             }
         });
 
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("Btn", "LKJFSKDJF");
-                Budget2 budget2 = new Budget2();
-                fragmentManager = getParentFragmentManager();
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment, budget2);
-                fragmentTransaction.commit();
-            }
-        });
+      setContent();
+    }
 
-       budgetModelArrayListList = new ArrayList<>();
+    public void setContent(){
 
-        budgetModelArrayListList.add(new Budgetmodel(25000.00,40000,"food and beverages"));
-        budgetModelArrayListList.add(new Budgetmodel(50000.00,50000,"clothes"));
+        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+        ArrayList<Budgetmodel>  budgetModelArrayListList = new ArrayList<>();
+
+        budgetModelArrayListList = databaseHelper.getBudgetArray();
 
         recyclerView = root.findViewById(R.id.repeat);
         recyclerView.setHasFixedSize(true);
@@ -132,7 +114,34 @@ public class Budget1 extends Fragment {
         layoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-       budgetAdapter = new BudgetAdapter(getContext(), budgetModelArrayListList);
+        budgetAdapter = new BudgetAdapter(getContext(), budgetModelArrayListList);
         recyclerView.setAdapter(budgetAdapter);
+
+        total= root.findViewById(R.id.textView24);
+        total.setText(String.valueOf(getTotalBudget(budgetModelArrayListList)));
+
+        totalused = root.findViewById(R.id.textView25);
+        totalused.setText(String.valueOf(getTotalUsed(budgetModelArrayListList)));
+    }
+
+    public double getTotalBudget(ArrayList<Budgetmodel> budgetmodelArrayList) {
+        double total = 0.0;
+        for (Budgetmodel budgetmodel : budgetmodelArrayList) {
+            total += budgetmodel.getAmount();
+        }
+        return total;
+    }
+
+    public double getTotalUsed(ArrayList<Budgetmodel> budgetmodelArrayList) {
+        double total = 0.0;
+        for (Budgetmodel budgetmodel : budgetmodelArrayList) {
+            total += budgetmodel.getUsedAmount();
+        }
+        return total;
+    }
+
+    @Override
+    public void onDatabaseChanged() {
+        setContent();
     }
 }

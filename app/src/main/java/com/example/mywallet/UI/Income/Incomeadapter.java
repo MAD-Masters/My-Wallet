@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mywallet.DatabaseHelper;
 import com.example.mywallet.Model.Wallet;
 import com.example.mywallet.R;
 import com.example.mywallet.Model.IncomeModel;
@@ -20,8 +21,13 @@ public class Incomeadapter extends RecyclerView.Adapter<Incomeadapter.Income1lay
 //    private ArrayList<IncomeModel> income;
     private ArrayList<Wallet> getWalletsList;
     private IncomeInterface activity;
+    private double amount;
+    private  Context context;
+    private int id;
+    DatabaseHelper databaseHelper;
 
     public Incomeadapter(Context context, ArrayList<Wallet> getWalletsList){
+        this.context = context;
 
         this.getWalletsList = getWalletsList;
         activity = (IncomeInterface)context;
@@ -29,19 +35,25 @@ public class Incomeadapter extends RecyclerView.Adapter<Incomeadapter.Income1lay
 
     public  class Income1layoutViewHolder extends RecyclerView.ViewHolder {
 
-        TextView resource,resourcetitle;
+        TextView resource,resourcetitle,fullamount;
         ImageView resourceview,btnAdd,btnEdit,btndelete;
 
         public Income1layoutViewHolder(@NonNull final View itemView) {
             super(itemView);
-            resourceview = itemView.findViewById(R.id.resourceview);
+            resourceview = itemView.findViewById(R.id.imageView15);
             resourcetitle = itemView.findViewById(R.id.resourcetitle);
             btnAdd = itemView.findViewById((R.id.btnAdd));
             btnEdit = itemView.findViewById(R.id.btnEdit);
             btndelete = itemView.findViewById(R.id.btndelete);
+            fullamount = itemView.findViewById(R.id.textView27);
+
+             databaseHelper = new DatabaseHelper(context);
 
 
-           btnAdd.setOnClickListener(new View.OnClickListener() {
+
+
+
+                    btnAdd.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View view) {
                    activity.onaddBtnincome(getWalletsList.get(getWalletsList.indexOf(itemView.getTag())).getWalletId());
@@ -52,24 +64,26 @@ public class Incomeadapter extends RecyclerView.Adapter<Incomeadapter.Income1lay
            btnEdit.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View view) {
-                  activity.onUpdateBtnincome();
+                  activity.onUpdateBtnincome(getWalletsList.get(getWalletsList.indexOf(itemView.getTag())).getWalletId());
                }
            });
            resourcetitle.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View view) {
-                   activity.onBtnTitleincome();
+                   activity.onBtnTitleincome(getWalletsList.get(getWalletsList.indexOf(itemView.getTag())).getWalletId());
                }
            });
            btndelete.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View view) {
-                   activity.ondeleteincome1();
+                   activity.ondeleteincome1(getWalletsList.get(getWalletsList.indexOf(itemView.getTag())).getWalletId());
                }
            });
 
 
         }
+
+
     }
 
     @NonNull
@@ -83,7 +97,10 @@ public class Incomeadapter extends RecyclerView.Adapter<Incomeadapter.Income1lay
     public void onBindViewHolder(@NonNull Income1layoutViewHolder holder, int position) {
         holder.itemView.setTag(getWalletsList.get(position));
         holder.resourcetitle.setText(getWalletsList.get(position).getWalletName());
-        holder.resourceview.setImageResource(R.drawable.creditcard);
+        id = getWalletsList.get(position).getWalletId();
+        amount = databaseHelper.getfullamountbyid(id);
+        holder.fullamount.setText(String.valueOf(amount));
+
     }
 
     @Override
@@ -96,10 +113,10 @@ public class Incomeadapter extends RecyclerView.Adapter<Incomeadapter.Income1lay
 
     public interface IncomeInterface {
 
-        public void onBtnTitleincome();
-        public void onUpdateBtnincome();
+        public void onBtnTitleincome(int walletid);
+        public void onUpdateBtnincome(int recordid);
         public void onaddBtnincome(int walletid);
-        public void ondeleteincome1();
+        public void ondeleteincome1(int walletid);
 
     }
 

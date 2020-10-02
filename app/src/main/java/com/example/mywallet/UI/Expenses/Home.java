@@ -69,6 +69,7 @@ public class Home extends Fragment implements DatabaseObserver {
         Log.d("db", "onResume: db observer register");
     }
 
+
     @Override
     public void onPause() {
         super.onPause();

@@ -1,5 +1,7 @@
 package com.example.mywallet.UI.Goal;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -15,13 +17,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.mywallet.DatabaseHelper;
+import com.example.mywallet.DatabaseObserver;
+import com.example.mywallet.MainActivity;
+import com.example.mywallet.NoAppBarActivity;
 import com.example.mywallet.R;
 import com.example.mywallet.Model.FutureGoal;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class Goal_Home extends Fragment {
+public class Goal_Home extends Fragment implements DatabaseObserver {
 
     private RecyclerView recyclerView;
     private ArrayList<FutureGoal> futuregoalArrayList;
@@ -31,6 +38,7 @@ public class Goal_Home extends Fragment {
     private Button btn;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
+    private DatabaseHelper dbHelper;
 
     public Goal_Home() {
         // Required empty public constructor
@@ -39,6 +47,7 @@ public class Goal_Home extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dbHelper = DatabaseHelper.getInstance(getContext());
     }
 
     @Override
@@ -58,22 +67,31 @@ public class Goal_Home extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Goal goal = new Goal();
-                fragmentManager = getParentFragmentManager();
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment, goal);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                Intent intent = new Intent(getActivity(), NoAppBarActivity.class);
+                intent.putExtra("Fragment", "addgoal12");
+                startActivity(intent);
             }
 
         });
 
+        setContent();
+    }
 
+    public void onResume() {
+        super.onResume();
+        dbHelper.registerDbObserver(this);
+    }
 
-        futuregoalArrayList = new ArrayList<>();
+    public void setContent() {
+        DatabaseHelper databaseHelper=new DatabaseHelper(getContext());
+        ArrayList<FutureGoal> futuregoalArrayList=new ArrayList<>();
 
-        futuregoalArrayList.add(new FutureGoal(Calendar.getInstance().getTime(),7777.00,"xxxxx",68888.00));
-        futuregoalArrayList.add(new FutureGoal(Calendar.getInstance().getTime(),21257.00,"fgdfg",242742.00));
+        try {
+            futuregoalArrayList = databaseHelper.getfutureGoal();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
 
         recyclerView = root.findViewById(R.id.goalInDetail);
         recyclerView.setHasFixedSize(true);
@@ -83,5 +101,10 @@ public class Goal_Home extends Fragment {
 
         goalAdapter = new GoalAdapter(getContext(),futuregoalArrayList);
         recyclerView.setAdapter(goalAdapter);
+    }
+
+    @Override
+    public void onDatabaseChanged() {
+        setContent();
     }
 }

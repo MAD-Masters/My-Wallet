@@ -1,14 +1,22 @@
 package com.example.mywallet.UI.Income;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
+import com.example.mywallet.DatabaseHelper;
+import com.example.mywallet.MainActivity;
+import com.example.mywallet.Model.Wallet;
 import com.example.mywallet.R;
+import com.example.mywallet.ToastMessage;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +33,12 @@ public class Income3 extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private int walletid;
+    Wallet wallet;
+    private Button update,cansel;
+    private EditText wallets,bank;
+    private ToastMessage toastMessage;
+    View view;
 
     public Income3() {
         // Required empty public constructor
@@ -51,6 +65,10 @@ public class Income3 extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        walletid = getActivity().getIntent().getIntExtra("walletid",0);
+        System.out.println("wallteid"+walletid);
+
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -61,6 +79,57 @@ public class Income3 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_income3, container, false);
+        view = inflater.inflate(R.layout.fragment_income3, container, false);
+        return view;
+    }
+
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+
+        wallet = databaseHelper.getwalletbyid(walletid);
+
+        toastMessage = new ToastMessage(getActivity(), view);
+        update = view.findViewById(R.id.addwallet);
+        wallets = view.findViewById(R.id.textInputEditText);
+        bank = view.findViewById(R.id.textInputEditText4);
+        cansel = view.findViewById(R.id.cansel1);
+
+
+        wallets.setText(wallet.getWalletName());
+        bank.setText(wallet.getBank());
+
+        cansel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
+
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                wallet.setWalletName(wallets.getText().toString());
+                wallet.setWalletId(walletid);
+                wallet.setBank(bank.getText().toString());
+
+                DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+                boolean status = databaseHelper.updatewallet(wallet);
+
+                if (status) {
+                    toastMessage.successToast("Successfully updated");
+                    getActivity().onBackPressed();
+
+                } else {
+                    toastMessage.errorToast("update Failed");
+                }
+
+            }
+        });
+
+
     }
 }

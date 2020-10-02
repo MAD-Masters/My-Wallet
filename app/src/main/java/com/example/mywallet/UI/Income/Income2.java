@@ -9,12 +9,15 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.mywallet.DatabaseHelper;
+import com.example.mywallet.DatabaseObserver;
 import com.example.mywallet.R;
 import com.example.mywallet.Model.IncomeModel;
 
@@ -27,15 +30,18 @@ import java.util.Calendar;
  * Use the {@link Income2#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Income2 extends Fragment {
+public class Income2 extends Fragment implements DatabaseObserver {
     private RecyclerView recyclerView;
     private ArrayList<IncomeModel> incomeModelArrayListList;
     private Income2adapter income2adapter;
     private RecyclerView.LayoutManager layoutManager;
     private View root;
+    private TextView fullamount;
+    double amount;
     Button btn;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
+    private DatabaseHelper dbHelper;
 
 
 
@@ -47,7 +53,7 @@ public class Income2 extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+     int walletid;
 
     public Income2() {
         // Required empty public constructor
@@ -74,6 +80,8 @@ public class Income2 extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        walletid = getActivity().getIntent().getIntExtra("walletid",0);
+        dbHelper = DatabaseHelper.getInstance(getContext());
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -93,31 +101,36 @@ public class Income2 extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        btn = root.findViewById(R.id.addmoney);
 
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Income5 income5 = new Income5();
-                fragmentManager = getParentFragmentManager();
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment, income5);
-                fragmentTransaction.commit();
-            }
-        });
+      content();
+    }
 
+    public void onResume() {
+        super.onResume();
+        onActivityCreated(new Bundle());
+        dbHelper.registerDbObserver(this);
+    }
+
+    @Override
+    public void onDatabaseChanged() {
+
+    }
+
+    public void content(){
         DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
         ArrayList<IncomeModel> incomeModelArrayListList = new ArrayList<>();
 
+        amount = databaseHelper.getfullamountbyid(walletid);
+
+        fullamount = root.findViewById(R.id.textView11);
+        fullamount.setText(String.valueOf(amount));
+
         try {
-            incomeModelArrayListList = databaseHelper.getincomesList();
+            incomeModelArrayListList = databaseHelper.getincomesListbyid(walletid);
+            Log.d("msg", "Array List Called");
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
-
-//        incomeModelArrayListList.add(incomeModelArrayListList));
-
 
         recyclerView = root.findViewById(R.id.list_income);
         recyclerView.setHasFixedSize(true);
