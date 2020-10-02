@@ -14,9 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.mywallet.DatabaseHelper;
 import com.example.mywallet.R;
 import com.example.mywallet.Model.IncomeModel;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -45,7 +47,7 @@ public class Income2 extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+     int walletid;
 
     public Income2() {
         // Required empty public constructor
@@ -72,6 +74,7 @@ public class Income2 extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        walletid = getActivity().getIntent().getIntExtra("walletid",0);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -104,10 +107,14 @@ public class Income2 extends Fragment {
             }
         });
 
-        incomeModelArrayListList = new ArrayList<>();
+        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+        ArrayList<IncomeModel> incomeModelArrayListList = new ArrayList<>();
 
-        incomeModelArrayListList.add(new IncomeModel("hnb bank", 1, Calendar.getInstance().getTime(), 40000, "Lorem  ispham dika kliokalsd "));
-        incomeModelArrayListList.add(new IncomeModel("wallet", 2, Calendar.getInstance().getTime(), 30000, "Lorem  ispham dika kliokalsd "));
+        try {
+            incomeModelArrayListList = databaseHelper.getincomesListbyid(walletid);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         recyclerView = root.findViewById(R.id.list_income);
         recyclerView.setHasFixedSize(true);

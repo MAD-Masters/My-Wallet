@@ -1,5 +1,6 @@
 package com.example.mywallet.UI.Expenses;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -8,6 +9,7 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,7 @@ import com.example.mywallet.DatabaseObserver;
 import com.example.mywallet.R;
 import com.example.mywallet.Model.DailyExpesnseSummary;
 import com.example.mywallet.Model.MonthlySummary;
+import com.example.mywallet.UserSettings;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -63,14 +66,23 @@ public class Home extends Fragment implements DatabaseObserver {
     public void onResume() {
         super.onResume();
         dbHelper.registerDbObserver(this);
+        Log.d("db", "onResume: db observer register");
     }
 
 
     @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
     public void onDatabaseChanged() {
+        Log.d("db", "Home DB Changed");
         setPageContent();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void setPageContent() {
         Calendar c = Calendar.getInstance();
         int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
@@ -89,20 +101,13 @@ public class Home extends Fragment implements DatabaseObserver {
         }else if(timeOfDay >= 16 && timeOfDay < 21){
             greeting = "Good Evening";
             greetingImage.setImageResource(R.drawable.evening);
-            greetings.setTextColor(getResources().getColor(R.color.primaryLightColor));
+            greetings.setTextColor(getResources().getColor(R.color.yellowLight));
         }else if(timeOfDay >= 21 && timeOfDay < 24){
             greeting = "Good Night";
             greetingImage.setImageResource(R.drawable.night);
             greetings.setTextColor(getResources().getColor(R.color.yellowLight));
         }
 
-        Date currentTime = Calendar.getInstance().getTime();
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-
-        String dateString = format.format( new Date());
-
-        TextView dateDisplay = root.findViewById(R.id.dateDisplay);
-        dateDisplay.setText(dateString);
         greetings.setText(greeting);
 
         ExpenseServicesImple expenseServicesImple = new ExpenseServicesImple();
@@ -119,5 +124,14 @@ public class Home extends Fragment implements DatabaseObserver {
 
         viewPager.setAdapter(monthlyExpenseViewPagerAdapter);
         viewPager.setCurrentItem(dates.length - 1);
+
+        ImageView user = root.findViewById(R.id.userImg);
+        user.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), UserSettings.class);
+                startActivity(intent);
+            }
+        });
     }
 }

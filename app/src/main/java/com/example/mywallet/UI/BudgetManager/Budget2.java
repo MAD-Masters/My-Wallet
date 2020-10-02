@@ -1,66 +1,126 @@
 package com.example.mywallet.UI.BudgetManager;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
+import com.example.mywallet.DatabaseHelper;
+import com.example.mywallet.MainActivity;
+import com.example.mywallet.Model.Budgetmodel;
+import com.example.mywallet.Model.Category;
+import com.example.mywallet.Model.DailyExpense;
+import com.example.mywallet.Model.FutureGoal;
 import com.example.mywallet.R;
+import com.example.mywallet.ToastMessage;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Budget2#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+
 public class Budget2 extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    int categoryId = 1;
+    private Button budbtn;
+     View view;
+     private EditText budamount;
+     TextView category;
+     private ToastMessage toastMessage;
 
     public Budget2() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Budget2.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Budget2 newInstance(String param1, String param2) {
-        Budget2 fragment = new Budget2();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_budget2, container, false);
+        view =  inflater.inflate(R.layout.fragment_budget2, container, false);
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        budamount=view.findViewById(R.id.budamount);
+
+        budbtn=view.findViewById(R.id.addBtn);
+
+        toastMessage = new ToastMessage(getActivity(), view);
+
+        category = view.findViewById(R.id.category);
+
+        //Set category dialog box
+        category.setOnClickListener(new View.OnClickListener() {
+
+
+            @Override
+            public void onClick(View v) {
+                System.out.println("click category");
+                DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+                ArrayList<Category> arrayList = databaseHelper.getCategories();
+                final String[] categoryNames = new String[arrayList.size()];
+                for(int i = 0; i < arrayList.size(); i++) {
+                    categoryNames[i] = arrayList.get(i).getCategoryName();
+                }
+
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
+                mBuilder.setTitle("Select the Category");
+                mBuilder.setIcon(R.drawable.bill);
+                mBuilder.setSingleChoiceItems(categoryNames, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        category.setText(categoryNames[which]);
+                        categoryId = which+1;
+                        dialog.dismiss();
+                    }
+                });
+
+                mBuilder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                AlertDialog mDialog = mBuilder.create();
+                mDialog.show();
+            }
+        });
+
+       budbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("click add");
+                Budgetmodel budgetmodel = new Budgetmodel();
+                budgetmodel.setCat_ID (categoryId);
+                budgetmodel.setAmount(Double.parseDouble(budamount.getText().toString()));
+
+
+                DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+                boolean status = databaseHelper.addBudget(budgetmodel);
+
+                if (status) {
+                    toastMessage.successToast("Successfully Inserted");
+                    getActivity().onBackPressed();
+
+                } else {
+                    toastMessage.errorToast("Insert Failed");
+                }
+            }});
     }
 }

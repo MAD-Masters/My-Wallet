@@ -21,10 +21,7 @@ import com.example.mywallet.Model.DailyExpesnseSummary;
 import com.example.mywallet.Model.MonthlySummary;
 
 import java.text.ParseException;
-import java.time.Month;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 
 public class MonthlyExpenseViewPagerAdapter extends PagerAdapter {
     Context context;
@@ -33,11 +30,11 @@ public class MonthlyExpenseViewPagerAdapter extends PagerAdapter {
     private ArrayList<DailyExpesnseSummary> dailyExpesnseSummaryArrayList;
     private DailyExpenseSummaryAdapter dailyExpenseAdapter;
     private RecyclerView.LayoutManager layoutManager;
-
     public MonthlyExpenseViewPagerAdapter(Context context, int[][] dates) {
         this.context = context;
         this.dates = dates;
     }
+
     @Override
     public int getCount() {
         return dates.length;
@@ -77,6 +74,7 @@ public class MonthlyExpenseViewPagerAdapter extends PagerAdapter {
         ArrayList<IncomeToWallet> incomeToWalletArrayList = new ArrayList<>();
 
         try {
+            System.out.println("Month " + dates[position][0]);
             dailyExpenseArrayList = databaseHelper.getMonthlyExpenses(dates[position][0], dates[position][1]);
         } catch (ParseException e) {
             e.printStackTrace();
@@ -85,9 +83,10 @@ public class MonthlyExpenseViewPagerAdapter extends PagerAdapter {
         ExpenseServicesImple expenseServicesImple = new ExpenseServicesImple();
         MonthlySummary monthlySummary = expenseServicesImple.getMonthlySummary(dailyExpenseArrayList, incomeToWalletArrayList);
 
-        Month month = Month.of(dates[position][0] + 1);
+        String[] monthArray = {"JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUN", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
+        String monthString = monthArray[dates[position][0]];
 
-        currentMonth.setText(month.toString());
+        currentMonth.setText(monthString);
         inflow.setText(String.valueOf(monthlySummary.getInflow()));
         outflow.setText(String.valueOf(monthlySummary.getOutflow()));
         remainder.setText(String.valueOf(monthlySummary.getRemainder()));

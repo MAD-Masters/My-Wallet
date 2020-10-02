@@ -6,4 +6,5 @@
     <dimen name="dataBoxWidth">100dp</dimen>
     <dimen name="smallText">12sp</dimen>
     <dimen name="editText">16sp</dimen>
+    <dimen name="alert_def_padding">18dp</dimen>
 </resources>

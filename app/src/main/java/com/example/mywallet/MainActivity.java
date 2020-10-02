@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.mywallet.UI.BudgetManager.Budget1;
 
+import com.example.mywallet.UI.BudgetManager.BudgetAdapter;
 import com.example.mywallet.UI.BudgetManager.Model.Budget2;
 import com.example.mywallet.UI.Expenses.AddExpense;
 
@@ -36,7 +37,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-public class MainActivity extends AppCompatActivity implements DailyExpenseSummaryAdapter.onDailyExpenseSummaryClick, DailyExpenseAdapter.DailyExpenseInterface, Incomeadapter.IncomeInterface, GoalAdapter.GoalInterface {
+public class MainActivity extends AppCompatActivity implements DailyExpenseSummaryAdapter.onDailyExpenseSummaryClick, DailyExpenseAdapter.DailyExpenseInterface, Incomeadapter.IncomeInterface, GoalAdapter.GoalInterface, BudgetAdapter.BudgetInterface {
     BottomAppBar bottomAppBar;
     ImageView navExpenseBtn, navIncomeBtn, navBudgetBtn, navGoalBtn;
     TextView navExpenseText, navIncomeText, navBudgetText, navGoalText;
@@ -210,48 +211,75 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
     }
 
     @Override
-    public void onBtnTitleincome() {
-        Income2 income2 = new Income2();
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.nav_host_fragment, income2);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-    }
-
-    @Override
-    public void onUpdateBtnincome() {
-        Income3 income3 = new Income3();
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.nav_host_fragment, income3);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+    public void onBtnTitleincome(int walletid) {
+        Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
+        intent.putExtra("Fragment", "titleincome");
+        intent.putExtra("walletid",walletid);
+        startActivity(intent);
+        startActivity(intent);
 
     }
 
     @Override
-    public void onaddBtnincome() {
-
-        Income5 income5 = new Income5();
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.nav_host_fragment, income5);
-        fragmentTransaction.replace(R.id.nav_host_fragment, income5);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-
+    public void onUpdateBtnincome(int walletid) {
+        Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
+        intent.putExtra("Fragment", "updateincome");
+        intent.putExtra("walletid",walletid);
+        startActivity(intent);
+        System.out.println("wlletid"+walletid);
     }
 
-
-    public void onaddincomeBtnClick() {
-
+    @Override
+    public void onaddBtnincome(int walletid) {
         Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
         intent.putExtra("Fragment", "addincome");
-
+        intent.putExtra("id",walletid);
         startActivity(intent);
+
     }
 
+
+
+    @Override
+    public void ondeleteincome1(final int walletid) {
+
+        dialog.setContentView(R.layout.delete_pop_up);
+        /*LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.delete_pop_up, (ViewGroup)findViewById(R.id.deletePopUp));
+        TextView message = vie*/
+
+        TextView message = dialog.findViewById(R.id.message);
+        message.setText("Are you sure to delete this resource?");
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+
+        Button delete = dialog.findViewById(R.id.positiveBtn);
+        Button cancel = dialog.findViewById(R.id.negativeBtn);
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
+                boolean status = databaseHelper.deleteWallet(walletid);
+                ToastMessage toastMessage = new ToastMessage(MainActivity.this, View.inflate(getApplicationContext(), R.layout.income1layout,null));
+
+                if (status) {
+                    toastMessage.successToast("Successfully Deleted");
+                } else {
+                    toastMessage.errorToast("Delete Failed");
+                }
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
 
     public void oneditBtnincome()
     {
@@ -259,14 +287,13 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.nav_host_fragment, income3);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
     }
 
 
 
     @Override
     public void onDeletBtnGoInClick(final int Record_id) {
+
         dialog.setContentView(R.layout.delete_pop_up);
         TextView message = dialog.findViewById(R.id.message);
         message.setText("Are you sure to delete this record?");
@@ -301,6 +328,7 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         dialog.show();
     }
 
+
     public void onAddBtnGoalClick(int Record_id) {
 
 
@@ -318,6 +346,6 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         intent.putExtra("id", Record_id);
         startActivity(intent);
     }
-}
 
+}
 

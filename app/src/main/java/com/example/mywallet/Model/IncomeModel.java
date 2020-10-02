@@ -9,8 +9,19 @@ public class IncomeModel {
     Date date;
     double money;
     String text;
+    String category;
+    int walletid;
 
-    public IncomeModel(String resourcename, int recordID, Date date, double money,String text) {
+    public IncomeModel(){}
+    public int getWalletid() {
+        return walletid;
+    }
+
+    public void setWalletid(int walletid) {
+        this.walletid = walletid;
+    }
+
+    public IncomeModel(String resourcename, int recordID, Date date, double money, String text) {
         this.resourcename = resourcename;
         this.recordID = recordID;
         this.date = date;
@@ -56,5 +67,12 @@ public class IncomeModel {
 
     public void setText(String text) {
         this.text = text;
+    }
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

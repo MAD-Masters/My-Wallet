@@ -1,13 +1,18 @@
 package com.example.mywallet.OnBoarding;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 
 import com.example.mywallet.MainActivity;
+import com.example.mywallet.PinEnter;
 import com.example.mywallet.R;
+
+import java.util.concurrent.TimeUnit;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -23,7 +28,7 @@ public class SplashScreen extends AppCompatActivity {
         @Override
         public void run() {
             if (!isFinishing()) {
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                startActivity(new Intent(getApplicationContext(), PinEnter.class));
                 finish();
             }
         }
