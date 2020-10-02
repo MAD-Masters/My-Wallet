@@ -14,12 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.mywallet.DatabaseHelper;
 import com.example.mywallet.DatabaseObserver;
-import com.example.mywallet.MainActivity;
 import com.example.mywallet.Model.DailyExpesnseSummary;
 import com.example.mywallet.R;
 import com.example.mywallet.Model.DailyExpense;
