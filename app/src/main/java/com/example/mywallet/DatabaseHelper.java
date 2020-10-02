@@ -188,6 +188,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
             arrayList.add(category);
             cursor.moveToNext();
         }
+
         return arrayList;
     }
 
@@ -261,6 +262,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         } else {
             return true;
         }
+
     }
 
         //add goal
@@ -563,6 +565,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         } else {
             return true;
         }
+        
     }
 
     //Get Daily Budget By Id
@@ -579,7 +582,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
             budgetmodel.setAmount(cursor.getDouble(cursor.getColumnIndex("AMOUNT")));
 
         }
-
+        db.close();
         return budgetmodel;
     }
 
