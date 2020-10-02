@@ -74,7 +74,9 @@ public class DailyExpensesInDetail extends Fragment implements DatabaseObserver 
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
         setPageContentData();
+
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         String dateString = format.format(dailyExpenseArrayList.get(0).getDate());
 
@@ -94,7 +96,7 @@ public class DailyExpensesInDetail extends Fragment implements DatabaseObserver 
 
     @Override
     public void onDatabaseChanged() {
-       setPageContentData();
+        setPageContentData();
     }
 
     public void setPageContentData() {
