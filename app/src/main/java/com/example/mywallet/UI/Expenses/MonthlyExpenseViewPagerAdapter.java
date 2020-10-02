@@ -30,11 +30,11 @@ public class MonthlyExpenseViewPagerAdapter extends PagerAdapter {
     private ArrayList<DailyExpesnseSummary> dailyExpesnseSummaryArrayList;
     private DailyExpenseSummaryAdapter dailyExpenseAdapter;
     private RecyclerView.LayoutManager layoutManager;
-
     public MonthlyExpenseViewPagerAdapter(Context context, int[][] dates) {
         this.context = context;
         this.dates = dates;
     }
+
     @Override
     public int getCount() {
         return dates.length;
@@ -74,6 +74,7 @@ public class MonthlyExpenseViewPagerAdapter extends PagerAdapter {
         ArrayList<IncomeToWallet> incomeToWalletArrayList = new ArrayList<>();
 
         try {
+            System.out.println("Month " + dates[position][0]);
             dailyExpenseArrayList = databaseHelper.getMonthlyExpenses(dates[position][0], dates[position][1]);
         } catch (ParseException e) {
             e.printStackTrace();

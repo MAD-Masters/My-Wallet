@@ -22,7 +22,7 @@ public class ToastMessage {
         toastText.setText(message);
 
         Toast toast = new Toast(activity);
-        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setDuration(Toast.LENGTH_SHORT);
         toast.setView(toastView);
         toast.setGravity(Gravity.BOTTOM | Gravity.FILL_HORIZONTAL, 0, 0);
         toast.show();
@@ -34,7 +34,7 @@ public class ToastMessage {
         toastText.setText(message);
 
         Toast toast = new Toast(activity);
-        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setDuration(Toast.LENGTH_SHORT);
         toast.setView(toastView);
         toast.setGravity(Gravity.BOTTOM | Gravity.FILL_HORIZONTAL, 0, 0);
         toast.show();

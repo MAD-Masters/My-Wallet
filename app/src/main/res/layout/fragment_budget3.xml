@@ -92,7 +92,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
-            android:id="@+id/textView11"
+            android:id="@+id/currentA"
             android:layout_width="276dp"
             android:layout_height="43dp"
             android:layout_marginTop="464dp"

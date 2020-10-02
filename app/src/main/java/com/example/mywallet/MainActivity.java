@@ -289,24 +289,62 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
     }
 
 
+
     @Override
-    public void onDeletBtnGoInClick() {
+    public void onDeletBtnGoInClick(final int Record_id) {
+
         dialog.setContentView(R.layout.delete_pop_up);
         TextView message = dialog.findViewById(R.id.message);
-        message.setText("Are you sure to delete this Goal?");
+        message.setText("Are you sure to delete this record?");
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        Button delete = dialog.findViewById(R.id.positiveBtn);
+        Button cancel = dialog.findViewById(R.id.negativeBtn);
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
+                boolean status = databaseHelper.deleteGoalRecord(Record_id);
+                ToastMessage toastMessage = new ToastMessage(MainActivity.this, View.inflate(getApplicationContext(), R.layout.fragment_goal1,null));
+
+                if (status) {
+                    toastMessage.successToast("Successfully Deleted");
+                } else {
+                    toastMessage.errorToast("Delete Failed");
+                }
+                dialog.dismiss();
+            }
+        });
+
         dialog.show();
     }
 
-    @Override
-    public void onAddBtnGoalClick() {
-        Goal1 goal1 = new Goal1();
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.nav_host_fragment, goal1);
 
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+    public void onAddBtnGoalClick(int Record_id) {
+
+
+        Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
+        intent.putExtra("Fragment", "addgoal");
+        intent.putExtra("id",Record_id);
+        startActivity(intent);
     }
+
+    public void onAddBtnAmountClick(int Record_id) {
+
+
+        Intent intent = new Intent(MainActivity.this, NoAppBarActivity.class);
+        intent.putExtra("Fragment", "addgoal123");
+        intent.putExtra("id", Record_id);
+        startActivity(intent);
+    }
+
 }
 

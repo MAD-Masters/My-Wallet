@@ -9,6 +9,7 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,17 +66,19 @@ public class Home extends Fragment implements DatabaseObserver {
     public void onResume() {
         super.onResume();
         dbHelper.registerDbObserver(this);
+        Log.d("db", "onResume: db observer register");
     }
+
 
     @Override
     public void onPause() {
         super.onPause();
-        dbHelper.removeDbObserver(this);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onDatabaseChanged() {
+        Log.d("db", "Home DB Changed");
         setPageContent();
     }
 

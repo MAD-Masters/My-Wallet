@@ -24,7 +24,7 @@
             app:layout_constraintVertical_bias="0.261" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/uGoal"
             android:layout_width="285dp"
             android:layout_height="47dp"
             android:background="@drawable/background_blue_fill"
@@ -39,7 +39,7 @@
             app:layout_constraintVertical_bias="0.077" />
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/uAmount"
             android:layout_width="154dp"
             android:layout_height="47dp"
             android:background="@drawable/background_blue_fully_rounded"
@@ -55,7 +55,7 @@
             app:layout_constraintVertical_bias="0.795" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/uDate"
             android:layout_width="158dp"
             android:layout_height="46dp"
             android:background="@drawable/background_pink_fully_rounded"
