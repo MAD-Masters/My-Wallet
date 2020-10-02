@@ -1,13 +1,13 @@
 package com.example.mywallet.UI.BudgetManager;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,20 +16,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.mywallet.DatabaseHelper;
-import com.example.mywallet.MainActivity;
 import com.example.mywallet.Model.Budgetmodel;
 import com.example.mywallet.Model.Category;
-import com.example.mywallet.Model.DailyExpense;
-import com.example.mywallet.Model.FutureGoal;
 import com.example.mywallet.R;
 import com.example.mywallet.ToastMessage;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 public class Budget2 extends Fragment {
 
@@ -48,6 +40,7 @@ public class Budget2 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        Log.d("msg", "vIEW CREATED");
         view =  inflater.inflate(R.layout.fragment_budget2, container, false);
         return view;
     }
@@ -62,15 +55,11 @@ public class Budget2 extends Fragment {
 
         toastMessage = new ToastMessage(getActivity(), view);
 
-        category = view.findViewById(R.id.category);
+        category = view.findViewById(R.id.categoryId);
 
-        //Set category dialog box
         category.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(View v) {
-                System.out.println("click category");
                 DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
                 ArrayList<Category> arrayList = databaseHelper.getCategories();
                 final String[] categoryNames = new String[arrayList.size()];

@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/categoryId"
             android:layout_width="161dp"
             android:layout_height="43dp"
             android:layout_marginTop="32dp"
