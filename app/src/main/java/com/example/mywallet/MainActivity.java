@@ -216,7 +216,6 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         intent.putExtra("Fragment", "titleincome");
         intent.putExtra("walletid",walletid);
         startActivity(intent);
-        startActivity(intent);
 
     }
 

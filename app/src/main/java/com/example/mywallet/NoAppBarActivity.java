@@ -33,6 +33,7 @@ import com.example.mywallet.UI.Income.Income6;
 public class NoAppBarActivity extends AppCompatActivity implements Income2adapter.Income2Interface {
 
     private Dialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,23 +65,20 @@ public class NoAppBarActivity extends AppCompatActivity implements Income2adapte
             fragmentTransaction.add(R.id.noAppBarFragmentContainer, income5);
             fragmentTransaction.commit();
 
-        else if(fragment.equals("addgoal")){
+        } else if (fragment.equals("addgoal")) {
             Goal1 goal1 = new Goal1();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.noAppBarFragmentContainer, goal1);
             fragmentTransaction.commit();
 
-        }
-        else if(fragment.equals("addgoal12")){
+        } else if (fragment.equals("addgoal12")) {
             Goal goal = new Goal();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.noAppBarFragmentContainer, goal);
             fragmentTransaction.commit();
-        }
-
-        else if(fragment.equals("addgoal123")){
+        } else if (fragment.equals("addgoal123")) {
             Goal2 goal2 = new Goal2();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -89,12 +87,26 @@ public class NoAppBarActivity extends AppCompatActivity implements Income2adapte
         }
 
 
-        } else if (fragment.equals("updateincome")) {
-            Income3 income3 = new Income3();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.noAppBarFragmentContainer, income3);
-            fragmentTransaction.commit();
+     else if(fragment.equals("updateincome"))
+
+
+    {
+        Income3 income3 = new Income3();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.noAppBarFragmentContainer, income3);
+        fragmentTransaction.commit();
+
+    } else if(fragment.equals("budgetInsert"))
+
+    {
+        Budget2 budget2 = new Budget2();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.noAppBarFragmentContainer, budget2);
+        fragmentTransaction.addToBackStack(null);
+        setActionBarTitle("Budget Item Insert");
+        fragmentTransaction.commit();
 
         } else if (fragment.equals("budgetInsert")) {
             Budget2 budget2 = new Budget2();
@@ -126,7 +138,24 @@ public class NoAppBarActivity extends AppCompatActivity implements Income2adapte
 
         }
 
+    } else if(fragment.equals("titleincome"))
+
+    {
+        Income2 income2 = new Income2();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.noAppBarFragmentContainer, income2);
+        fragmentTransaction.commit();
+    } else if(fragment.equals("addresource"))
+    {
+        Income4 income4 = new Income4();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.noAppBarFragmentContainer, income4);
+        fragmentTransaction.commit();
     }
+
+}
 
     public void setActionBarTitle(String title) {
         getSupportActionBar().setTitle(title);

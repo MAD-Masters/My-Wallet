@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.mywallet.DatabaseHelper;
+import com.example.mywallet.DatabaseObserver;
 import com.example.mywallet.MainActivity;
 import com.example.mywallet.Model.Wallet;
 import com.example.mywallet.NoAppBarActivity;
@@ -27,7 +28,7 @@ import com.example.mywallet.Model.IncomeModel;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class Income extends Fragment {
+public class Income extends Fragment implements DatabaseObserver {
     private RecyclerView recyclerView;
     private ArrayList<Wallet> walletArrayListList;
     private Incomeadapter incomeadapter;
@@ -39,6 +40,7 @@ public class Income extends Fragment {
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
     int walletid;
+    private DatabaseHelper dbHelper;
 
 
     public Income() {
@@ -49,6 +51,7 @@ public class Income extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dbHelper = DatabaseHelper.getInstance(getContext());
 
 
 
@@ -79,7 +82,18 @@ public class Income extends Fragment {
             }
         });
 
+            content();
 
+
+    }
+
+    public void onResume() {
+        super.onResume();
+        onActivityCreated(new Bundle());
+        dbHelper.registerDbObserver(this);
+    }
+
+    public void content(){
 
         DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
         ArrayList<Wallet>  walletArrayListList = new ArrayList<>();
@@ -100,5 +114,10 @@ public class Income extends Fragment {
 
         incomeadapter = new Incomeadapter(getContext(),  walletArrayListList);
         recyclerView.setAdapter(incomeadapter);
+    }
+
+    @Override
+    public void onDatabaseChanged() {
+        content();
     }
 }
