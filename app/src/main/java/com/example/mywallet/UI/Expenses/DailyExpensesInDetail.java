@@ -22,13 +22,9 @@ import com.example.mywallet.Model.DailyExpesnseSummary;
 import com.example.mywallet.R;
 import com.example.mywallet.Model.DailyExpense;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-
 
 public class DailyExpensesInDetail extends Fragment implements DatabaseObserver {
     private RecyclerView recyclerView;
