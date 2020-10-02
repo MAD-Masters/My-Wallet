@@ -101,20 +101,8 @@ public class Income2 extends Fragment implements DatabaseObserver {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        btn = root.findViewById(R.id.addmoney);
 
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Income5 income5 = new Income5();
-                fragmentManager = getParentFragmentManager();
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment, income5);
-                fragmentTransaction.commit();
-            }
-        });
-
-       content();
+      content();
     }
 
     public void onResume() {
@@ -125,7 +113,7 @@ public class Income2 extends Fragment implements DatabaseObserver {
 
     @Override
     public void onDatabaseChanged() {
-        content();
+
     }
 
     public void content(){

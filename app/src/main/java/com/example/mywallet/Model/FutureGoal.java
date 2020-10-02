@@ -13,10 +13,6 @@ public class FutureGoal {
     public FutureGoal() {
     }
 
-    public FutureGoal() {
-
-    }
-
     public Date getDate() {
         return date;
     }

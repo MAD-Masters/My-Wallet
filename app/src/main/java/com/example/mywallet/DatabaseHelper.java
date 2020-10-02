@@ -15,6 +15,7 @@ import com.example.mywallet.Model.Budgetmodel;
 import com.example.mywallet.Model.Category;
 import com.example.mywallet.Model.DailyExpense;
 import com.example.mywallet.Model.FutureGoal;
+import com.example.mywallet.Model.IncomeModel;
 import com.example.mywallet.Model.Wallet;
 
 import java.text.DateFormat;
@@ -575,6 +576,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         SQLiteDatabase db = getWritableDatabase();
         String whereClause = ID_TABLE + " = " + id;
         long status = db.delete("WALLET", whereClause, null);
+        whereClause = "WALLET_ID" + " = " + id;
+        status = db.delete("INCOME", whereClause, null);
 
         notifyDbChanged();
 
@@ -678,26 +681,6 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         return budgetmodelArrayList;
     }
 
- //add goal
-
-    public boolean addGoal(FutureGoal futureGoal){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("GOAL_NAME", futureGoal.getGoal());
-        System.out.println(futureGoal.getGoal());
-        contentValues.put("AMOUNT", futureGoal.getTotalAmount());
-        contentValues.put("DATE", futureGoal.getDate().toString());
-
-        long status = db.insert("GOAL", null, contentValues);
-
-        notifyDbChanged();
-  if (status == -1) {
-            return false;
-        } else {
-            return true;
-        }
-
-    }
 
     public boolean updateExpense(Budgetmodel budgetmodel){
         SQLiteDatabase db = this.getWritableDatabase();
