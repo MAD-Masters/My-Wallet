@@ -21,82 +21,64 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.261" />
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="285dp"
-            android:layout_height="47dp"
-            android:background="@drawable/background_blue_fill"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="Update Budget Item"
-            android:textColor="#ffff"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.077" />
+            app:layout_constraintVertical_bias="0.126" />
 
         <TextView
             android:id="@+id/textView7"
-            android:layout_width="154dp"
-            android:layout_height="47dp"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginStart="68dp"
+            android:layout_marginTop="32dp"
             android:background="@drawable/background_blue_fully_rounded"
             android:gravity="center_vertical|center_horizontal"
             android:text="Update"
             android:textColor="#ffff"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.116"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.795" />
+            app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
         <TextView
             android:id="@+id/textView8"
-            android:layout_width="158dp"
-            android:layout_height="46dp"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginTop="32dp"
             android:background="@drawable/background_pink_fully_rounded"
             android:gravity="center_vertical|center_horizontal"
             android:text="Cancel"
             android:textColor="#ffff"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.869"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.795" />
+            app:layout_constraintHorizontal_bias="0.333"
+            app:layout_constraintStart_toEndOf="@+id/textView7"
+            app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
         <TextView
-            android:id="@+id/textView9"
-            android:layout_width="281dp"
+            android:id="@+id/categoryId"
+            android:layout_width="280dp"
             android:layout_height="35dp"
+            android:layout_marginBottom="348dp"
             android:background="@drawable/background_blue_no_fills"
             android:text="Category"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.266"
+            app:layout_constraintHorizontal_bias="0.526"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.568" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView3"
+            app:layout_constraintVertical_bias="1.0" />
 
-        <TextView
+        <EditText
             android:id="@+id/textView10"
             android:layout_width="280dp"
             android:layout_height="33dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/background_blue_no_fills"
             android:text="Budget Amount"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.272"
+            app:layout_constraintHorizontal_bias="0.526"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.643" />
+            app:layout_constraintTop_toBottomOf="@+id/categoryId" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

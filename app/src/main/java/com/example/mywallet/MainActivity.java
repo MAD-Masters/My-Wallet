@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.example.mywallet.UI.BudgetManager.Budget1;
 
 import com.example.mywallet.UI.BudgetManager.BudgetAdapter;
-import com.example.mywallet.UI.BudgetManager.Model.Budget2;
+import com.example.mywallet.UI.BudgetManager.Budget2;
 import com.example.mywallet.UI.Expenses.AddExpense;
 
 import com.example.mywallet.UI.Expenses.DailyExpenseAdapter;

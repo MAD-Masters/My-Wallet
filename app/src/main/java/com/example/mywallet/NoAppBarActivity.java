@@ -11,7 +11,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.example.mywallet.UI.BudgetManager.Model.Budget2;
+import com.example.mywallet.UI.BudgetManager.Budget2;
+import com.example.mywallet.UI.BudgetManager.UpdateBudget;
 import com.example.mywallet.UI.Expenses.AddExpense;
 import com.example.mywallet.UI.Expenses.UpdateExpense;
 import com.example.mywallet.UI.Income.Income2;
@@ -33,7 +34,7 @@ public class NoAppBarActivity extends AppCompatActivity implements Income2adapte
 
         String fragment = intent.getStringExtra("Fragment");
 
-        if (fragment.equals("AddExpense")) {
+        if (fragment.equals("Add Expense")) {
             AddExpense addExpense = new AddExpense();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -65,10 +66,8 @@ public class NoAppBarActivity extends AppCompatActivity implements Income2adapte
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.noAppBarFragmentContainer, budget2);
-            fragmentTransaction.addToBackStack(null);
             setActionBarTitle("Budget Item Insert");
             fragmentTransaction.commit();
-        }
 
         } else if (fragment.equals("titleincome")) {
             Income2 income2 = new Income2();
@@ -76,6 +75,14 @@ public class NoAppBarActivity extends AppCompatActivity implements Income2adapte
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.noAppBarFragmentContainer, income2);
             fragmentTransaction.commit();
+        }else if (fragment.equals("budget3")) {
+             UpdateBudget budget2 = new UpdateBudget();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.noAppBarFragmentContainer, budget2);
+            setActionBarTitle("Budget Item update");
+            fragmentTransaction.commit();
+
         }
     }
 

@@ -17,17 +17,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.example.mywallet.DatabaseHelper;
+import com.example.mywallet.Model.Wallet;
 import com.example.mywallet.NoAppBarActivity;
 import com.example.mywallet.R;
 import com.example.mywallet.Model.Budgetmodel;
 
-import com.example.mywallet.UI.BudgetManager.Model.Budget2;
+import com.example.mywallet.UI.BudgetManager.Budget2;
 import com.example.mywallet.UI.Income.Income4;
 import com.example.mywallet.UI.Income.Incomeadapter;
 import com.example.mywallet.Model.IncomeModel;
 
 
-
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public class Budget1 extends Fragment {
@@ -83,10 +85,11 @@ public class Budget1 extends Fragment {
             }
         });
 
-       budgetModelArrayListList = new ArrayList<>();
+        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+        ArrayList<Budgetmodel>  budgetModelArrayListList = new ArrayList<>();
 
-        budgetModelArrayListList.add(new Budgetmodel(1,40000, 200.0));
-        budgetModelArrayListList.add(new Budgetmodel(1,50000,200.0));
+
+        budgetModelArrayListList = databaseHelper.getBudgetArray();
 
         recyclerView = root.findViewById(R.id.repeat);
         recyclerView.setHasFixedSize(true);

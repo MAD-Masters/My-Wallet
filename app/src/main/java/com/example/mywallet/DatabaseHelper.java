@@ -26,6 +26,7 @@ import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservable {
@@ -214,7 +215,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
     //Get Expenses ArrayList
     @RequiresApi(api = Build.VERSION_CODES.O)
     public ArrayList<DailyExpense> getMonthlyExpenses(int month, int year) throws ParseException {
-        String[] monthArray = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Aug", "Nov", "Dec"};
+        String[] monthArray = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
         String monthString = monthArray[month];
 
         DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
@@ -476,7 +477,6 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
             }
             return arrayList;
         }
-    }
     //Add Budget
     public boolean addBudget(Budgetmodel budgetmodel){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -494,15 +494,14 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
     }
 
     //Get Budget
-    public ArrayList<Budgetmodel> getBudgetArray() throws ParseException{
+    public ArrayList<Budgetmodel> getBudgetArray(){
         ArrayList<Budgetmodel> budgetmodelArrayList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
         Calendar cal = Calendar.getInstance();
-        cal.setTime(cal.getTime());
-        String[] monthArray = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Aug", "Nov", "Dec"};
-        int month = cal.MONTH;
-        int year = cal.YEAR;
+        String[] monthArray = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+        int month = cal.getTime().getMonth();
+        int year = cal.getTime().getYear() + 1900;
 
         String sqlQuery = "SELECT * FROM BUDGET";
         Cursor cursor = db.rawQuery(sqlQuery, null);
@@ -511,16 +510,17 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 
         while (cursor.isAfterLast() == false) {
             Budgetmodel budgetmodell = new Budgetmodel();
-            budgetmodell.setCat_ID(cursor.getInt(cursor.getColumnIndex(ID_TABLE)));
-            budgetmodell.setAmount(cursor.getDouble(cursor.getColumnIndex("AMOUNT")));
+            budgetmodell.setCat_ID(cursor.getInt(0));
+            budgetmodell.setAmount(cursor.getDouble(1));
 
             double totalAmount = 0.0;
-            String sqlQuery1 = "SELECT * FROM EXPENSES WHERE CATEGORY_= "+ budgetmodell.getCat_ID() +"AND DATE like '%" + monthArray[month] + "%" + year + "'" ;
+            String sqlQuery1 = "SELECT * FROM EXPENSES WHERE CATEGORY = "+ budgetmodell.getCat_ID() +" AND DATE like '%" + monthArray[month] + "%" + year + "'" ;
             Cursor cursor1 = db.rawQuery(sqlQuery1, null);
             cursor1.moveToFirst();
 
-            while (cursor.isAfterLast() == false) {
+            while (cursor1.isAfterLast() == false) {
                 totalAmount += cursor1.getDouble(cursor1.getColumnIndex("AMOUNT"));
+                cursor1.moveToNext();
             }
 
             budgetmodell.setUsedAmount(totalAmount);
@@ -529,6 +529,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
             cursor.moveToNext();
         }
 
+        Log.d("msg", "Array List size " + budgetmodelArrayList.size());
         return budgetmodelArrayList;
     }
 
@@ -561,6 +562,24 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         } else {
             return true;
         }
+    }
+
+    //Get Daily Budget By Id
+    public Budgetmodel getDailyBudgetById ( int id) throws ParseException {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String sqlQuery = "SELECT * FROM BUDGET WHERE CAT_ID =" + id;
+        Cursor cursor = db.rawQuery(sqlQuery, null);
+
+        Budgetmodel budgetmodel = new Budgetmodel();
+
+        if (cursor.moveToFirst()) {
+            budgetmodel.setCat_ID(cursor.getInt(cursor.getColumnIndex("CAT_ID")));
+            budgetmodel.setAmount(cursor.getDouble(cursor.getColumnIndex("AMOUNT")));
+
+        }
+
+        return budgetmodel;
     }
 
 }
