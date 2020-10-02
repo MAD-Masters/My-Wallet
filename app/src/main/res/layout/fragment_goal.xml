@@ -40,7 +40,7 @@
         android:layout_height="52dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/background_blue_no_fills"
-        android:text="@string/goal2"
+        android:hint="Goal"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,22 +52,25 @@
         android:layout_height="57dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/background_blue_no_fills"
-        android:text="@string/goal3"
+        android:hint="@string/goal3"
+        android:inputType="number"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addgoal" />
 
-    <EditText
+    <TextView
         android:id="@+id/adddate"
         android:layout_width="308dp"
         android:layout_height="55dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/background_blue_no_fills"
-        android:text="@string/goal4"
+        android:hint="@string/goal4"
+        android:textColor="@color/primaryTextColor"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addamount" />
 
@@ -75,28 +78,13 @@
         android:id="@+id/btnAddgoal"
         android:layout_width="128dp"
         android:layout_height="47dp"
+        android:layout_marginTop="60dp"
         android:background="@drawable/background_blue_fully_rounded"
         android:text="@string/goal5"
         android:textColor="#ffff"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.088"
+        app:layout_constraintHorizontal_bias="0.455"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adddate"
-        app:layout_constraintVertical_bias="0.492" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button4"
-        android:layout_width="134dp"
-        android:layout_height="47dp"
-        android:background="@drawable/background_pink_fully_rounded"
-        android:text="@string/goal6"
-        android:textColor="#ffff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.906"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adddate"
-        app:layout_constraintVertical_bias="0.492" />
+        app:layout_constraintTop_toBottomOf="@+id/adddate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

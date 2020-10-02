@@ -16,10 +16,16 @@ import android.widget.TextView;
 import com.example.mywallet.UI.BudgetManager.Model.Budget2;
 import com.example.mywallet.UI.Expenses.AddExpense;
 import com.example.mywallet.UI.Expenses.UpdateExpense;
+
+import com.example.mywallet.UI.Goal.Goal;
+import com.example.mywallet.UI.Goal.Goal1;
+import com.example.mywallet.UI.Goal.Goal2;
+
 import com.example.mywallet.UI.Income.Income2;
 import com.example.mywallet.UI.Income.Income2adapter;
 import com.example.mywallet.UI.Income.Income3;
 import com.example.mywallet.UI.Income.Income4;
+
 import com.example.mywallet.UI.Income.Income5;
 import com.example.mywallet.UI.Income.Income6;
 
@@ -57,6 +63,31 @@ public class NoAppBarActivity extends AppCompatActivity implements Income2adapte
             fragmentTransaction.add(R.id.noAppBarFragmentContainer, income5);
             fragmentTransaction.commit();
 
+        else if(fragment.equals("addgoal")){
+            Goal1 goal1 = new Goal1();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.noAppBarFragmentContainer, goal1);
+            fragmentTransaction.commit();
+
+        }
+        else if(fragment.equals("addgoal12")){
+            Goal goal = new Goal();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.noAppBarFragmentContainer, goal);
+            fragmentTransaction.commit();
+        }
+
+        else if(fragment.equals("addgoal123")){
+            Goal2 goal2 = new Goal2();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.noAppBarFragmentContainer, goal2);
+            fragmentTransaction.commit();
+        }
+
+
         } else if (fragment.equals("updateincome")) {
             Income3 income3 = new Income3();
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -86,6 +117,7 @@ public class NoAppBarActivity extends AppCompatActivity implements Income2adapte
             fragmentTransaction.add(R.id.noAppBarFragmentContainer, income4);
             fragmentTransaction.commit();
         }
+
     }
 
     public void setActionBarTitle(String title) {
