@@ -163,6 +163,7 @@ public class Income6 extends Fragment {
                 boolean status = databaseHelper.updateincome(incomeModel);
 
                 if (status) {
+                    //set toast message
                     toastMessage.successToast("Successfully updated");
                     getActivity().onBackPressed();
                 } else {
