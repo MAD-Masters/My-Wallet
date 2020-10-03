@@ -99,7 +99,7 @@ public class Goal2 extends Fragment {
             @Override
             public void onClick(View v) {
 
-                FutureGoal futureGoal = new FutureGoal();
+                FutureGoal futureGoal = new FutureGoal(); // create a object 
                 futureGoal.setCurrentAmount(Double.parseDouble(amount.getText().toString()));
               //  futureGoal.setRecord_id(futurego.getRecord_id());
 
