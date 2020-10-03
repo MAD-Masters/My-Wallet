@@ -108,7 +108,7 @@ public class Goal2 extends Fragment {
                 boolean status = false;
                 status = databaseHelper.addAmount(record_id, Double.parseDouble(amount.getText().toString()));
 
-                if (status) {
+                if (status) {   //toast message
                     toastMessage.successToast("Successfully Updated");
                     getActivity().onBackPressed();
                 } else {
