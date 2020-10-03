@@ -30,7 +30,7 @@ import com.example.mywallet.UI.Income.Income4;
 import com.example.mywallet.UI.Income.Income5;
 import com.example.mywallet.UI.Income.Income6;
 
-public class NoAppBarActivity extends AppCompatActivity implements Income2adapter.Income2Interface {
+public class NoAppBarActivity extends AppCompatActivity{
 
     private Dialog dialog;
 
@@ -63,6 +63,7 @@ public class NoAppBarActivity extends AppCompatActivity implements Income2adapte
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.noAppBarFragmentContainer, income5);
+            setActionBarTitle("Add money to Wallet");
             fragmentTransaction.commit();
 
         } else if (fragment.equals("addgoal")) {
@@ -77,12 +78,14 @@ public class NoAppBarActivity extends AppCompatActivity implements Income2adapte
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.noAppBarFragmentContainer, goal);
+            setActionBarTitle("Add Goal");
             fragmentTransaction.commit();
         } else if (fragment.equals("addgoal123")) {
             Goal2 goal2 = new Goal2();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.noAppBarFragmentContainer, goal2);
+            setActionBarTitle("Add Money for Goal");
             fragmentTransaction.commit();
         }
 
@@ -97,18 +100,7 @@ public class NoAppBarActivity extends AppCompatActivity implements Income2adapte
         fragmentTransaction.add(R.id.noAppBarFragmentContainer, income3);
         fragmentTransaction.commit();
 
-    } else if(fragment.equals("budgetInsert"))
-
-    {
-        Budget2 budget2 = new Budget2();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.noAppBarFragmentContainer, budget2);
-        fragmentTransaction.addToBackStack(null);
-        setActionBarTitle("Budget Item Insert");
-        fragmentTransaction.commit();
-
-        } else if (fragment.equals("budgetInsert")) {
+    } else if (fragment.equals("budgetInsert")) {
             Budget2 budget2 = new Budget2();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -121,6 +113,7 @@ public class NoAppBarActivity extends AppCompatActivity implements Income2adapte
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.noAppBarFragmentContainer, income2);
+            setActionBarTitle("Wallet Credits");
             fragmentTransaction.commit();
         }else if (fragment.equals("budget3")) {
              UpdateBudget budget2 = new UpdateBudget();
@@ -134,17 +127,17 @@ public class NoAppBarActivity extends AppCompatActivity implements Income2adapte
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.noAppBarFragmentContainer, income4);
+            setActionBarTitle("Add Wallet");
             fragmentTransaction.commit();
-
         }
 
-    } else if(fragment.equals("titleincome"))
+    else if(fragment.equals("updateMoney"))
 
     {
-        Income2 income2 = new Income2();
+        Income6 income6 = new Income6();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.noAppBarFragmentContainer, income2);
+        fragmentTransaction.add(R.id.noAppBarFragmentContainer, income6);
         fragmentTransaction.commit();
     } else if(fragment.equals("addresource"))
     {
@@ -162,55 +155,4 @@ public class NoAppBarActivity extends AppCompatActivity implements Income2adapte
     }
 
 
-    @Override
-    public void onUpdateBtnincomemoney(int recordid) {
-        Income6 income6 = new Income6();
-        Bundle bundle = new Bundle();
-        bundle.putInt("id", recordid);
-        income6.setArguments(bundle);
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.noAppBarFragmentContainer, income6);
-        fragmentTransaction.commit();
-        System.out.println("recordid"+recordid);
-
-    }
-
-    @Override
-    public void ondeleteincome2(final int recordid) {
-        dialog.setContentView(R.layout.delete_pop_up);
-        /*LayoutInflater inflater = getLayoutInflater();
-        View view = inflater.inflate(R.layout.delete_pop_up, (ViewGroup)findViewById(R.id.deletePopUp));
-        TextView message = vie*/
-
-        TextView message = dialog.findViewById(R.id.message);
-        message.setText("Are you sure to delete this resource?");
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        Button delete = dialog.findViewById(R.id.positiveBtn);
-        Button cancel = dialog.findViewById(R.id.negativeBtn);
-
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
-                boolean status = databaseHelper.deleteincomerecord(recordid);
-                ToastMessage toastMessage = new ToastMessage(NoAppBarActivity.this, View.inflate(getApplicationContext(), R.layout.income2layout,null));
-
-                if (status) {
-                    toastMessage.successToast("Successfully Deleted");
-                } else {
-                    toastMessage.errorToast("Delete Failed");
-                }
-                dialog.dismiss();
-            }
-        });
-        dialog.show();
-    }
 }
