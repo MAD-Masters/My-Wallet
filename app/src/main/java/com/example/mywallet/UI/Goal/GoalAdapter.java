@@ -64,7 +64,7 @@ public class GoalAdapter extends RecyclerView.Adapter<com.example.mywallet.UI.Go
                                 public void onClick(View v) {
                                     activity1.onAddBtnGoalClick(futuregoal.get(futuregoal.indexOf(itemView.getTag())).getRecord_id());
                         }
-            });
+            });// recorde id passing
 
             btnCamount.setOnClickListener(new View.OnClickListener() {
                 @Override
