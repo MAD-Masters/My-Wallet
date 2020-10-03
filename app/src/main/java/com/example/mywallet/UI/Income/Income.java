@@ -78,7 +78,6 @@ public class Income extends Fragment implements DatabaseObserver {
                 intent.putExtra("Fragment", "addresource");
                 intent.putExtra("walletid",walletid);
                 startActivity(intent);
-                startActivity(intent);
             }
         });
 

@@ -151,10 +151,6 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         String sql = "INSERT INTO CATEGORY(NAME) VALUES ('Bills'), ('Education'), ('Family'), ('Gifts'), ('Food'), ('Loan')";
         db.execSQL(sql);
         Log.d("database", "Category Items Inserted Successfully");
-
-        sql = "INSERT INTO " + WALLET + "(WALLET_NAME, BANK) VALUES ('BOC Account', 'BOC')";
-        db.execSQL(sql);
-
     }
 
     //Add Expenses
@@ -285,7 +281,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 
             long status = db.insert("GOAL", null, contentValues);
 
-
+            notifyDbChanged();
             db.close();
             if (status == -1) {
                 return false;
@@ -326,13 +322,11 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 
             Cursor cursor = db.rawQuery(sqlQuery, null);
 
-
-            db.close();
             if (cursor.moveToFirst()) {
                 System.out.println("category" + cursor.getString(cursor.getColumnIndex("NAME")));
                 return cursor.getString(cursor.getColumnIndex("NAME"));
             }
-
+            db.close();
             return null;
         }
 
@@ -344,7 +338,6 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 
             Cursor cursor = db.rawQuery(sqlQuery, null);
 
-            db.close();
             if (cursor.moveToFirst()) {
                 return cursor.getString(cursor.getColumnIndex("WALLET_NAME"));
             }
@@ -529,7 +522,6 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         db.close();
         return arrayList;
     }
-}
 
 //get wallet by id
         public Wallet getwalletbyid(int walletid)
@@ -752,30 +744,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         return budgetmodelArrayList;
     }
 
-
- //add goal
-
-    public boolean addGoal(FutureGoal futureGoal){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("GOAL_NAME", futureGoal.getGoal());
-        System.out.println(futureGoal.getGoal());
-        contentValues.put("AMOUNT", futureGoal.getTotalAmount());
-        contentValues.put("DATE", futureGoal.getDate().toString());
-
-        long status = db.insert("GOAL", null, contentValues);
-
-        notifyDbChanged();
-  if (status == -1) {
-            return false;
-        } else {
-            return true;
-        }
-
-    }
-
-
-    public boolean updateExpense(Budgetmodel budgetmodel){
+    public boolean updateBudget(Budgetmodel budgetmodel){
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -912,8 +881,6 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         return budgetmodel;
     }
 
-
-    }
     public boolean addAmount(int record_id,double amount){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();

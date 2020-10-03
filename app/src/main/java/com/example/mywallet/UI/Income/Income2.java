@@ -80,12 +80,9 @@ public class Income2 extends Fragment implements DatabaseObserver {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        walletid = getActivity().getIntent().getIntExtra("walletid",0);
+        Bundle bundle = getArguments();
+        walletid = bundle.getInt("walletid",0);
         dbHelper = DatabaseHelper.getInstance(getContext());
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -122,7 +119,7 @@ public class Income2 extends Fragment implements DatabaseObserver {
 
         amount = databaseHelper.getfullamountbyid(walletid);
 
-        fullamount = root.findViewById(R.id.textView11);
+        fullamount = root.findViewById(R.id.currentA);
         fullamount.setText(String.valueOf(amount));
 
         try {

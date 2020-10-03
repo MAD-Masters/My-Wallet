@@ -49,11 +49,7 @@ public class Incomeadapter extends RecyclerView.Adapter<Incomeadapter.Income1lay
 
              databaseHelper = new DatabaseHelper(context);
 
-
-
-
-
-                    btnAdd.setOnClickListener(new View.OnClickListener() {
+btnAdd.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View view) {
                    activity.onaddBtnincome(getWalletsList.get(getWalletsList.indexOf(itemView.getTag())).getWalletId());
