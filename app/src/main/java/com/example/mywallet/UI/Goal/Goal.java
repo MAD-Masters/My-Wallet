@@ -123,7 +123,7 @@ public class Goal extends Fragment {
 
         toastMessage = new ToastMessage(getActivity(), view);
 
-        btnAddgoal.setOnClickListener(new View.OnClickListener() {
+        btnAddgoal.setOnClickListener(new View.OnClickListener() { //code for insert button
             @Override
             public void onClick(View v) {
                 DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
