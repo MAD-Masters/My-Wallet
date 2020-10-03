@@ -12,6 +12,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Layout;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -72,31 +73,33 @@ public class UserSettings extends AppCompatActivity {
 
                         int minutes = mMinute + (mHour * 60);
                         System.out.println("time " + mHour + " " + mMinute);
-                        long timeMilli = minutes * 60 * 1000;
 
                         DateFormat df = new SimpleDateFormat("hh:mm a");
                         Date date = new Date(0, 0, 0, mHour, mMinute);
                         System.out.println(date.toString());
                         timeRemind.setText(df.format(date));
 
-                        Intent intent = new Intent(getApplicationContext(), MyReceiver.class);
+                        /*Intent intent = new Intent(getApplicationContext(), MyReceiver.class);
                         PendingIntent sender = PendingIntent.getBroadcast(getApplicationContext(), 1, intent, 0);
                         AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(ALARM_SERVICE);
 
-                        alarmManager.cancel(sender);
+                        alarmManager.cancel(sender);*/
+
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTimeInMillis(System.currentTimeMillis());
+                        calendar.set(Calendar.HOUR_OF_DAY, mHour);
+                        calendar.set(Calendar.MINUTE, mMinute);
 
                         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                         SharedPreferences.Editor editor = preferences.edit();
-                        editor.putInt("time", (int)timeMilli);
+                        editor.putInt("time", (int) calendar.getTimeInMillis());
                         editor.apply();
 
-                        long timeInterval = 1000 * 60 * 60 * 24;
-
                         Intent notifyIntent = new Intent(getApplicationContext(), MyReceiver.class);
-                        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 1, notifyIntent, 0);
-                        //alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-                        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, timeMilli,
-                                AlarmManager.INTERVAL_DAY, pendingIntent);
+                        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, notifyIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+                        Log.d("notification", "Get Notification set at milliseconds " + String.valueOf(calendar.getTimeInMillis()));
+                        AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(ALARM_SERVICE);
+                        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
                     }
                 }, mHour, mMinute, false);
 
@@ -139,20 +142,19 @@ public class UserSettings extends AppCompatActivity {
         if (isNotify) {
             timePickLayoutN.setVisibility(View.VISIBLE);
             int time = preferences.getInt("time", 0);
-
-            long timeInterval = 1000 * 60 * 60 * 24;
+            Log.d("notification", "Get time from SharedPref " + String.valueOf(time));
 
             Intent notifyIntent = new Intent(context, MyReceiver.class);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 1, notifyIntent, 0);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, notifyIntent, PendingIntent.FLAG_CANCEL_CURRENT);
             AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time,
-                    timeInterval, pendingIntent);
+                    AlarmManager.INTERVAL_DAY, pendingIntent);
 
         } else {
             timePickLayoutN.setVisibility(View.INVISIBLE);
 
             Intent intent = new Intent(context, MyReceiver.class);
-            PendingIntent sender = PendingIntent.getBroadcast(context, 1, intent, 0);
+            PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
 
             alarmManager.cancel(sender);
