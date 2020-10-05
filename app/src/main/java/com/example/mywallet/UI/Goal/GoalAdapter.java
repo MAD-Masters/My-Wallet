@@ -16,6 +16,7 @@ import com.example.mywallet.R;
 import com.example.mywallet.Model.FutureGoal;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -63,7 +64,7 @@ public class GoalAdapter extends RecyclerView.Adapter<com.example.mywallet.UI.Go
                                 public void onClick(View v) {
                                     activity1.onAddBtnGoalClick(futuregoal.get(futuregoal.indexOf(itemView.getTag())).getRecord_id());
                         }
-            });
+            });// recorde id passing
 
             btnCamount.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -85,7 +86,9 @@ public class GoalAdapter extends RecyclerView.Adapter<com.example.mywallet.UI.Go
     @Override
     public void onBindViewHolder(@NonNull com.example.mywallet.UI.Goal.GoalAdapter.GoalViewHolder holder, int position) {
         holder.itemView.setTag(futuregoal.get(position));
-        holder.date.setText(((Date)futuregoal.get(position).getDate()).toString());
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        String dateS = format.format(futuregoal.get(position).getDate());
+        holder.date.setText(dateS);
         holder.totalAmount.setText(((Double)futuregoal.get(position).getTotalAmount()).toString());
         holder.goal.setText(futuregoal.get(position).getGoal());
         holder.amount.setText(String.valueOf(dbHelper.getGoalCurrenValue(futuregoal.get(position).getRecord_id())));

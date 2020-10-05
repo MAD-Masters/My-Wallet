@@ -37,7 +37,7 @@ public class SplashScreen extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        handler.postDelayed(runnable,2000);
+        handler.postDelayed(runnable,1600);
     }
 
     @Override

@@ -105,7 +105,7 @@ public class Goal1 extends Fragment {
         }
 
        date = (TextView) view.findViewById(R.id.uDate);
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy"); // set date formate
 
       date.setText(format.format(futurego.getDate()));
         date.setOnClickListener(new View.OnClickListener() {
