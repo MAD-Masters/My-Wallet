@@ -3,12 +3,6 @@ package com.example.mywallet.UI.Income;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +11,14 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.example.mywallet.DatabaseHelper;
+import com.example.mywallet.DatabaseObserver;
 import com.example.mywallet.MainActivity;
-import com.example.mywallet.Model.DailyExpense;
 import com.example.mywallet.Model.IncomeModel;
 import com.example.mywallet.R;
 import com.example.mywallet.ToastMessage;
@@ -35,18 +34,19 @@ import java.util.Date;
  * Use the {@link Income5#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Income5 extends Fragment {
+public class Income5 extends Fragment  {
 
 
     private EditText amount, category, note;
     TextView eText;
     DatePickerDialog picker;
     View view;
-    private Button addincome;
+    private Button addincome,cansel;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
     private ToastMessage toastMessage;
     int walletid;
+    private DatabaseHelper dbHelper;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -85,6 +85,7 @@ public class Income5 extends Fragment {
         super.onCreate(savedInstanceState);
 
          walletid = getActivity().getIntent().getIntExtra("id",0);
+//        dbHelper = DatabaseHelper.getInstance(getContext());
 
     }
 
@@ -127,10 +128,19 @@ public class Income5 extends Fragment {
         addincome = view.findViewById(R.id.add);
         amount = view.findViewById(R.id.textInputLayout4);
         note = view.findViewById(R.id.textInputEditText5);
+        cansel = view.findViewById(R.id.cansel3);
+
+        cansel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
 
         addincome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //date formatter
                 if (checkFields()) {
                     DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
                     Date date = Calendar.getInstance().getTime();
@@ -166,6 +176,12 @@ public class Income5 extends Fragment {
         });
 
     }
+
+//    public void onResume() {
+//        super.onResume();
+//        onActivityCreated(new Bundle());
+//        dbHelper.registerDbObserver(this);
+//    }
     //This method checks the fields
     public boolean checkFields() {
         boolean status = true;
@@ -177,4 +193,6 @@ public class Income5 extends Fragment {
         }
         return status;
     }
+
+
 }

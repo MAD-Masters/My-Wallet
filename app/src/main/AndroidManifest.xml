@@ -17,8 +17,7 @@
         <activity android:name=".UserDetails" />
         <activity
             android:name=".UserSettings"
-            android:label="@string/title_activity_user_settings"
-            android:theme="@style/AppThemeActionBar" />
+            android:label="@string/title_activity_user_settings"/>
         <activity android:name=".OnBoarding.IntroActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />

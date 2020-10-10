@@ -76,6 +76,7 @@ public class MonthlyExpenseViewPagerAdapter extends PagerAdapter {
         try {
             System.out.println("Month " + dates[position][0]);
             dailyExpenseArrayList = databaseHelper.getMonthlyExpenses(dates[position][0], dates[position][1]);
+            incomeToWalletArrayList = databaseHelper.getMonthlyIncomeFlow(dates[position][0], dates[position][1]);
         } catch (ParseException e) {
             e.printStackTrace();
         }

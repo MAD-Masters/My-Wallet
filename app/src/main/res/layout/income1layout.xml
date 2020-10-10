@@ -15,19 +15,17 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/income1layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="116dp"
             android:background="@drawable/background_blue_left_bold_no_fills">
 
             <ImageView
                 android:id="@+id/btnEdit"
                 android:layout_width="44dp"
                 android:layout_height="35dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.043"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="12dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.74"
+                app:layout_constraintTop_toBottomOf="@+id/imageView15"
                 app:srcCompat="@drawable/edit" />
 
             <TextView
@@ -35,29 +33,24 @@
                 android:layout_width="109dp"
                 android:layout_height="23dp"
 
-                android:layout_marginEnd="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="216dp"
                 android:gravity="center_vertical|center_horizontal"
-                android:textColor="#000000"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:textColor="@color/primaryColor"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.304"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/imageView15"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.218"
                 tools:text="@string/boccreditcard" />
 
             <ImageView
                 android:id="@+id/btndelete"
                 android:layout_width="44dp"
                 android:layout_height="35dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginBottom="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.131"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.902"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                app:layout_constraintStart_toEndOf="@+id/btnEdit"
+                app:layout_constraintTop_toBottomOf="@+id/imageView15"
                 app:srcCompat="@drawable/delete" />
 
             <ImageView
@@ -72,16 +65,31 @@
                 app:srcCompat="@drawable/add_icon_main" />
 
             <ImageView
-                android:id="@+id/resourceview"
-                android:layout_width="53dp"
-                android:layout_height="39dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.044"
+                android:id="@+id/imageView15"
+                android:layout_width="49dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.17"
-                app:srcCompat="@drawable/creditcard" />
+                app:srcCompat="@drawable/wallet_new" />
+
+            <TextView
+                android:id="@+id/textView27"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="28dp"
+                android:background="@drawable/background_blue_fill"
+                android:drawableLeft="@drawable/ic_baseline_check_circle_24_white"
+                android:padding="10dp"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textColor="@color/colorWhite"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btndelete"
+                app:layout_constraintTop_toBottomOf="@+id/resourcetitle"
+                app:layout_constraintVertical_bias="0.369" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

@@ -35,7 +35,7 @@ public class Income3 extends Fragment {
     private String mParam2;
     private int walletid;
     Wallet wallet;
-    private Button update;
+    private Button update,cansel;
     private EditText wallets,bank;
     private ToastMessage toastMessage;
     View view;
@@ -94,10 +94,18 @@ public class Income3 extends Fragment {
         update = view.findViewById(R.id.addwallet);
         wallets = view.findViewById(R.id.textInputEditText);
         bank = view.findViewById(R.id.textInputEditText4);
+        cansel = view.findViewById(R.id.cansel1);
 
 
         wallets.setText(wallet.getWalletName());
         bank.setText(wallet.getBank());
+
+        cansel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
 
         update.setOnClickListener(new View.OnClickListener() {
             @Override

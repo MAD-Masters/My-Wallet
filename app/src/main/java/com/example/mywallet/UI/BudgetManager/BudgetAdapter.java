@@ -63,7 +63,6 @@ import java.util.ArrayList;
                 number1 = itemView.findViewById(R.id.number1);
                 number2 = itemView.findViewById(R.id.number2);
                 FoodAndBeverages = itemView.findViewById(R.id.categoryName);
-                progressBar = itemView.findViewById(R.id.progressBar);
                 foodIcon = itemView.findViewById(R.id.foodIcon);
                 update = itemView.findViewById(R.id.penMark);
                 delete = itemView.findViewById(R.id.btnDelete);
