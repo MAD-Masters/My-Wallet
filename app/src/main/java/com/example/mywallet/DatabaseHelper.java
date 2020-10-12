@@ -78,7 +78,11 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
             if (databaseObserver!= null){
                 Log.d("db", "Notify db changed db helperr done ");
 
-                databaseObserver.onDatabaseChanged();
+                try {
+                    databaseObserver.onDatabaseChanged();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -667,7 +671,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         }
     }
 
-//get amount by id
+//get amount
     public double getfullamount(){
         
         double TOTAL = 0;
@@ -678,6 +682,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         return cursor.getDouble(0);
 
     }
+
+
     //get full amount by id
     public double getfullamountbyid(int walletid){
         double TOTAL = 0;

@@ -110,6 +110,7 @@ public class Income2 extends Fragment implements DatabaseObserver {
 
     @Override
     public void onDatabaseChanged() {
+        content();
 
     }
 
