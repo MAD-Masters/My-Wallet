@@ -2,11 +2,13 @@ package com.example.mywallet;
 
 import com.example.mywallet.Model.Budgetmodel;
 import com.example.mywallet.Model.DailyExpense;
+import com.example.mywallet.Model.FutureGoal;
 import com.example.mywallet.Model.IncomeModel;
 import com.example.mywallet.Model.IncomeToWallet;
 import com.example.mywallet.UI.BudgetManager.Budget1;
 import com.example.mywallet.UI.Expenses.DailyExpenseAdapter;
 import com.example.mywallet.UI.Expenses.ExpenseServicesImple;
+import com.example.mywallet.UI.Goal.Goal2;
 import com.example.mywallet.UI.Income.Income;
 
 import org.junit.Before;
@@ -19,11 +21,13 @@ import static org.junit.Assert.*;
 public class UnitTest {
     private ExpenseServicesImple expenseServicesImple;
     private Budget1 budget1;
+    private Goal2 goal2;
     private Income income;
     @Before
     public void setUp() {
         expenseServicesImple = new ExpenseServicesImple();
         budget1 = new Budget1();
+        goal2 =new Goal2();
         income = new Income();
     }
     @org.junit.Test
@@ -76,8 +80,21 @@ public class UnitTest {
         b1.setAmount(5000);
         b2.setAmount(2000);
         ArrayList<Budgetmodel> budgetmodels = new ArrayList<>();
-
+        budgetmodels.add(b1);
+        budgetmodels.add(b2);
         double total = budget1.getTotalBudget(budgetmodels);
+        assertEquals(7000.0, total, 0.1);
+    }
+    @Test
+    public void getTotalAmount_isCorrect() {
+        FutureGoal g1 = new FutureGoal(), g2 = new FutureGoal();
+        g1.setCurrentAmount(5000);
+        g2.setCurrentAmount(2000);
+        ArrayList<FutureGoal> futureGoalArrayList = new ArrayList<>();
+        futureGoalArrayList.add(g1);
+        futureGoalArrayList.add(g2);
+
+        double total = goal2.getTotalAmount(futureGoalArrayList);
         assertEquals(7000.0, total, 0.1);
     }
 
