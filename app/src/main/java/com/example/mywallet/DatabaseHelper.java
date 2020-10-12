@@ -15,6 +15,8 @@ import com.example.mywallet.Model.Budgetmodel;
 import com.example.mywallet.Model.Category;
 import com.example.mywallet.Model.DailyExpense;
 import com.example.mywallet.Model.FutureGoal;
+import com.example.mywallet.Model.IncomeModel;
+import com.example.mywallet.Model.IncomeToWallet;
 import com.example.mywallet.Model.Wallet;
 
 import java.text.DateFormat;
@@ -149,10 +151,6 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         String sql = "INSERT INTO CATEGORY(NAME) VALUES ('Bills'), ('Education'), ('Family'), ('Gifts'), ('Food'), ('Loan')";
         db.execSQL(sql);
         Log.d("database", "Category Items Inserted Successfully");
-
-        sql = "INSERT INTO " + WALLET + "(WALLET_NAME, BANK) VALUES ('BOC Account', 'BOC')";
-        db.execSQL(sql);
-
     }
 
     //Add Expenses
@@ -169,6 +167,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 
         long status = db.insert(TABLE_EXPENSES, null, contentValues);
 
+        db.close();
         notifyDbChanged();
         if (status == -1) {
             return false;
@@ -211,6 +210,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
             arrayList.add(wallet);
             cursor.moveToNext();
         }
+
+        db.close();
         return arrayList;
     }
 
@@ -242,6 +243,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
             arrayList.add(dailyExpense);
             cursor.moveToNext();
         }
+
+        db.close();
         return arrayList;
     }
 
@@ -257,6 +260,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 
         long status = db.update(TABLE_EXPENSES, contentValues, ID_TABLE + " = " + dailyExpense.getRecordId(), null);
 
+        db.close();
         notifyDbChanged();
 
         if (status == -1) {
@@ -264,6 +268,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         } else {
             return true;
         }
+
     }
 
         //add goal
@@ -276,7 +281,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 
             long status = db.insert("GOAL", null, contentValues);
 
-
+            notifyDbChanged();
+            db.close();
             if (status == -1) {
                 return false;
             } else {
@@ -303,6 +309,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
                 dailyExpense.setDate(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
                 dailyExpense.setNote(cursor.getString(cursor.getColumnIndex("NOTE")));
             }
+            db.close();
 
             return dailyExpense;
         }
@@ -315,12 +322,11 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 
             Cursor cursor = db.rawQuery(sqlQuery, null);
 
-
             if (cursor.moveToFirst()) {
                 System.out.println("category" + cursor.getString(cursor.getColumnIndex("NAME")));
                 return cursor.getString(cursor.getColumnIndex("NAME"));
             }
-
+            db.close();
             return null;
         }
 
@@ -365,7 +371,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 
                 cursor.moveToNext();
             }
-
+            db.close();
             return dailyExpenses;
         }
 
@@ -377,11 +383,13 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 
             notifyDbChanged();
 
+            db.close();
             if (status == -1) {
                 return false;
             } else {
                 return true;
             }
+
         }
 
         //Get date array from Income Table
@@ -399,6 +407,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
                 arrayList.add(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
                 cursor.moveToNext();
             }
+            db.close();
 
             return arrayList;
         }
@@ -419,6 +428,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
                 cursor.moveToNext();
             }
 
+            db.close();
             return arrayList;
         }
 
@@ -451,6 +461,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
             long status = db.insert(WALLET, null, contentValues);
 
             if (status == -1) {
+                db.close();
                 return false;
             } else {
                 return true;
@@ -479,8 +490,39 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
                 arrayList.add(incomeModel);
                 cursor.moveToNext();
             }
+            db.close();
             return arrayList;
         }
+
+
+    public ArrayList<IncomeToWallet> getMonthlyIncomeFlow(int month, int year) throws ParseException {
+        String[] monthArray = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+        String monthString = monthArray[month];
+
+        DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<IncomeToWallet> arrayList = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT * FROM INCOME WHERE DATE like '%" + monthString + "%" + year + "'", null);
+
+        cursor.moveToFirst();
+
+        while (cursor.isAfterLast() == false) {
+            IncomeToWallet incomeFlow = new IncomeToWallet();
+            incomeFlow.setAmount(cursor.getFloat(cursor.getColumnIndex("AMOUNT")));
+
+            incomeFlow.setRecordId(cursor.getInt(cursor.getColumnIndex(ID_TABLE)));
+
+            incomeFlow.setDate(formatter.parse(cursor.getString(cursor.getColumnIndex("DATE"))));
+            incomeFlow.setNote(cursor.getString(cursor.getColumnIndex("NOTE")));
+
+            arrayList.add(incomeFlow);
+            cursor.moveToNext();
+        }
+        db.close();
+        return arrayList;
+    }
+
 //get wallet by id
         public Wallet getwalletbyid(int walletid)
         {
@@ -532,7 +574,6 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
             contentValues.put("AMOUNT", incomeModel.getMoney());
             contentValues.put("DATE", String.valueOf(incomeModel.getDate()));
             contentValues.put("NOTE", incomeModel.getText());
-            contentValues.put("WALLET_ID", incomeModel.getWalletid());
 
             System.out.println("updateone"+incomeModel.getRecordID());
 
@@ -568,9 +609,9 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 // get incomelistbyid
     public ArrayList<IncomeModel> getincomesListbyid (int walletid) throws ParseException {
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = databaseHelper.getWritableDatabase();
         ArrayList<IncomeModel> arrayList = new ArrayList<>();
-        String sqlQuery ="SELECT * FROM INCOME WHERE " + ID_TABLE + " = " + walletid;
+        String sqlQuery ="SELECT * FROM INCOME WHERE WALLET_ID = " + walletid;
         Cursor cursor = db.rawQuery(sqlQuery, null);
         cursor.moveToFirst();
 
@@ -587,6 +628,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
             arrayList.add(incomeModel);
             cursor.moveToNext();
         }
+        System.out.println("array size " + arrayList.size());
         return arrayList;
     }
 
@@ -596,6 +638,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         SQLiteDatabase db = getWritableDatabase();
         String whereClause = ID_TABLE + " = " + id;
         long status = db.delete("WALLET", whereClause, null);
+        whereClause = "WALLET_ID" + " = " + id;
+        status = db.delete("INCOME", whereClause, null);
 
         notifyDbChanged();
 
@@ -623,7 +667,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         }
     }
 
-
+//get amount by id
     public double getfullamount(){
         
         double TOTAL = 0;
@@ -633,6 +677,15 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         cursor.moveToFirst();
         return cursor.getDouble(0);
 
+    }
+    //get full amount by id
+    public double getfullamountbyid(int walletid){
+        double TOTAL = 0;
+        SQLiteDatabase db = databaseHelper.getWritableDatabase();
+        String sqlQuery = "SELECT sum(AMOUNT) FROM INCOME WHERE WALLET_ID="+walletid;
+        Cursor cursor = db.rawQuery(sqlQuery, null);
+        cursor.moveToFirst();
+        return cursor.getDouble(0);
     }
 
     //Add Budget
@@ -652,15 +705,14 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
     }
 
     //Get Budget
-    public ArrayList<Budgetmodel> getBudgetArray() throws ParseException{
+    public ArrayList<Budgetmodel> getBudgetArray(){
         ArrayList<Budgetmodel> budgetmodelArrayList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
         Calendar cal = Calendar.getInstance();
-        cal.setTime(cal.getTime());
-        String[] monthArray = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Aug", "Nov", "Dec"};
-        int month = cal.MONTH;
-        int year = cal.YEAR;
+        String[] monthArray = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+        int month = cal.getTime().getMonth();
+        int year = cal.getTime().getYear() + 1900;
 
         String sqlQuery = "SELECT * FROM BUDGET";
         Cursor cursor = db.rawQuery(sqlQuery, null);
@@ -669,16 +721,17 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
 
         while (cursor.isAfterLast() == false) {
             Budgetmodel budgetmodell = new Budgetmodel();
-            budgetmodell.setCat_ID(cursor.getInt(cursor.getColumnIndex(ID_TABLE)));
-            budgetmodell.setAmount(cursor.getDouble(cursor.getColumnIndex("AMOUNT")));
+            budgetmodell.setCat_ID(cursor.getInt(0));
+            budgetmodell.setAmount(cursor.getDouble(1));
 
             double totalAmount = 0.0;
-            String sqlQuery1 = "SELECT * FROM EXPENSES WHERE CATEGORY_= "+ budgetmodell.getCat_ID() +"AND DATE like '%" + monthArray[month] + "%" + year + "'" ;
+            String sqlQuery1 = "SELECT * FROM EXPENSES WHERE CATEGORY = "+ budgetmodell.getCat_ID() +" AND DATE like '%" + monthArray[month] + "%" + year + "'" ;
             Cursor cursor1 = db.rawQuery(sqlQuery1, null);
             cursor1.moveToFirst();
 
-            while (cursor.isAfterLast() == false) {
+            while (cursor1.isAfterLast() == false) {
                 totalAmount += cursor1.getDouble(cursor1.getColumnIndex("AMOUNT"));
+                cursor1.moveToNext();
             }
 
             budgetmodell.setUsedAmount(totalAmount);
@@ -687,38 +740,20 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
             cursor.moveToNext();
         }
 
+        Log.d("msg", "Array List size " + budgetmodelArrayList.size());
         return budgetmodelArrayList;
     }
 
- //add goal
+    public boolean updateBudget(Budgetmodel budgetmodel){
 
-    public boolean addGoal(FutureGoal futureGoal){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("GOAL_NAME", futureGoal.getGoal());
-        System.out.println(futureGoal.getGoal());
-        contentValues.put("AMOUNT", futureGoal.getTotalAmount());
-        contentValues.put("DATE", futureGoal.getDate().toString());
-
-        long status = db.insert("GOAL", null, contentValues);
-
-        notifyDbChanged();
-  if (status == -1) {
-            return false;
-        } else {
-            return true;
-        }
-
-    }
-
-    public boolean updateExpense(Budgetmodel budgetmodel){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
-        contentValues.put("CATEGORY", budgetmodel.getCat_ID());
         contentValues.put("AMOUNT", budgetmodel.getAmount());
 
-        long status = db.update(TABLE_BUDGET, contentValues,  ID_TABLE + " = " + budgetmodel.getCat_ID(), null);
+        Log.d("msg", String.valueOf(budgetmodel.getCat_ID()));
+
+        long status = db.update("BUDGET", contentValues,  "CAT_ID = " + budgetmodel.getCat_ID(), null);
 
         if (status == -1) {
             return false;
@@ -797,6 +832,22 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         return futureGoal;
     }
 
+
+    //Delete Budget Record
+    public boolean onDeletBtnBudget (final int cat_ID) {
+        SQLiteDatabase db = getWritableDatabase();
+        String whereClause = "CAT_ID"+ " = " + cat_ID;
+        long status = db.delete("BUDGET", whereClause, null);
+  notifyDbChanged();
+
+        if (status == -1) {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
     public boolean deleteGoalRecord(int Record_id) {
         SQLiteDatabase db = getWritableDatabase();
         String whereClause = ID_TABLE + " = " + Record_id;
@@ -809,7 +860,27 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         } else {
             return true;
         }
+
     }
+
+    //Get Daily Budget By Id
+    public Budgetmodel getDailyBudgetById ( int id) throws ParseException {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String sqlQuery = "SELECT * FROM BUDGET WHERE CAT_ID =" + id;
+        Cursor cursor = db.rawQuery(sqlQuery, null);
+
+        Budgetmodel budgetmodel = new Budgetmodel();
+
+        if (cursor.moveToFirst()) {
+            budgetmodel.setCat_ID(cursor.getInt(cursor.getColumnIndex("CAT_ID")));
+            budgetmodel.setAmount(cursor.getDouble(cursor.getColumnIndex("AMOUNT")));
+
+        }
+        db.close();
+        return budgetmodel;
+    }
+
     public boolean addAmount(int record_id,double amount){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -841,6 +912,4 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseObservab
         return total;
     }
 
-
 }
-

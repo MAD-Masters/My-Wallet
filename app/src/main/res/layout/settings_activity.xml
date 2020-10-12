@@ -12,6 +12,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/primaryColor"
+            android:text="User Settings"
+            android:textSize="20dp"
+            android:textColor="@color/colorWhite"
+            android:gravity="center_vertical"
+            android:paddingLeft="16dp"></TextView>
 
     <FrameLayout
         android:id="@+id/settings"

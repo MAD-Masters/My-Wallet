@@ -47,7 +47,7 @@ public class Income6 extends Fragment {
     IncomeModel incomeModel;
     private ToastMessage toastMessage;
     private EditText amount,note;
-    private Button update;
+    private Button update,cansel;
     private TextView date;
 
 
@@ -78,8 +78,7 @@ public class Income6 extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Bundle bundle = getArguments();
-        incomeid = bundle.getInt("id");
+        incomeid = getActivity().getIntent().getIntExtra("id", 0);
         System.out.println("income6id"+incomeid);
 
 
@@ -136,11 +135,19 @@ public class Income6 extends Fragment {
         update = view.findViewById(R.id.update);
         amount = view .findViewById(R.id.textInputEditText6);
         note = view.findViewById(R.id.textInputLayout);
+        cansel = view.findViewById(R.id.cansel4);
 
         note.setText(incomeModel.getText());
         amount.setText(String.valueOf(incomeModel.getMoney()));
 
         System.out.println("update"+incomeModel.getText());
+
+        cansel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
 
         update.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,6 +162,7 @@ public class Income6 extends Fragment {
                 boolean status = databaseHelper.updateincome(incomeModel);
 
                 if (status) {
+                    //set toast message
                     toastMessage.successToast("Successfully updated");
                     getActivity().onBackPressed();
                 } else {

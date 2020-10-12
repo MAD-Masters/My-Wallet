@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.IBinder;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.preference.PreferenceManager;
@@ -30,6 +31,7 @@ public class MyService extends IntentService {
     private static final String NOTIFICATION_CHANNEL_ID = "Channel01";
     private void createNotification() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Log.d("notification", "Notification Creating ");
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             String name =  preferences.getString("name", "User");
             name = name.split(" ")[0];
@@ -56,7 +58,7 @@ public class MyService extends IntentService {
             NotificationManager notificationManager = (NotificationManager)getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.createNotificationChannel(notificationChannel);
             // Issue the notification.
-            notificationManager.notify(1 , notification);
+            notificationManager.notify(0 , notification);
         }
     }
 }

@@ -55,9 +55,7 @@ public class ExpenseServicesImple {
             }
         }
 
-        for (IncomeToWallet incomeToWallet : incomeToWallets) {
-            inflow = inflow + incomeToWallet.getAmount();
-        }
+        inflow = getTotalWalletIncome(incomeToWallets);
 
         remainder = inflow - outflow;
 
@@ -72,6 +70,14 @@ public class ExpenseServicesImple {
         monthlySummary.setmFood((float) food);
 
         return monthlySummary;
+    }
+
+    public double getTotalWalletIncome(ArrayList<IncomeToWallet> incomeToWallets) {
+        double inflow = 0.0;
+        for (IncomeToWallet incomeToWallet : incomeToWallets) {
+            inflow = inflow + incomeToWallet.getAmount();
+        }
+        return inflow;
     }
 
     public ArrayList<DailyExpesnseSummary> getDailyExpenseSummary(ArrayList<DailyExpense> dailyExpenses) {

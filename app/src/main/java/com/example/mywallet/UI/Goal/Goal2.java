@@ -95,7 +95,7 @@ public class Goal2 extends Fragment {
        amount = view.findViewById(R.id.currentA);
         toastMessage = new ToastMessage(getActivity(), view);
 
-        btnAddamount.setOnClickListener(new View.OnClickListener() {
+        btnAddamount.setOnClickListener(new View.OnClickListener() { // code for add amount button
             @Override
             public void onClick(View v) {
 

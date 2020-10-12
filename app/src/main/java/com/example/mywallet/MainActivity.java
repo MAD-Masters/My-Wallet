@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.example.mywallet.UI.BudgetManager.Budget1;
 
 import com.example.mywallet.UI.BudgetManager.BudgetAdapter;
-import com.example.mywallet.UI.BudgetManager.Model.Budget2;
+import com.example.mywallet.UI.BudgetManager.Budget2;
 import com.example.mywallet.UI.Expenses.AddExpense;
 
 import com.example.mywallet.UI.Expenses.DailyExpenseAdapter;
@@ -26,8 +26,10 @@ import com.example.mywallet.UI.Goal.GoalAdapter;
 import com.example.mywallet.UI.Goal.Goal_Home;
 import com.example.mywallet.UI.Income.Income;
 import com.example.mywallet.UI.Income.Income2;
+import com.example.mywallet.UI.Income.Income2adapter;
 import com.example.mywallet.UI.Income.Income3;
 import com.example.mywallet.UI.Income.Income5;
+import com.example.mywallet.UI.Income.Income6;
 import com.example.mywallet.UI.Income.Incomeadapter;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -37,7 +39,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-public class MainActivity extends AppCompatActivity implements DailyExpenseSummaryAdapter.onDailyExpenseSummaryClick, DailyExpenseAdapter.DailyExpenseInterface, Incomeadapter.IncomeInterface, GoalAdapter.GoalInterface, BudgetAdapter.BudgetInterface {
+public class MainActivity extends AppCompatActivity implements Income2adapter.Income2Interface, DailyExpenseSummaryAdapter.onDailyExpenseSummaryClick, DailyExpenseAdapter.DailyExpenseInterface, Incomeadapter.IncomeInterface, GoalAdapter.GoalInterface, BudgetAdapter.BudgetInterface {
     BottomAppBar bottomAppBar;
     ImageView navExpenseBtn, navIncomeBtn, navBudgetBtn, navGoalBtn;
     TextView navExpenseText, navIncomeText, navBudgetText, navGoalText;
@@ -70,9 +72,6 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
             fragmentTransaction.add(R.id.nav_host_fragment, home);
             fragmentTransaction.commit();
         }
-
-
-
         floatingActionButton = findViewById(R.id.fab);
 
         navExpenseBtn = findViewById(R.id.btnExpenses);
@@ -212,11 +211,20 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
 
     @Override
     public void onBtnTitleincome(int walletid) {
-        Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
+        /*Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
         intent.putExtra("Fragment", "titleincome");
         intent.putExtra("walletid",walletid);
-        startActivity(intent);
-        startActivity(intent);
+        startActivity(intent);*/
+
+        Income2 income2 = new Income2();
+        Bundle result = new Bundle();
+        result.putInt("walletid", walletid);
+        income2.setArguments(result);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.nav_host_fragment, income2);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
 
     }
 
@@ -226,7 +234,6 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         intent.putExtra("Fragment", "updateincome");
         intent.putExtra("walletid",walletid);
         startActivity(intent);
-        System.out.println("wlletid"+walletid);
     }
 
     @Override
@@ -244,9 +251,6 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
     public void ondeleteincome1(final int walletid) {
 
         dialog.setContentView(R.layout.delete_pop_up);
-        /*LayoutInflater inflater = getLayoutInflater();
-        View view = inflater.inflate(R.layout.delete_pop_up, (ViewGroup)findViewById(R.id.deletePopUp));
-        TextView message = vie*/
 
         TextView message = dialog.findViewById(R.id.message);
         message.setText("Are you sure to delete this resource?");
@@ -347,5 +351,96 @@ public class MainActivity extends AppCompatActivity implements DailyExpenseSumma
         startActivity(intent);
     }
 
+    @Override
+    public void onUpdateBudgetClick(int cat_ID) {
+        Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
+        intent.putExtra("Fragment", "budget3");
+        intent.putExtra("id", cat_ID);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onDeletBtnBudget(final int cat_ID) {
+        dialog.setContentView(R.layout.delete_pop_up);
+        TextView message = dialog.findViewById(R.id.message);
+        message.setText("Are you sure to delete this record?");
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        Button delete = dialog.findViewById(R.id.positiveBtn);
+        Button cancel = dialog.findViewById(R.id.negativeBtn);
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
+                boolean status = databaseHelper.onDeletBtnBudget(cat_ID);
+                ToastMessage toastMessage = new ToastMessage(MainActivity.this, View.inflate(getApplicationContext(), R.layout.fragment_budget1,null));
+
+                if (status) {
+                    toastMessage.successToast("Successfully Deleted");
+                } else {
+                    toastMessage.errorToast("Delete Failed");
+                }
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+
+    @Override
+    public void onUpdateBtnincomemoney(int recordid) {
+        Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
+        intent.putExtra("Fragment", "updateMoney");
+        intent.putExtra("id", recordid);
+        startActivity(intent);
+
+    }
+
+    @Override
+    public void ondeleteincome2(final int recordid) {
+        dialog.setContentView(R.layout.delete_pop_up);
+        /*LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.delete_pop_up, (ViewGroup)findViewById(R.id.deletePopUp));
+        TextView message = vie*/
+
+        TextView message = dialog.findViewById(R.id.message);
+        message.setText("Are you sure to delete this resource?");
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Button delete = dialog.findViewById(R.id.positiveBtn);
+        Button cancel = dialog.findViewById(R.id.negativeBtn);
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
+                boolean status = databaseHelper.deleteincomerecord(recordid);
+                ToastMessage toastMessage = new ToastMessage(MainActivity.this, View.inflate(getApplicationContext(), R.layout.income2layout,null));
+
+                if (status) {
+                    toastMessage.successToast("Successfully Deleted");
+                } else {
+                    toastMessage.errorToast("Delete Failed");
+                }
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
 }
 
