@@ -16,6 +16,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
+import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.example.mywallet.DatabaseHelper;
 import com.example.mywallet.DatabaseObserver;
 import com.example.mywallet.MainActivity;
@@ -130,6 +133,11 @@ public class Income5 extends Fragment  {
         note = view.findViewById(R.id.textInputEditText5);
         cansel = view.findViewById(R.id.cansel3);
 
+        final AwesomeValidation awesomeValidaion = new AwesomeValidation(ValidationStyle.BASIC);
+
+        awesomeValidaion.addValidation(getActivity(), R.id.textInputLayout4, RegexTemplate.NOT_EMPTY,R.string.invalidincome);
+
+
         cansel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -160,11 +168,10 @@ public class Income5 extends Fragment  {
                     DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
                     boolean status = databaseHelper.addincome(incomeModel);
 
-                    if (status) {
+                    if (status && awesomeValidaion.validate()) {
                         toastMessage.successToast("Successfully Inserted");
 
-                        Intent intent = new Intent(getContext(), MainActivity.class);
-                        startActivity(intent);
+                        getActivity().onBackPressed();
 
                     } else {
                         toastMessage.errorToast("Insert Failed");

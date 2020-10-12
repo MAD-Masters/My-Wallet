@@ -14,6 +14,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
+import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.example.mywallet.DatabaseHelper;
 import com.example.mywallet.MainActivity;
 import com.example.mywallet.Model.Wallet;
@@ -92,6 +95,12 @@ public class Income4 extends Fragment {
         addwallet = view.findViewById(R.id.update);
         cansel = view.findViewById(R.id.cansel2);
 
+        final AwesomeValidation awesomeValidaion = new AwesomeValidation(ValidationStyle.BASIC);
+
+        awesomeValidaion.addValidation(getActivity(), R.id.textInputEditText8, RegexTemplate.NOT_EMPTY,R.string.invalidresource);
+
+
+
         cansel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,18 +113,20 @@ public class Income4 extends Fragment {
             public void onClick(View view) {
 
                 Wallet wallet = new Wallet();
-               wallet.setWalletName(mywallet.getText().toString());
-               wallet.setBank(bank.getText().toString());
+
 
                 DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
-                boolean status = databaseHelper.addwallet(wallet);
 
-                if (status) {
-                    toastMessage.successToast("Successfully Inserted");
 
-                    Intent intent = new Intent(getContext(), MainActivity.class);
-                    startActivity(intent);
+                if ( awesomeValidaion.validate()) {
+                    wallet.setBank(bank.getText().toString());
+                    wallet.setWalletName(mywallet.getText().toString());
+                    boolean status = databaseHelper.addwallet(wallet);
+                    if (status){
+                        toastMessage.successToast("Successfully Inserted");
 
+                        getActivity().onBackPressed();
+                    }
                 } else {
                     toastMessage.errorToast("Insert Failed");
                 }

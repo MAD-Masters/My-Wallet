@@ -2,10 +2,12 @@ package com.example.mywallet;
 
 import com.example.mywallet.Model.Budgetmodel;
 import com.example.mywallet.Model.DailyExpense;
+import com.example.mywallet.Model.IncomeModel;
 import com.example.mywallet.Model.IncomeToWallet;
 import com.example.mywallet.UI.BudgetManager.Budget1;
 import com.example.mywallet.UI.Expenses.DailyExpenseAdapter;
 import com.example.mywallet.UI.Expenses.ExpenseServicesImple;
+import com.example.mywallet.UI.Income.Income;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,10 +19,12 @@ import static org.junit.Assert.*;
 public class UnitTest {
     private ExpenseServicesImple expenseServicesImple;
     private Budget1 budget1;
+    private Income income;
     @Before
     public void setUp() {
         expenseServicesImple = new ExpenseServicesImple();
         budget1 = new Budget1();
+        income = new Income();
     }
     @org.junit.Test
     public void totalWalletIncome_isCorrect() {
@@ -76,4 +80,20 @@ public class UnitTest {
         double total = budget1.getTotalBudget(budgetmodels);
         assertEquals(7000.0, total, 0.1);
     }
+
+@Test
+    public void totalIncome_isCorrect() {
+        IncomeModel i1 = new IncomeModel(), i2 = new IncomeModel();
+        i1.setMoney(10000);
+        i2.setMoney(20000);
+        ArrayList<IncomeModel> arrayList = new ArrayList<>();
+        arrayList.add(i1);
+        arrayList.add(i2);
+
+        double total = income.getTotalIncome(arrayList);
+        assertEquals(30000.0, total, 0.1);
+    }
+
+
+
 }
