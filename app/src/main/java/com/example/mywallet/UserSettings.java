@@ -80,17 +80,16 @@ public class UserSettings extends AppCompatActivity {
                         timeRemind.setText(df.format(date));
 
                         Calendar calendar = Calendar.getInstance();
-                        calendar.setTimeInMillis(System.currentTimeMillis());
                         calendar.set(Calendar.HOUR_OF_DAY, mHour);
                         calendar.set(Calendar.MINUTE, mMinute);
 
                         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                         SharedPreferences.Editor editor = preferences.edit();
-                        editor.putInt("time", (int) calendar.getTimeInMillis());
+                        editor.putLong("time", calendar.getTimeInMillis());
                         editor.apply();
 
                         Intent notifyIntent = new Intent(getApplicationContext(), MyReceiver.class);
-                        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, notifyIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+                        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                         Log.d("notification", "Get Notification set at milliseconds " + String.valueOf(calendar.getTimeInMillis()));
                         AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(ALARM_SERVICE);
                         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
@@ -106,24 +105,23 @@ public class UserSettings extends AppCompatActivity {
     public void setRemainTimeLayout(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         boolean isNotify =  preferences.getBoolean("isNotify", false);
-        int time = preferences.getInt("time", 0);
+        long time = preferences.getLong("time", 0);
         System.out.println("IS NOTIFY " + isNotify);
+        System.out.println("Time from SHARED PREF " + String.valueOf(time));
+
 
         if (isNotify) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(time);
+            System.out.println("Time from shared pref " + calendar.getTime().toString());
+            int hour =  calendar.get(Calendar.HOUR);
+            int minute = calendar.get(Calendar.MINUTE);
             timePickLayout.setVisibility(View.VISIBLE);
             DateFormat df = new SimpleDateFormat("h:mm a");
-            int hourOfDay = 0;
-            int minute = 0;
-
-            try {
-                minute =  (time / (1000*60)) % 60;
-                hourOfDay   = (time / (1000*60)) / 60;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            Date date = new Date(0, 0, 0, hourOfDay, minute);
-            System.out.println("new time " + date.toString());
+            Date date = new Date(0, 0, 0, hour, minute);
+            System.out.println("date enterd " + hour + " " + minute);
             timeRemind.setText(df.format(date));
+            System.out.println("set timed " + df.format(date));
         } else {
             timePickLayout.setVisibility(View.INVISIBLE);
         }
@@ -135,11 +133,11 @@ public class UserSettings extends AppCompatActivity {
 
         if (isNotify) {
             timePickLayoutN.setVisibility(View.VISIBLE);
-            int time = preferences.getInt("time", 0);
+            long time = preferences.getLong("time", 0);
             Log.d("notification", "Get time from SharedPref " + String.valueOf(time));
 
             Intent notifyIntent = new Intent(context, MyReceiver.class);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, notifyIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time,
                     AlarmManager.INTERVAL_DAY, pendingIntent);
