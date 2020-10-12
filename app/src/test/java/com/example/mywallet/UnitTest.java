@@ -30,6 +30,10 @@ public class UnitTest {
         goal2 =new Goal2();
         income = new Income();
     }
+
+    /*W.G. Yasiru Randika
+    IT19131184
+     */
     @org.junit.Test
     public void totalWalletIncome_isCorrect() {
         IncomeToWallet i1 = new IncomeToWallet(), i2 = new IncomeToWallet();
@@ -110,7 +114,5 @@ public class UnitTest {
         double total = income.getTotalIncome(arrayList);
         assertEquals(30000.0, total, 0.1);
     }
-
-
 
 }

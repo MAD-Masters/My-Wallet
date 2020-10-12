@@ -19,17 +19,15 @@
                 android:id="@+id/categoryId"
                 android:layout_width="141dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="16dp"
                 android:background="@drawable/background_blue_fill"
                 android:gravity="center_horizontal|center_vertical"
                 android:text="@string/mywallets"
                 android:textColor="#ffff"
                 android:textSize="@dimen/titleFontSize"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.104"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.042" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/budamount"
