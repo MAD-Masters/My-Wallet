@@ -78,8 +78,7 @@ public class Income6 extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Bundle bundle = getArguments();
-        incomeid = bundle.getInt("id");
+        incomeid = getActivity().getIntent().getIntExtra("id", 0);
         System.out.println("income6id"+incomeid);
 
 
