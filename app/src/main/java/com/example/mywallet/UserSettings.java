@@ -79,12 +79,6 @@ public class UserSettings extends AppCompatActivity {
                         System.out.println(date.toString());
                         timeRemind.setText(df.format(date));
 
-                        /*Intent intent = new Intent(getApplicationContext(), MyReceiver.class);
-                        PendingIntent sender = PendingIntent.getBroadcast(getApplicationContext(), 1, intent, 0);
-                        AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(ALARM_SERVICE);
-
-                        alarmManager.cancel(sender);*/
-
                         Calendar calendar = Calendar.getInstance();
                         calendar.setTimeInMillis(System.currentTimeMillis());
                         calendar.set(Calendar.HOUR_OF_DAY, mHour);

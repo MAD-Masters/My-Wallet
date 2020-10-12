@@ -38,10 +38,9 @@ public class UserDetails extends AppCompatActivity {
                     editor.putString("email", email.getText().toString().trim());
                     editor.putBoolean("isPin", checkBox.isChecked());
                     editor.apply();
-
-                    finish();
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             }
 

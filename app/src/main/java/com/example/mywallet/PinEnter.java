@@ -91,9 +91,9 @@ public class PinEnter extends AppCompatActivity {
                     i3.setImageResource(R.drawable.circle_black);
                     i4.setImageResource(R.drawable.circle_black);
                     if (isCorrect()) {
-                        finish();
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
+                        finish();
                     }
                 }
             }
