@@ -42,8 +42,6 @@ public class IntroActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_intro);
 
-        //We need to check the shared preferences before load this acitivity
-
         if (loadSharedPref()) {
             Intent intent = new Intent(getApplicationContext(), SplashScreen.class);
             startActivity(intent);
