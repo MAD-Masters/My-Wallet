@@ -244,8 +244,7 @@ public class MainActivity extends AppCompatActivity implements Income2adapter.In
         startActivity(intent);
 
     }
-
-
+    //delete resourse
 
     @Override
     public void ondeleteincome1(final int walletid) {
@@ -285,6 +284,7 @@ public class MainActivity extends AppCompatActivity implements Income2adapter.In
         dialog.show();
     }
 
+    //update Resourse
     public void oneditBtnincome()
     {
         Income3 income3  = new Income3();
@@ -395,7 +395,7 @@ public class MainActivity extends AppCompatActivity implements Income2adapter.In
         dialog.show();
     }
 
-
+//update income
     @Override
     public void onUpdateBtnincomemoney(int recordid) {
         Intent intent = new Intent(MainActivity.this,NoAppBarActivity.class);
@@ -405,6 +405,7 @@ public class MainActivity extends AppCompatActivity implements Income2adapter.In
 
     }
 
+    //delete income record
     @Override
     public void ondeleteincome2(final int recordid) {
         dialog.setContentView(R.layout.delete_pop_up);
@@ -413,7 +414,7 @@ public class MainActivity extends AppCompatActivity implements Income2adapter.In
         TextView message = vie*/
 
         TextView message = dialog.findViewById(R.id.message);
-        message.setText("Are you sure to delete this resource?");
+        message.setText("Are you sure to delete this income record?");
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         Button delete = dialog.findViewById(R.id.positiveBtn);
         Button cancel = dialog.findViewById(R.id.negativeBtn);

@@ -66,7 +66,7 @@ public class Income2adapter extends RecyclerView.Adapter<Income2adapter.Income2l
             btnedit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    System.out.println("incomeid"+income.get(income.indexOf(itemView.getTag())).getRecordID());
+
                     activity.onUpdateBtnincomemoney(income.get(income.indexOf(itemView.getTag())).getRecordID());
                 }
             });
