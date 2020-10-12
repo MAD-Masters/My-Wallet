@@ -140,6 +140,7 @@ public class Income5 extends Fragment  {
         addincome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //date formatter
                 if (checkFields()) {
                     DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
                     Date date = Calendar.getInstance().getTime();

@@ -95,11 +95,11 @@ public class Goal2 extends Fragment {
        amount = view.findViewById(R.id.currentA);
         toastMessage = new ToastMessage(getActivity(), view);
 
-        btnAddamount.setOnClickListener(new View.OnClickListener() {
+        btnAddamount.setOnClickListener(new View.OnClickListener() { // code for add amount button
             @Override
             public void onClick(View v) {
 
-                FutureGoal futureGoal = new FutureGoal();
+                FutureGoal futureGoal = new FutureGoal(); // create a object 
                 futureGoal.setCurrentAmount(Double.parseDouble(amount.getText().toString()));
               //  futureGoal.setRecord_id(futurego.getRecord_id());
 
@@ -108,7 +108,7 @@ public class Goal2 extends Fragment {
                 boolean status = false;
                 status = databaseHelper.addAmount(record_id, Double.parseDouble(amount.getText().toString()));
 
-                if (status) {
+                if (status) {   //toast message
                     toastMessage.successToast("Successfully Updated");
                     getActivity().onBackPressed();
                 } else {
