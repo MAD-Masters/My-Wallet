@@ -19,6 +19,7 @@ import com.example.mywallet.ToastMessage;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -118,4 +119,17 @@ public class Goal2 extends Fragment {
             //  }
         });
     }
+    DatabaseHelper databaseHelper=new DatabaseHelper(getContext());
+    ArrayList<FutureGoal> futuregoalArrayList=new ArrayList<>();
+
+    public double getTotalAmount(ArrayList<FutureGoal>futuregoalArrayList) {
+        double total = 0.0;
+
+        for (FutureGoal futuregoal : futuregoalArrayList) {
+            total = total + futuregoal.getCurrentAmount();
+        }
+        return total;
+
+    }
+
 }

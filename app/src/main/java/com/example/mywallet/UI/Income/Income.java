@@ -20,11 +20,13 @@ import android.widget.TextView;
 import com.example.mywallet.DatabaseHelper;
 import com.example.mywallet.DatabaseObserver;
 import com.example.mywallet.MainActivity;
+import com.example.mywallet.Model.IncomeToWallet;
 import com.example.mywallet.Model.Wallet;
 import com.example.mywallet.NoAppBarActivity;
 import com.example.mywallet.R;
 import com.example.mywallet.Model.IncomeModel;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -57,12 +59,22 @@ public class Income extends Fragment implements DatabaseObserver {
 
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         root =  inflater.inflate(R.layout.fragment_income, container, false);
         return root;
     }
+
+    public double getTotalIncome(ArrayList<IncomeModel> totincome) {
+        double tot = 0.0;
+        for (IncomeModel incomeToWallet : totincome) {
+            tot = tot + incomeToWallet.getMoney();
+        }
+        return tot;
+    }
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -73,7 +85,7 @@ public class Income extends Fragment implements DatabaseObserver {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("Btn", "LKJFSKDJF");
+
                 Intent intent = new Intent(getActivity(),NoAppBarActivity.class);
                 intent.putExtra("Fragment", "addresource");
                 intent.putExtra("walletid",walletid);
@@ -81,7 +93,11 @@ public class Income extends Fragment implements DatabaseObserver {
             }
         });
 
+        try {
             content();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
 
     }
@@ -92,14 +108,18 @@ public class Income extends Fragment implements DatabaseObserver {
         dbHelper.registerDbObserver(this);
     }
 
-    public void content(){
+    public void content() throws ParseException {
 
         DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
         ArrayList<Wallet>  walletArrayListList = new ArrayList<>();
+        ArrayList<IncomeModel> incomeModels = new ArrayList<>();
 
 
         walletArrayListList = databaseHelper.getWalletsList();
-        total = databaseHelper.getfullamount();
+        incomeModels = databaseHelper.getincomesList();
+        total = getTotalIncome(incomeModels);
+
+
 
         totals = root.findViewById(R.id.textView29);
         totals.setText(String.valueOf(total));
@@ -116,7 +136,7 @@ public class Income extends Fragment implements DatabaseObserver {
     }
 
     @Override
-    public void onDatabaseChanged() {
+    public void onDatabaseChanged() throws ParseException {
         content();
     }
 }

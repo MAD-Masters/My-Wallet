@@ -31,6 +31,7 @@ import com.example.mywallet.R;
 import com.example.mywallet.ToastMessage;
 import com.example.mywallet.Model.Category;
 import com.example.mywallet.Model.DailyExpense;
+import com.example.mywallet.UI.Income.Income;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -199,7 +200,12 @@ public class AddExpense extends Fragment {
                     create.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            dialog.dismiss();
+                            Income income = new Income();
+                            fragmentManager = getParentFragmentManager();
+                            fragmentTransaction = fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(R.id.nav_host_fragment, income);
+                            fragmentTransaction.addToBackStack(null);
+                            fragmentTransaction.commit();
                         }
                     });
 
